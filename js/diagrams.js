@@ -274,55 +274,113 @@ const DIAGRAMS = {
   // 3. Diagrama do Espaço Vetorial de Embeddings e Similaridade Semântica
   renderEmbeddingsVectorSpace() {
     return `
-      <svg viewBox="0 0 940 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+      <svg viewBox="0 0 940 365" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <defs>
+          <marker id="arrowBlueV" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#3B82F6"/>
+          </marker>
+          <marker id="arrowCyanV" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#00F0FF"/>
+          </marker>
+          <marker id="arrowWhiteV" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#94A3B8"/>
+          </marker>
+          <marker id="arrowAxis" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#475569"/>
+          </marker>
+        </defs>
+
+        <!-- ================= CONTAINER ESQUERDO: PLANO CARTESIANO ================= -->
+        <rect x="20" y="15" width="605" height="335" rx="14" fill="rgba(11, 20, 48, 0.78)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1.5"/>
+        
+        <!-- Header do Plano -->
+        <rect x="38" y="32" width="168" height="24" rx="6" fill="rgba(0, 240, 255, 0.12)" stroke="#00F0FF"/>
+        <text x="48" y="48" fill="#00F0FF" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">ESPAÇO SEMÂNTICO 2D</text>
+        <text x="220" y="49" fill="#94A3B8" font-size="12">Geometria de relações e translações vetoriais</text>
+
+        <!-- Grade de Fundo Suave -->
+        <line x1="210" y1="285" x2="210" y2="75" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3,3"/>
+        <line x1="450" y1="285" x2="450" y2="75" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3,3"/>
+        <line x1="85" y1="120" x2="570" y2="120" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3,3"/>
+        <line x1="85" y1="240" x2="570" y2="240" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3,3"/>
+
         <!-- Eixos Cartesianos 2D -->
-        <line x1="80" y1="280" x2="620" y2="280" stroke="#334155" stroke-width="2"/>
-        <line x1="80" y1="280" x2="80" y2="30" stroke="#334155" stroke-width="2"/>
-        <text x="600" y="300" fill="#64748B" font-size="12" font-family="'JetBrains Mono'">Dimensão 1 (Contexto Real)</text>
-        <text x="30" y="40" fill="#64748B" font-size="12" font-family="'JetBrains Mono'" transform="rotate(-90 30,40)">Dimensão 2 (Gênero)</text>
+        <line x1="85" y1="285" x2="580" y2="285" stroke="#334155" stroke-width="1.8" marker-end="url(#arrowAxis)"/>
+        <line x1="85" y1="285" x2="85" y2="65" stroke="#334155" stroke-width="1.8" marker-end="url(#arrowAxis)"/>
+        
+        <!-- Rótulos dos Eixos -->
+        <text x="575" y="305" fill="#64748B" font-size="10.5" font-family="'JetBrains Mono', monospace" text-anchor="end">Eixo X: Realeza / Poder →</text>
+        <text x="96" y="76" fill="#64748B" font-size="10.5" font-family="'JetBrains Mono', monospace">↑ Eixo Y: Gênero / Contexto</text>
 
-        <!-- Grade Sutil -->
-        <line x1="200" y1="280" x2="200" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2"/>
-        <line x1="360" y1="280" x2="360" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2"/>
-        <line x1="520" y1="280" x2="520" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2"/>
+        <!-- Ponto de Origem -->
+        <text x="75" y="302" fill="#475569" font-size="10" font-family="'JetBrains Mono'">(0,0)</text>
 
-        <!-- Cluster 1: Realeza -->
-        <circle cx="480" cy="80" r="7" fill="#00F0FF"/>
-        <text x="495" y="85" fill="#FFFFFF" font-size="13" font-weight="700">Rei</text>
-        <text x="495" y="100" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono'">[0.82, 0.74]</text>
+        <!-- ================= VETORES E PONTOS ================= -->
 
-        <circle cx="460" cy="170" r="7" fill="#00F0FF"/>
-        <text x="475" y="175" fill="#FFFFFF" font-size="13" font-weight="700">Rainha</text>
-        <text x="475" y="190" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono'">[0.79, 0.18]</text>
+        <!-- Relação Paralela Superior (+ Realeza: Homem -> Rei) -->
+        <line x1="230" y1="120" x2="428" y2="120" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowWhiteV)"/>
+        <text x="330" y="110" fill="#CBD5E1" font-size="10.5" font-weight="600" text-anchor="middle">+ Realeza</text>
 
-        <!-- Vetor de Translação de Gênero -->
-        <line x1="480" y1="80" x2="460" y2="170" stroke="#00F0FF" stroke-width="2" stroke-dasharray="4,4"/>
-        <text x="490" y="130" fill="#38BDF8" font-size="11" font-style="italic">- Gênero</text>
+        <!-- Relação Paralela Inferior (+ Realeza: Mulher -> Rainha) -->
+        <line x1="230" y1="240" x2="428" y2="240" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowWhiteV)"/>
+        <text x="330" y="230" fill="#CBD5E1" font-size="10.5" font-weight="600" text-anchor="middle">+ Realeza</text>
 
-        <!-- Cluster 2: Pessoas Comuns -->
-        <circle cx="240" cy="90" r="7" fill="#3B82F6"/>
-        <text x="255" y="95" fill="#FFFFFF" font-size="13" font-weight="700">Homem</text>
-        <text x="255" y="110" fill="#60A5FA" font-size="10" font-family="'JetBrains Mono'">[0.18, 0.72]</text>
+        <!-- Vetor Translação Esquerda (- Gênero: Homem -> Mulher) -->
+        <line x1="210" y1="136" x2="210" y2="222" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowBlueV)"/>
+        <text x="160" y="184" fill="#60A5FA" font-size="11" font-weight="700" text-anchor="middle">− Gênero</text>
 
-        <circle cx="220" cy="180" r="7" fill="#3B82F6"/>
-        <text x="235" y="185" fill="#FFFFFF" font-size="13" font-weight="700">Mulher</text>
-        <text x="235" y="200" fill="#60A5FA" font-size="10" font-family="'JetBrains Mono'">[0.15, 0.16]</text>
+        <!-- Vetor Translação Direita (- Gênero: Rei -> Rainha) -->
+        <line x1="450" y1="136" x2="450" y2="222" stroke="#00F0FF" stroke-width="2" marker-end="url(#arrowCyanV)"/>
+        <text x="500" y="184" fill="#38BDF8" font-size="11" font-weight="700" text-anchor="middle">− Gênero</text>
 
-        <line x1="240" y1="90" x2="220" y2="180" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,4"/>
-        <text x="250" y="140" fill="#60A5FA" font-size="11" font-style="italic">- Gênero</text>
+        <!-- Ponto 1: Homem -->
+        <circle cx="210" cy="120" r="14" fill="rgba(59, 130, 246, 0.2)"/>
+        <circle cx="210" cy="120" r="5" fill="#3B82F6"/>
+        <text x="210" y="94" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Homem</text>
+        <text x="210" y="107" fill="#60A5FA" font-size="9.5" font-family="'JetBrains Mono'" text-anchor="middle">[0.18, 0.72]</text>
 
-        <!-- Relação Semântica Linear -->
-        <line x1="240" y1="90" x2="480" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>
-        <line x1="220" y1="180" x2="460" y2="170" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <!-- Ponto 2: Mulher -->
+        <circle cx="210" cy="240" r="14" fill="rgba(59, 130, 246, 0.2)"/>
+        <circle cx="210" cy="240" r="5" fill="#3B82F6"/>
+        <text x="210" y="267" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Mulher</text>
+        <text x="210" y="280" fill="#60A5FA" font-size="9.5" font-family="'JetBrains Mono'" text-anchor="middle">[0.15, 0.16]</text>
 
-        <!-- Painel Explicativo Lateral -->
-        <rect x="660" y="30" width="260" height="250" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.2)"/>
-        <text x="680" y="60" fill="#00F0FF" font-size="13" font-weight="700" font-family="'JetBrains Mono'">ÁLGEBRA VETORIAL</text>
-        <text x="680" y="95" fill="#FFFFFF" font-size="14" font-weight="600">Rei - Homem + Mulher</text>
-        <text x="680" y="115" fill="#00F0FF" font-size="16" font-weight="700">≈ Rainha</text>
-        <text x="680" y="150" fill="#94A3B8" font-size="12" line-height="1.5">Modelos de embedding mapeiam palavras com significados semelhantes para pontos próximos no espaço multidimensional.</text>
-        <rect x="680" y="210" width="220" height="40" rx="6" fill="rgba(0, 240, 255, 0.1)" stroke="rgba(0, 240, 255, 0.3)"/>
-        <text x="692" y="235" fill="#38BDF8" font-size="11" font-weight="bold">Similaridade Cosseno: cos(θ) ≈ 0.94</text>
+        <!-- Ponto 3: Rei -->
+        <circle cx="450" cy="120" r="14" fill="rgba(0, 240, 255, 0.2)"/>
+        <circle cx="450" cy="120" r="5" fill="#00F0FF"/>
+        <text x="450" y="94" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Rei</text>
+        <text x="450" y="107" fill="#00F0FF" font-size="9.5" font-family="'JetBrains Mono'" text-anchor="middle">[0.82, 0.74]</text>
+
+        <!-- Ponto 4: Rainha -->
+        <circle cx="450" cy="240" r="14" fill="rgba(0, 240, 255, 0.2)"/>
+        <circle cx="450" cy="240" r="5" fill="#00F0FF"/>
+        <text x="450" y="267" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Rainha</text>
+        <text x="450" y="280" fill="#00F0FF" font-size="9.5" font-family="'JetBrains Mono'" text-anchor="middle">[0.79, 0.18]</text>
+
+        <!-- ================= CONTAINER DIREITO: ÁLGEBRA E MÉTRICAS ================= -->
+        <rect x="640" y="15" width="280" height="335" rx="14" fill="rgba(11, 20, 48, 0.78)" stroke="rgba(0, 240, 255, 0.35)" stroke-width="1.5"/>
+        
+        <!-- Header Lateral -->
+        <rect x="658" y="32" width="148" height="24" rx="6" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF"/>
+        <text x="668" y="48" fill="#00F0FF" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">ÁLGEBRA VETORIAL</text>
+
+        <!-- Caixa da Equação Fundamental -->
+        <rect x="658" y="68" width="244" height="66" rx="8" fill="rgba(4, 9, 23, 0.65)" stroke="rgba(56, 189, 248, 0.3)"/>
+        <text x="672" y="93" fill="#CBD5E1" font-size="12.5" font-family="'JetBrains Mono', monospace" font-weight="600">Rei − Homem + Mulher</text>
+        <text x="672" y="120" fill="#00F0FF" font-size="17" font-family="'JetBrains Mono', monospace" font-weight="800">≈ Rainha</text>
+
+        <!-- Explicação Didática Sem Tags HTML Indevidas -->
+        <text x="658" y="158" fill="#FFFFFF" font-size="12" font-weight="700">Propriedade Semântica:</text>
+        <text x="658" y="178" fill="#94A3B8" font-size="11.5">Modelos de embedding organizam</text>
+        <text x="658" y="196" fill="#94A3B8" font-size="11.5">significados em eixos conceituais.</text>
+        <text x="658" y="214" fill="#94A3B8" font-size="11.5">Distâncias e direções entre vetores</text>
+        <text x="658" y="232" fill="#94A3B8" font-size="11.5">codificam analogias do mundo real.</text>
+
+        <!-- Indicador de Similaridade Cosseno -->
+        <rect x="658" y="252" width="244" height="76" rx="8" fill="rgba(0, 240, 255, 0.08)" stroke="rgba(0, 240, 255, 0.35)"/>
+        <text x="672" y="274" fill="#38BDF8" font-size="10.5" font-family="'JetBrains Mono', monospace" font-weight="700">MÉTRICA DE PROXIMIDADE</text>
+        <text x="672" y="296" fill="#FFFFFF" font-size="14" font-weight="700">cos(θ) ≈ 0.94</text>
+        <text x="672" y="312" fill="#94A3B8" font-size="10.5">Alta similaridade angular</text>
       </svg>
     `;
   },

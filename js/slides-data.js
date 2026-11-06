@@ -132,21 +132,21 @@ const SLIDES_DATA = [
     bodyHtml: `
       <div class="grid-2col">
         <div class="card-glass">
-          <div class="card-title">Aprendizado de Distribuições</div>
-          <p class="card-text">Diferente de um banco de dados que apenas copia e cola registros existentes, a IA Generativa modela a <strong>distribuição de probabilidade conjunta P(X)</strong> dos dados de treinamento.</p>
+          <div class="card-title">Como ela aprende?</div>
+          <p class="card-text">Não funciona como uma base de dados que apenas copia e cola ficheiros existentes. A IA estuda exemplos reais para compreender como as coisas se constroem.</p>
           <ul class="card-list">
-            <li>Identifica estruturas gramaticais, estilos visuais e lógica de raciocínio.</li>
-            <li>Consegue interpolar entre conceitos nunca vistos juntos na natureza.</li>
-            <li>Gera novas amostras indistinguíveis daquelas criadas por humanos.</li>
+            <li>Compreende regras e estilos: capta estruturas de texto, padrões visuais e raciocínio lógico.</li>
+            <li>Combina ideias: junta conceitos diferentes de formas nunca antes vistas.</li>
+            <li>Cria resultados originais: produz conteúdos novos que se assemelham aos feitos por humanos.</li>
           </ul>
         </div>
         <div class="card-glass">
-          <div class="card-title">Probabilidade Condicional P(X | Contexto)</div>
-          <p class="card-text">A geração ocorre condicionada a um estímulo inicial (o prompt). O modelo avalia:</p>
+          <div class="card-title">Como ela constrói a resposta?</div>
+          <p class="card-text">Tudo começa com o seu pedido (prompt). A partir daí, o modelo avalia o contexto e calcula o que faz mais sentido a seguir.</p>
           <div class="code-box" style="margin: 10px 0;">
             P(próximo_elemento | elementos_anteriores, instrução)
           </div>
-          <p class="card-text">Essa formulação matemática unifica a geração de texto, síntese de imagens fotorrealistas, composição musical e geração de código executável.</p>
+          <p class="card-text">Esta mesma lógica serve para escrever textos, gerar imagens realistas, compor músicas ou programar código..</p>
         </div>
       </div>
     `
@@ -251,6 +251,8 @@ const SLIDES_DATA = [
     `
   },
 
+
+
   // =========================================================================
   // BLOCO 3: PROCESSAMENTO DE LINGUAGEM NATURAL (PLN)
   // =========================================================================
@@ -320,7 +322,7 @@ const SLIDES_DATA = [
           <ul class="card-list">
             <li><strong>Por Palavra:</strong> Vocabulário gigante, falha em palavras desconhecidas (OOV).</li>
             <li><strong>Por Caractere:</strong> Vocabulário minúsculo, mas sequências longas e perda semântica.</li>
-            <li><strong>Subword (Padrão Moderno):</strong> Divide termos raros em pedaços conhecidos (ex: BPE, WordPiece, SentencePiece).</li>
+            <li><strong> Por Pedaços de Palavra (Padrão Atual): </strong> divide palavras comuns ou complexas em sílabas e fragmentos conhecidos.</li>
           </ul>
         </div>
         <div class="card-glass">
