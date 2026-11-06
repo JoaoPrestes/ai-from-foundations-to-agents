@@ -984,7 +984,7 @@ kbd {
     <!-- Floating Navigation and Counter Footer -->
     <footer class="app-footer">
       <div class="footer-left">
-        <span id="slide-counter" class="slide-counter">01 / 61</span>
+        <span id="slide-counter" class="slide-counter">01 / 65</span>
       </div>
       <div class="footer-center">
         <span class="slide-subhint">Navegue com as setas ← → ou espaço · [F] Tela Cheia · [O] Visão Geral</span>
@@ -1005,7 +1005,7 @@ kbd {
       <div class="overview-container">
         <div class="overview-header">
           <div class="overview-title-group">
-            <h2>Visão Geral da Apresentação (61 Slides)</h2>
+            <h2>Visão Geral da Apresentação (65 Slides)</h2>
             <span class="overview-subtitle">Selecione qualquer slide para saltar diretamente</span>
           </div>
           <button id="btn-close-overview" class="btn-icon" aria-label="Fechar Visão Geral">
@@ -2014,6 +2014,116 @@ const SLIDES_DATA = [
       </div>
     `
   },
+  {
+    id: '1.4',
+    type: 'content',
+    sectionBadge: '01 · INTRODUÇÃO À IA',
+    tag: 'PARADIGMAS DE APRENDIZADO',
+    title: 'Machine Learning: Como as Máquinas Aprendem',
+    subtitle: 'Os três grandes paradigmas de treinamento e o pipeline de dados que transforma exemplos em previsões.',
+    bodyHtml: `
+      <!-- Três Paradigmas de Aprendizado -->
+      <div class="grid-3col" style="align-items: stretch;">
+        <!-- Card 1: Supervisionado -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 3px solid var(--accent-blue-light);">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.4); font-weight: 600;">01 · PARADIGMA</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-cyan);">Labels Conhecidos</span>
+            </div>
+            <div class="card-title" style="margin-bottom: 8px;">Aprendizado Supervisionado</div>
+            <p class="card-text" style="color: var(--text-slate); line-height: 1.55; margin-bottom: 12px;">
+              O modelo aprende a partir de exemplos rotulados contendo respostas conhecidas (<strong>labels</strong>). Mapeia entradas para saídas para realizar previsões ou classificações em novos dados.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.84rem; color: #E2E8F0;">
+            <strong style="color: #60a5fa; font-family: var(--font-mono); font-size: 0.75rem; display: block; margin-bottom: 2px; text-transform: uppercase;">Exemplo Prático:</strong>
+            Classificação de e-mails em spam/não spam ou diagnóstico médico por imagens rotuladas.
+          </div>
+        </div>
+
+        <!-- Card 2: Não Supervisionado -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 3px solid var(--accent-cyan);">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(0, 240, 255, 0.4); font-weight: 600;">02 · PARADIGMA</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #a5f3fc;">Padrões Latentes</span>
+            </div>
+            <div class="card-title" style="margin-bottom: 8px;">Aprendizado Não Supervisionado</div>
+            <p class="card-text" style="color: var(--text-slate); line-height: 1.55; margin-bottom: 12px;">
+              Opera sobre dados <strong>sem respostas ou rótulos prévios</strong>. Seu objetivo é identificar estruturas intrínsecas, correlações ocultas e agrupamentos naturais (<em>clusters</em>).
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.84rem; color: #E2E8F0;">
+            <strong style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.75rem; display: block; margin-bottom: 2px; text-transform: uppercase;">Exemplo Prático:</strong>
+            Agrupamento de clientes por padrões de compra ou detecção de fraudes atípicas.
+          </div>
+        </div>
+
+        <!-- Card 3: Por Reforço -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; border-top: 3px solid #a855f7;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(168, 85, 247, 0.2); color: #c084fc; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(168, 85, 247, 0.4); font-weight: 600;">03 · PARADIGMA</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #e9d5ff;">Tentativa & Erro</span>
+            </div>
+            <div class="card-title" style="margin-bottom: 8px;">Aprendizado por Reforço</div>
+            <p class="card-text" style="color: var(--text-slate); line-height: 1.55; margin-bottom: 12px;">
+              Um agente aprende por meio da <strong>interação contínua com um ambiente</strong>. Recebe recompensas ou penalidades com base em suas ações, buscando maximizar o retorno cumulativo.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.84rem; color: #E2E8F0;">
+            <strong style="color: #c084fc; font-family: var(--font-mono); font-size: 0.75rem; display: block; margin-bottom: 2px; text-transform: uppercase;">Exemplo Prático:</strong>
+            Agente de IA aprendendo a jogar videogames (AlphaGo) ou navegação robótica autônoma.
+          </div>
+        </div>
+      </div>
+
+      <!-- Conceitos Fundamentais e Pipeline de Treinamento -->
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 16px 20px; margin-top: 18px;">
+        <!-- Conceitos Chave -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;">● DATASET</span>
+            </div>
+            <p style="margin: 0; font-size: 0.82rem; color: var(--text-slate); line-height: 1.45;">Conjunto integral de dados utilizado no processo de aprendizado e validação do modelo.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: #60a5fa; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;">● FEATURES</span>
+            </div>
+            <p style="margin: 0; font-size: 0.82rem; color: var(--text-slate); line-height: 1.45;">Variáveis, propriedades ou características numéricas e textuais que descrevem cada exemplo.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="color: #a855f7; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700;">● LABELS</span>
+            </div>
+            <p style="margin: 0; font-size: 0.82rem; color: var(--text-slate); line-height: 1.45;">Respostas esperadas ou categorias alvo conhecidas, utilizadas no aprendizado supervisionado.</p>
+          </div>
+        </div>
+
+        <!-- Fluxo Visual: Dataset -> Features -> Modelo -> Previsão -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-slate); text-transform: uppercase; letter-spacing: 0.05em;">Fluxo de ML:</span>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: var(--radius-sm); padding: 6px 12px; font-family: var(--font-mono); font-size: 0.84rem; color: #ffffff;">
+              <span style="color: var(--accent-cyan); font-weight: bold;">Dataset</span>
+              <span style="color: var(--text-slate);">→</span>
+              <span style="color: #60a5fa; font-weight: bold;">Features</span>
+              <span style="color: var(--text-slate);">→</span>
+              <span style="color: #fbbf24; font-weight: bold;">Modelo</span>
+              <span style="color: var(--text-slate);">→</span>
+              <span style="color: #4ade80; font-weight: bold;">Previsão</span>
+            </div>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--text-slate); font-family: var(--font-sans); background: rgba(59, 130, 246, 0.1); border-left: 2px solid var(--accent-blue-light); padding: 4px 10px; border-radius: 2px;">
+            <strong style="color: #93c5fd;">Supervisionado:</strong> Os <em style="color: #ffffff;">labels</em> fornecem as respostas esperadas durante o treinamento.
+          </div>
+        </div>
+      </div>
+    `
+  },
 
   // =========================================================================
   // BLOCO 2: INTELIGÊNCIA ARTIFICIAL GENERATIVA
@@ -2310,6 +2420,213 @@ const SLIDES_DATA = [
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '4.2b',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'DEEP LEARNING & NEURÔNIOS',
+    title: 'Redes Neurais Artificiais e Deep Learning',
+    subtitle: 'Como unidades fundamentais de processamento se conectam em camadas profundas para aprender padrões não lineares.',
+    bodyHtml: `
+      <div class="grid-2col" style="align-items: stretch; gap: 16px;">
+        <!-- Coluna 1 (Esquerda): Diagrama de Rede Neural em Camadas -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div class="card-title" style="margin: 0; font-size: 1.05rem;">Estrutura em Camadas (Deep Network)</div>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(0, 240, 255, 0.35);">Arquitetura</span>
+            </div>
+            <p class="card-text" style="color: var(--text-slate); font-size: 0.86rem; line-height: 1.45; margin-bottom: 12px;">
+              As camadas ocultas extraem hierarquias de características semânticas em múltiplos níveis de abstração.
+            </p>
+
+            <!-- SVG da Rede Neural Profunda -->
+            <div style="background: rgba(4, 9, 23, 0.85); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-sm); padding: 10px; display: flex; justify-content: center;">
+              <svg viewBox="0 0 460 215" width="100%" height="auto" style="max-height: 200px; display: block;" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="fwd-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f0ff"/>
+                  </marker>
+                  <marker id="bwd-arrow" viewBox="0 0 10 10" refX="4" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 10 1 L 0 5 L 10 9 z" fill="#f59e0b"/>
+                  </marker>
+                </defs>
+
+                <!-- Seta Superior: Forward Propagation -->
+                <line x1="60" y1="18" x2="400" y2="18" stroke="#00f0ff" stroke-width="2" marker-end="url(#fwd-arrow)"/>
+                <text x="230" y="12" fill="#00f0ff" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle" letter-spacing="0.5">FORWARD PROPAGATION (FLUXO DE DADOS)</text>
+
+                <!-- Sinapses / Conexões -->
+                <g stroke="rgba(59, 130, 246, 0.25)" stroke-width="1">
+                  <line x1="60" y1="55" x2="170" y2="45"/><line x1="60" y1="55" x2="170" y2="85"/><line x1="60" y1="55" x2="170" y2="125"/><line x1="60" y1="55" x2="170" y2="165"/>
+                  <line x1="60" y1="105" x2="170" y2="45"/><line x1="60" y1="105" x2="170" y2="85"/><line x1="60" y1="105" x2="170" y2="125"/><line x1="60" y1="105" x2="170" y2="165"/>
+                  <line x1="60" y1="155" x2="170" y2="45"/><line x1="60" y1="155" x2="170" y2="85"/><line x1="60" y1="155" x2="170" y2="125"/><line x1="60" y1="155" x2="170" y2="165"/>
+                </g>
+
+                <g stroke="rgba(0, 240, 255, 0.2)" stroke-width="1">
+                  <line x1="170" y1="45" x2="290" y2="45"/><line x1="170" y1="45" x2="290" y2="85"/><line x1="170" y1="45" x2="290" y2="125"/><line x1="170" y1="45" x2="290" y2="165"/>
+                  <line x1="170" y1="85" x2="290" y2="45"/><line x1="170" y1="85" x2="290" y2="85"/><line x1="170" y1="85" x2="290" y2="125"/><line x1="170" y1="85" x2="290" y2="165"/>
+                  <line x1="170" y1="125" x2="290" y2="45"/><line x1="170" y1="125" x2="290" y2="85"/><line x1="170" y1="125" x2="290" y2="125"/><line x1="170" y1="125" x2="290" y2="165"/>
+                  <line x1="170" y1="165" x2="290" y2="45"/><line x1="170" y1="165" x2="290" y2="85"/><line x1="170" y1="165" x2="290" y2="125"/><line x1="170" y1="165" x2="290" y2="165"/>
+                </g>
+
+                <g stroke="rgba(52, 211, 153, 0.25)" stroke-width="1">
+                  <line x1="290" y1="45" x2="400" y2="75"/><line x1="290" y1="45" x2="400" y2="135"/>
+                  <line x1="290" y1="85" x2="400" y2="75"/><line x1="290" y1="85" x2="400" y2="135"/>
+                  <line x1="290" y1="125" x2="400" y2="75"/><line x1="290" y1="125" x2="400" y2="135"/>
+                  <line x1="290" y1="165" x2="400" y2="75"/><line x1="290" y1="165" x2="400" y2="135"/>
+                </g>
+
+                <!-- Nodes: Input Layer (3 nós) -->
+                <circle cx="60" cy="55" r="11" fill="#0f172a" stroke="#60a5fa" stroke-width="2"/>
+                <text x="60" y="58" fill="#93c5fd" font-family="monospace" font-size="9" text-anchor="middle" font-weight="bold">x₁</text>
+                <circle cx="60" cy="105" r="11" fill="#0f172a" stroke="#60a5fa" stroke-width="2"/>
+                <text x="60" y="108" fill="#93c5fd" font-family="monospace" font-size="9" text-anchor="middle" font-weight="bold">x₂</text>
+                <circle cx="60" cy="155" r="11" fill="#0f172a" stroke="#60a5fa" stroke-width="2"/>
+                <text x="60" y="158" fill="#93c5fd" font-family="monospace" font-size="9" text-anchor="middle" font-weight="bold">x₃</text>
+                <text x="60" y="32" fill="#60a5fa" font-family="monospace" font-size="8.5" text-anchor="middle" font-weight="bold">INPUT</text>
+
+                <!-- Nodes: Hidden Layer 1 (4 nós) -->
+                <circle cx="170" cy="45" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <circle cx="170" cy="85" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <circle cx="170" cy="125" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <circle cx="170" cy="165" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <text x="170" y="32" fill="#00f0ff" font-family="monospace" font-size="8.5" text-anchor="middle" font-weight="bold">HIDDEN 1</text>
+
+                <!-- Nodes: Hidden Layer 2 (4 nós) -->
+                <circle cx="290" cy="45" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <circle cx="290" cy="85" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <circle cx="290" cy="125" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <circle cx="290" cy="165" r="10" fill="#0f172a" stroke="#00f0ff" stroke-width="1.8"/>
+                <text x="290" y="32" fill="#00f0ff" font-family="monospace" font-size="8.5" text-anchor="middle" font-weight="bold">HIDDEN 2</text>
+
+                <!-- Nodes: Output Layer (2 nós) -->
+                <circle cx="400" cy="75" r="11" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+                <text x="400" y="78" fill="#6ee7b7" font-family="monospace" font-size="9" text-anchor="middle" font-weight="bold">ŷ₁</text>
+                <circle cx="400" cy="135" r="11" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+                <text x="400" y="138" fill="#6ee7b7" font-family="monospace" font-size="9" text-anchor="middle" font-weight="bold">ŷ₂</text>
+                <text x="400" y="32" fill="#34d399" font-family="monospace" font-size="8.5" text-anchor="middle" font-weight="bold">OUTPUT</text>
+
+                <!-- Seta Inferior: Backpropagation -->
+                <line x1="400" y1="198" x2="60" y2="198" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#bwd-arrow)"/>
+                <text x="230" y="210" fill="#f59e0b" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle" letter-spacing="0.5">BACKPROPAGATION (GRADIENTES DO ERRO)</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Subdivisão rápida das 3 camadas -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 12px; font-size: 0.78rem; font-family: var(--font-sans);">
+            <div style="background: rgba(59, 130, 246, 0.1); border-left: 2px solid #60a5fa; padding: 6px 8px; border-radius: 2px;">
+              <strong style="color: #93c5fd; display: block;">Input Layer:</strong> Ingestão dos atributos.
+            </div>
+            <div style="background: rgba(0, 240, 255, 0.1); border-left: 2px solid var(--accent-cyan); padding: 6px 8px; border-radius: 2px;">
+              <strong style="color: var(--accent-cyan); display: block;">Hidden Layers:</strong> Padrões e abstrações.
+            </div>
+            <div style="background: rgba(52, 211, 153, 0.1); border-left: 2px solid #34d399; padding: 6px 8px; border-radius: 2px;">
+              <strong style="color: #6ee7b7; display: block;">Output Layer:</strong> Previsão final.
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna 2 (Direita): O Neurônio Artificial Ampliado & Ativações -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div class="card-title" style="margin: 0; font-size: 1.05rem;">Anatomia do Neurônio Artificial</div>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.4);">Unidade de Processamento</span>
+            </div>
+
+            <!-- Representação Visual Ampliada: Entradas -> Pesos -> Soma + Bias -> Ativação -> Saída -->
+            <div style="background: rgba(4, 9, 23, 0.85); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 12px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; font-family: var(--font-mono); font-size: 0.8rem; text-align: center;">
+                <div style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 4px; padding: 6px 8px; flex: 1;">
+                  <div style="color: #93c5fd; font-size: 0.7rem;">ENTRADAS</div>
+                  <div style="color: #ffffff; font-weight: bold;">x₁, x₂...</div>
+                </div>
+                <span style="color: var(--accent-cyan); font-weight: bold;">×</span>
+                <div style="background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 4px; padding: 6px 8px; flex: 1;">
+                  <div style="color: #c084fc; font-size: 0.7rem;">PESOS</div>
+                  <div style="color: #ffffff; font-weight: bold;">w₁, w₂...</div>
+                </div>
+                <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+                <div style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 4px; padding: 6px 8px; flex: 1.2;">
+                  <div style="color: #fbbf24; font-size: 0.7rem;">SOMA + BIAS</div>
+                  <div style="color: #ffffff; font-weight: bold;">Σ (w·x) + b</div>
+                </div>
+                <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+                <div style="background: rgba(0, 240, 255, 0.2); border: 1px solid rgba(0, 240, 255, 0.4); border-radius: 4px; padding: 6px 8px; flex: 1.2;">
+                  <div style="color: var(--accent-cyan); font-size: 0.7rem;">ATIVAÇÃO</div>
+                  <div style="color: #ffffff; font-weight: bold;">f(z)</div>
+                </div>
+                <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+                <div style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); border-radius: 4px; padding: 6px 8px; flex: 1;">
+                  <div style="color: #6ee7b7; font-size: 0.7rem;">SAÍDA</div>
+                  <div style="color: #ffffff; font-weight: bold;">y</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fórmula Destacada -->
+            <div style="background: rgba(0, 0, 0, 0.4); border-left: 3px solid var(--accent-cyan); padding: 8px 12px; margin-bottom: 12px; font-family: var(--font-mono); font-size: 0.88rem; color: #ffffff; display: flex; align-items: center; justify-content: space-between;">
+              <span><strong>Fórmula:</strong> resultado = (input × peso) + bias</span>
+              <span style="font-size: 0.72rem; color: var(--accent-cyan);">y = f(Σ wᵢxᵢ + b)</span>
+            </div>
+
+            <!-- Funções de Ativação -->
+            <div style="margin-top: 8px;">
+              <div style="font-size: 0.82rem; font-weight: 600; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span>Funções de Ativação:</span>
+                <span style="font-size: 0.76rem; color: var(--text-slate); font-weight: normal;">Introduzem não-linearidade para aprender relações complexas</span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-sm); padding: 8px;">
+                  <strong style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.8rem; display: block;">ReLU</strong>
+                  <span style="font-size: 0.74rem; color: var(--text-slate); line-height: 1.3; display: block; margin-top: 2px;">max(0, z). Padrão em camadas ocultas pela rapidez computacional.</span>
+                </div>
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-sm); padding: 8px;">
+                  <strong style="color: #60a5fa; font-family: var(--font-mono); font-size: 0.8rem; display: block;">Sigmoid</strong>
+                  <span style="font-size: 0.74rem; color: var(--text-slate); line-height: 1.3; display: block; margin-top: 2px;">Comprime saída entre 0 e 1, ideal para probabilidades binárias.</span>
+                </div>
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: var(--radius-sm); padding: 8px;">
+                  <strong style="color: #a855f7; font-family: var(--font-mono); font-size: 0.8rem; display: block;">Softmax</strong>
+                  <span style="font-size: 0.74rem; color: var(--text-slate); line-height: 1.3; display: block; margin-top: 2px;">Converte vetor em distribuição de probabilidade multiclasse (soma 1).</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rodapé: O Ciclo de Treinamento e Conceito Central -->
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 14px 18px; margin-top: 14px;">
+        <!-- O Ciclo de Aprendizado (Forward + Backprop) -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-slate); text-transform: uppercase; letter-spacing: 0.05em;">Ciclo de Treinamento:</span>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <div style="background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 4px; padding: 4px 10px; font-size: 0.8rem; color: #ffffff;">
+              <strong style="color: var(--accent-cyan);">01 | Previsão</strong> (Forward)
+            </div>
+            <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+            <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 4px; padding: 4px 10px; font-size: 0.8rem; color: #ffffff;">
+              <strong style="color: #fbbf24;">02 | Cálculo do Erro</strong> (Loss)
+            </div>
+            <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+            <div style="background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: 4px; padding: 4px 10px; font-size: 0.8rem; color: #ffffff;">
+              <strong style="color: #f472b6;">03 | Backpropagation</strong> (Gradientes)
+            </div>
+            <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+            <div style="background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 4px; padding: 4px 10px; font-size: 0.8rem; color: #ffffff;">
+              <strong style="color: #6ee7b7;">04 | Atualização dos Pesos</strong> (Optimizer)
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-banner" style="margin: 0; padding: 10px 14px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-cyan); font-size: 0.88rem;">
+          <strong>Conceito Central:</strong> Deep Learning é uma abordagem de Machine Learning baseada em redes neurais com múltiplas camadas de processamento, capazes de aprender representações não lineares complexas diretamente dos dados.
         </div>
       </div>
     `
@@ -2708,6 +3025,130 @@ const SLIDES_DATA = [
       </div>
       <div class="callout-banner">
         <strong>Conexão Moderna:</strong> LLMs generativos atuais conseguem realizar tarefas de classificação apenas formulando a saída como texto estruturado (ex: responder em JSON {"categoria": "financeiro"}).
+      </div>
+    `
+  },
+  {
+    id: '5.9',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'DO TREINAMENTO À PRODUÇÃO',
+    title: 'Inferência e Implantação de Modelos',
+    subtitle: 'A transição crítica do treinamento computacional intensivo para a execução operacional no mundo real.',
+    bodyHtml: `
+      <!-- 1. Treinamento vs. Inferência -->
+      <div class="grid-2col" style="align-items: stretch; gap: 16px;">
+        <!-- Card Treinamento -->
+        <div class="card-glass" style="border-top: 3px solid var(--accent-blue-light); padding: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <div class="card-title" style="margin: 0; font-size: 1rem;">01 | Fase de Treinamento (Training)</div>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.4);">Ajuste de Pesos</span>
+          </div>
+          <p class="card-text" style="color: var(--text-slate); font-size: 0.86rem; line-height: 1.5; margin-bottom: 10px;">
+            O modelo <strong>aprende padrões</strong> a partir de grandes volumes de dados brutos, atualizando continuamente seus parâmetros (pesos e biases) via backpropagation.
+          </p>
+          <div style="background: rgba(4, 9, 23, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.8rem; color: #94a3b8;">
+            <strong style="color: #93c5fd;">Características:</strong> Executado em clusters maciços de GPUs/TPUs durante dias ou semanas. Altíssimo custo computacional e processo iterativo.
+          </div>
+        </div>
+
+        <!-- Card Inferência -->
+        <div class="card-glass" style="border-top: 3px solid var(--accent-cyan); padding: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <div class="card-title" style="margin: 0; font-size: 1rem;">02 | Fase de Inferência (Inference)</div>
+            <span style="font-family: var(--font-mono); font-size: 0.7rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(0, 240, 255, 0.4);">Pesos Congelados</span>
+          </div>
+          <p class="card-text" style="color: var(--text-slate); font-size: 0.86rem; line-height: 1.5; margin-bottom: 10px;">
+            O modelo com <strong>pesos fixos (congelados)</strong> utiliza o conhecimento adquirido para processar novos inputs em tempo real e produzir previsões ou respostas.
+          </p>
+          <div style="background: rgba(4, 9, 23, 0.6); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.8rem; color: #94a3b8;">
+            <strong style="color: var(--accent-cyan);">Características:</strong> Executado em milissegundos por requisição para servir usuários e aplicações. Foco total em latência, vazão e custo.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Fluxo Principal e Bifurcação de Implantação -->
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 16px 18px; margin-top: 14px;">
+        <!-- Fluxo Sequencial de Entrada até Implantação -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-slate); text-transform: uppercase;">Ciclo de Vida:</span>
+          <div style="display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.8rem; flex-wrap: wrap;">
+            <span style="background: rgba(4, 9, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); padding: 3px 8px; border-radius: 4px; color: #e2e8f0;">Dados de Treino</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); padding: 3px 8px; border-radius: 4px; color: #93c5fd;">Treinamento</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); padding: 3px 8px; border-radius: 4px; color: #fde68a;">Modelo Treinado</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); padding: 3px 8px; border-radius: 4px; color: #e9d5ff;">Implantação</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); padding: 3px 8px; border-radius: 4px; color: var(--accent-cyan);">Inferência</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); padding: 3px 8px; border-radius: 4px; color: #6ee7b7;">Resultado</span>
+          </div>
+        </div>
+
+        <!-- As Duas Formas de Implantação (Nuvem vs Local) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <!-- Opção 1: Nuvem -->
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-sm); padding: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <strong style="color: #60a5fa; font-size: 0.88rem;">Opção A · Inferência em Nuvem (Cloud / API)</strong>
+              <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #93c5fd;">Data Centers</span>
+            </div>
+            <!-- Fluxo Nuvem -->
+            <div style="display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.76rem; margin: 8px 0; color: #ffffff;">
+              <span style="color: #60a5fa;">Nuvem</span> → <span style="color: var(--accent-cyan);">API REST/gRPC</span> → <span>Aplicação</span> → <span style="color: #4ade80;">Usuário</span>
+            </div>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--text-slate); line-height: 1.45;">
+              Hospedado em servidores de alta capacidade. Escalabilidade elástica sob demanda, suporta modelos gigantescos (70B+) sem sobrecarregar o hardware do cliente.
+            </p>
+          </div>
+
+          <!-- Opção 2: Local -->
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <strong style="color: var(--accent-cyan); font-size: 0.88rem;">Opção B · Inferência Local (On-Device / Edge)</strong>
+              <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #a5f3fc;">On-Premise</span>
+            </div>
+            <!-- Fluxo Local -->
+            <div style="display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.76rem; margin: 8px 0; color: #ffffff;">
+              <span style="color: var(--accent-cyan);">Hardware Local</span> → <span style="color: #fbbf24;">Modelo Instalado</span> → <span>Aplicação</span> → <span style="color: #4ade80;">Usuário</span>
+            </div>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--text-slate); line-height: 1.45;">
+              Executado diretamente no hardware local (computador, celular ou servidor próprio). Garante privacidade absoluta (LGPD), operação 100% offline e zero custo por requisição.
+            </p>
+          </div>
+        </div>
+
+        <!-- Destaque: API é Interface, não o Modelo -->
+        <div style="margin-top: 12px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-cyan); padding: 8px 12px; border-radius: 2px; font-size: 0.82rem; color: #e2e8f0;">
+          <strong style="color: var(--accent-cyan);">Princípio de Engenharia:</strong> Uma <strong>API</strong> é a interface de comunicação padronizada entre sistemas, e <em>não</em> o modelo em si. O modelo é a rede neural com bilhões de parâmetros congelados executando na memória computacional.
+        </div>
+      </div>
+
+      <!-- 3. Métricas Operacionais Críticas -->
+      <div class="grid-3col" style="margin-top: 14px; gap: 12px;">
+        <div class="card-glass" style="padding: 12px 14px;">
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 4px; font-weight: bold;">01 · LATÊNCIA</div>
+          <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Tempo de Resposta</div>
+          <p class="card-text" style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.4; margin: 0;">
+            Tempo decorrido entre a requisição e a resposta. Avaliado pelo <em>Time-to-First-Token</em> (TTFT) e latência total de geração (ms).
+          </p>
+        </div>
+        <div class="card-glass" style="padding: 12px 14px;">
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #60a5fa; margin-bottom: 4px; font-weight: bold;">02 · THROUGHPUT</div>
+          <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Vazão de Processamento</div>
+          <p class="card-text" style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.4; margin: 0;">
+            Capacidade volumétrica do sistema: volume de solicitações simultâneas ou tokens por segundo (tokens/s) entregues sob carga.
+          </p>
+        </div>
+        <div class="card-glass" style="padding: 12px 14px;">
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #a855f7; margin-bottom: 4px; font-weight: bold;">03 · CUSTO DE INFERÊNCIA</div>
+          <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Eficiência Financeira</div>
+          <p class="card-text" style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.4; margin: 0;">
+            Recursos computacionais e financeiros necessários para manter o serviço: custo de GPU por hora ou precificação por 1M de tokens.
+          </p>
+        </div>
       </div>
     `
   },
@@ -3490,7 +3931,137 @@ const SLIDES_DATA = [
       <!-- O diagrama renderLangGraphState é injetado diretamente -->
     `
   },
+  {
+    id: '8.10',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'SEGURANÇA & GOVERNANÇA',
+    title: 'Limitações, Segurança e Governança da IA',
+    subtitle: 'Mecanismos de contenção de riscos, controle de permissões e supervisão para sistemas autônomos.',
+    bodyHtml: `
+      <!-- 1. Os 5 Riscos Críticos e Mitigações -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; align-items: stretch;">
+        <!-- Bloco 1: Alucinações -->
+        <div class="card-glass" style="border-top: 3px solid var(--accent-cyan); padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-cyan); font-weight: bold;">01 · RISCO</span>
+              <span style="font-size: 0.68rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 6px; border-radius: 4px;">Factual</span>
+            </div>
+            <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Alucinações</div>
+            <p style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.45; margin: 0 0 10px 0;">
+              O modelo pode produzir informações incorretas ou inventadas com aparência convincente de certeza.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 0.78rem;">
+            <strong style="color: var(--accent-cyan); display: block; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2px;">MITIGAÇÃO:</strong>
+            <span style="color: #e2e8f0;">RAG com fontes auditadas, parâmetros estritos (temp baixa) e checagem cruzada de fatos.</span>
+          </div>
+        </div>
 
+        <!-- Bloco 2: Prompt Injection -->
+        <div class="card-glass" style="border-top: 3px solid #f59e0b; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #fbbf24; font-weight: bold;">02 · RISCO</span>
+              <span style="font-size: 0.68rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 2px 6px; border-radius: 4px;">Segurança</span>
+            </div>
+            <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Prompt Injection</div>
+            <p style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.45; margin: 0 0 10px 0;">
+              Instruções maliciosas tentam manipular o comportamento do modelo ou sequestrar o fluxo do agente.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 0.78rem;">
+            <strong style="color: #fbbf24; display: block; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2px;">MITIGAÇÃO:</strong>
+            <span style="color: #e2e8f0;">Isolamento de contexto com tags, sanitização de inputs e guardrails defensivos.</span>
+          </div>
+        </div>
+
+        <!-- Bloco 3: Privacidade de Dados -->
+        <div class="card-glass" style="border-top: 3px solid #a855f7; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #c084fc; font-weight: bold;">03 · RISCO</span>
+              <span style="font-size: 0.68rem; background: rgba(168, 85, 247, 0.2); color: #c084fc; padding: 2px 6px; border-radius: 4px;">Privacidade</span>
+            </div>
+            <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Privacidade de Dados</div>
+            <p style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.45; margin: 0 0 10px 0;">
+              Informações confidenciais ou dados pessoais (PII) podem ser expostos ou processados inadequadamente.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 0.78rem;">
+            <strong style="color: #c084fc; display: block; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2px;">MITIGAÇÃO:</strong>
+            <span style="color: #e2e8f0;">Minimização de dados, mascaramento prévio de PII, RBAC estrito e conformidade LGPD.</span>
+          </div>
+        </div>
+
+        <!-- Bloco 4: Permissões de Ferramentas -->
+        <div class="card-glass" style="border-top: 3px solid var(--accent-blue-light); padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #60a5fa; font-weight: bold;">04 · RISCO</span>
+              <span style="font-size: 0.68rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 6px; border-radius: 4px;">Execução</span>
+            </div>
+            <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Controle de Ferramentas</div>
+            <p style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.45; margin: 0 0 10px 0;">
+              Agentes executando chamadas de APIs externas com efeitos colaterais indesejados ou destrutivos.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 0.78rem;">
+            <strong style="color: #60a5fa; display: block; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2px;">MITIGAÇÃO:</strong>
+            <span style="color: #e2e8f0;">Princípio do Menor Privilégio (Least Privilege), validação de schemas e tetos de taxa.</span>
+          </div>
+        </div>
+
+        <!-- Bloco 5: Human-in-the-Loop -->
+        <div class="card-glass" style="border-top: 3px solid #10b981; padding: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #34d399; font-weight: bold;">05 · CONTROLE</span>
+              <span style="font-size: 0.68rem; background: rgba(16, 185, 129, 0.2); color: #34d399; padding: 2px 6px; border-radius: 4px;">Supervisão</span>
+            </div>
+            <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Human-in-the-Loop</div>
+            <p style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.45; margin: 0 0 10px 0;">
+              Execução cega de decisões críticas sem capacidade de validação, bloqueio ou reversão humana.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 0.78rem;">
+            <strong style="color: #34d399; display: block; font-family: var(--font-mono); font-size: 0.7rem; margin-bottom: 2px;">MITIGAÇÃO:</strong>
+            <span style="color: #e2e8f0;">Aprovação humana mandatória para operações financeiras, legais ou irreversíveis.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Fluxo de Governança e Execução Segura -->
+      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 14px 18px; margin-top: 14px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-slate); text-transform: uppercase;">Fluxo de Governança:</span>
+          <div style="display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.78rem; flex-wrap: wrap;">
+            <span style="background: rgba(4, 9, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); padding: 3px 8px; border-radius: 4px; color: #e2e8f0;">Entrada</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); padding: 3px 8px; border-radius: 4px; color: #fbbf24;">Validação</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); padding: 3px 8px; border-radius: 4px; color: var(--accent-cyan);">IA / Agente</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); padding: 3px 8px; border-radius: 4px; color: #93c5fd;">Verificação</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(16, 185, 129, 0.4); padding: 3px 8px; border-radius: 4px; color: #6ee7b7; font-weight: bold;">Aprovação Humana</span>
+            <span style="color: var(--accent-cyan);">→</span>
+            <span style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); padding: 3px 8px; border-radius: 4px; color: #4ade80;">Execução</span>
+          </div>
+        </div>
+
+        <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid #10b981; padding: 8px 12px; border-radius: 2px; font-size: 0.82rem; color: #e2e8f0;">
+          <strong style="color: #6ee7b7;">Supervisão Ativa:</strong> Ações sensíveis e de alto risco (ex: operações financeiras, deleção de registros ou chamadas a ferramentas com efeito externo) possuem travas obrigatórias de autorização humana antes do disparo.
+        </div>
+      </div>
+
+      <!-- 3. Conceito Central -->
+      <div class="callout-banner" style="margin-top: 14px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-cyan);">
+        <strong>Conceito Central:</strong> Autonomia não significa confiabilidade. Um sistema de IA profissional precisa de validação contínua, limites claros de permissão e supervisão humana proporcionais aos riscos de suas operações.
+      </div>
+    `
+  },
   // =========================================================================
   // BLOCO 9: CONCLUSÃO E SÍNTESE APLICADA
   // =========================================================================
@@ -3931,7 +4502,7 @@ class SlideEngine {
           <p class="cover-description">${slide.description || 'Uma jornada por IA Generativa, PLN, LLMs, RAG, frameworks e agentes de IA.'}</p>
           <div class="cover-meta">
             <span class="cover-meta-pill">Guia Técnico Completo</span>
-            <span class="cover-meta-pill">61 Slides Didáticos</span>
+            <span class="cover-meta-pill">65 Slides Didáticos</span>
             <span class="cover-meta-pill">Aplicações Reais</span>
           </div>
         </div>

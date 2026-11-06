@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert';
 import { SLIDES_DATA } from '../js/slides-data.js';
 
-test('SLIDES_DATA contains all 61 slides through Block 9', () => {
-  assert.strictEqual(SLIDES_DATA.length, 61);
+test('SLIDES_DATA contains all 65 slides through Block 9', () => {
+  assert.strictEqual(SLIDES_DATA.length, 65);
   // RAG ponta a ponta
   const ragSlide = SLIDES_DATA.find(s => s.id === '6.3');
   assert.ok(ragSlide);
@@ -23,6 +23,8 @@ test('SLIDES_DATA contains all 61 slides through Block 9', () => {
   const langgraphSlide = SLIDES_DATA.find(s => s.id === '9.0');
   assert.ok(langgraphSlide);
   assert.strictEqual(langgraphSlide.diagramKey, 'renderLangGraphState');
+  // Segurança e Governança
+  assert.ok(SLIDES_DATA.find(s => s.id === '8.10'));
   // Conclusão (mínimo 3 slides)
   assert.ok(SLIDES_DATA.find(s => s.id === '9.1'));
   assert.ok(SLIDES_DATA.find(s => s.id === '9.2'));

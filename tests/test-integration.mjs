@@ -6,7 +6,7 @@ import { DIAGRAMS } from '../js/diagrams.js';
 import { SlideEngine } from '../js/engine.js';
 
 test('Full presentation integrity and diagram linkages', () => {
-  assert.strictEqual(SLIDES_DATA.length, 61);
+  assert.strictEqual(SLIDES_DATA.length, 65);
 
   // Verificar que todos os slides que exigem diagramas têm geradores associados
   const slidesWithDiagrams = SLIDES_DATA.filter(s => s.diagramKey);
@@ -19,7 +19,7 @@ test('Full presentation integrity and diagram linkages', () => {
 
   // Verificar inicialização do motor
   const engine = new SlideEngine({ slides: SLIDES_DATA, diagrams: DIAGRAMS, autoInit: false });
-  assert.strictEqual(engine.slides.length, 61);
+  assert.strictEqual(engine.slides.length, 65);
 
   // Testar renderização de cada tipo de slide (cover, transition, content)
   for (let i = 0; i < SLIDES_DATA.length; i++) {
@@ -33,6 +33,7 @@ test('Roteiro topics coverage completeness check', () => {
   assert.ok(SLIDES_DATA.find(s => s.id === '1.1'));
   assert.ok(SLIDES_DATA.find(s => s.id === '1.2'));
   assert.ok(SLIDES_DATA.find(s => s.id === '1.3'));
+  assert.ok(SLIDES_DATA.find(s => s.id === '1.4'));
 
   // 2. IA Generativa
   assert.ok(SLIDES_DATA.find(s => s.id === '2.1'));
@@ -47,6 +48,7 @@ test('Roteiro topics coverage completeness check', () => {
   // 4. LLMs
   assert.ok(SLIDES_DATA.find(s => s.id === '4.1'));
   assert.ok(SLIDES_DATA.find(s => s.id === '4.2'));
+  assert.ok(SLIDES_DATA.find(s => s.id === '4.2b'));
   assert.ok(SLIDES_DATA.find(s => s.id === '4.3'));
   assert.ok(SLIDES_DATA.find(s => s.id === '4.4'));
   assert.ok(SLIDES_DATA.find(s => s.id === '4.5'));
@@ -62,6 +64,7 @@ test('Roteiro topics coverage completeness check', () => {
   assert.ok(SLIDES_DATA.find(s => s.id === '5.6'));
   assert.ok(SLIDES_DATA.find(s => s.id === '5.7'));
   assert.ok(SLIDES_DATA.find(s => s.id === '5.8'));
+  assert.ok(SLIDES_DATA.find(s => s.id === '5.9'));
 
   // 6. RAG
   assert.ok(SLIDES_DATA.find(s => s.id === '6.1'));
@@ -92,6 +95,7 @@ test('Roteiro topics coverage completeness check', () => {
   assert.ok(SLIDES_DATA.find(s => s.id === '8.8'));
   assert.ok(SLIDES_DATA.find(s => s.id === '8.9'));
   assert.ok(SLIDES_DATA.find(s => s.id === '9.0'));
+  assert.ok(SLIDES_DATA.find(s => s.id === '8.10'));
 
   // 9. Conclusão (mínimo 3 slides)
   assert.ok(SLIDES_DATA.find(s => s.id === '9.1'));
@@ -103,7 +107,7 @@ test('index.html build artifact is synchronized with full slide dataset', () => 
   const html = fs.readFileSync('index.html', 'utf8');
   assert.match(html, /id:\s*['"]9\.3['"]/);
   assert.match(html, /O Tridente de Potencialização/);
-  assert.match(html, /61 Slides/);
+  assert.match(html, /65 Slides/);
 });
 
 
