@@ -4,6 +4,7 @@
   "description": "Apresentação Web Didática e Interativa sobre IA, GenAI, PLN, LLMs, Treinamento, RAG e Agentes de IA",
   "type": "module",
   "scripts": {
+    "start": "node -e \"import('node:child_process').then(cp => cp.exec(process.platform === 'win32' ? 'start index.html' : 'open index.html'))\"",
     "test": "node --test tests/*.mjs",
     "build": "node scripts/build.mjs"
   },
