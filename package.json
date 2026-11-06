@@ -1,0 +1,11 @@
+{
+  "name": "apresentacao-ia-fundamento-a-aplicacao",
+  "version": "1.0.0",
+  "description": "Apresentação Web Didática e Interativa sobre IA, GenAI, PLN, LLMs, Treinamento, RAG e Agentes de IA",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.mjs"
+  },
+  "author": "João Prestes",
+  "license": "MIT"
+}
