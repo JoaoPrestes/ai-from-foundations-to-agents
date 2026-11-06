@@ -4,10 +4,843 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inteligência Artificial: do Fundamento à Aplicação</title>
-  <link rel="stylesheet" href="css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+/* ==========================================================================
+   Design System & Themes — Apresentação de Inteligência Artificial
+   Inspirado no visual premium do Gamma (Deep Navy, Neon Blue & Cyan Glow)
+   ========================================================================== */
+
+:root {
+  --bg-dark: #050814;
+  --bg-dark-alt: #0a1128;
+  --bg-radial: radial-gradient(circle at 50% 15%, #0f1d40 0%, #050814 80%);
+  --card-bg: rgba(13, 25, 54, 0.72);
+  --card-bg-hover: rgba(18, 35, 75, 0.85);
+  --card-border: rgba(56, 189, 248, 0.18);
+  --card-border-glow: rgba(0, 240, 255, 0.45);
+  
+  --accent-blue: #2563eb;
+  --accent-blue-light: #3b82f6;
+  --accent-cyan: #00f0ff;
+  --accent-cyan-dim: rgba(0, 240, 255, 0.12);
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-purple: #8b5cf6;
+
+  --text-main: #f8fafc;
+  --text-slate: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --shadow-glow: 0 0 25px rgba(0, 240, 255, 0.2);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --transition-smooth: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Shell Layout */
+.presentation-shell {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-radial);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Background Atmospheric Grid */
+.presentation-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Top Progress Track */
+.progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 100;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+  box-shadow: 0 0 10px var(--accent-cyan);
+  transition: width 0.35s ease;
+}
+
+/* App Header */
+.app-header {
+  height: 52px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.section-badge {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  background: var(--accent-cyan-dim);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-icon:hover {
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--accent-cyan);
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+/* Viewport and Slide Stage (16:9 Scaled Engine) */
+.viewport-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+  padding: 12px 24px;
+  overflow: hidden;
+}
+
+.slide-stage {
+  width: 1280px;
+  height: 720px;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Slide Transition Animations */
+.slide-transition {
+  animation: slideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Slide Layout Types */
+.slide-content-wrap {
+  width: 100%;
+  height: 100%;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Cover Slide (Abertura) */
+.slide-cover {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 60px;
+}
+
+.cover-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cover-category {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+}
+
+.cover-title {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.cover-title span {
+  background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cover-description {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 540px;
+}
+
+.cover-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.cover-meta-pill {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  color: var(--text-slate);
+}
+
+.cover-art-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Section Transition Slide (Transição entre Blocos) */
+.slide-section-divider {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 40px 70px;
+}
+
+.divider-left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.divider-num {
+  font-size: 4.8rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: var(--font-mono);
+  color: transparent;
+  -webkit-text-stroke: 2px var(--accent-cyan);
+  opacity: 0.9;
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+}
+
+.divider-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+}
+
+.divider-desc {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.divider-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Content Slide Standard Layout */
+.content-header {
+  margin-bottom: 24px;
+}
+
+.content-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.content-title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.content-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.content-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Modular Cards & Glassmorphism */
+.card-glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glass::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+}
+
+.card-glass:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--card-border-glow);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), var(--shadow-glow);
+}
+
+/* Grid Layouts */
+.grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.grid-asymmetric {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 28px;
+  align-items: center;
+}
+
+/* Card Elements */
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title svg {
+  color: var(--accent-cyan);
+}
+
+.card-text {
+  font-size: 0.92rem;
+  color: var(--text-slate);
+  line-height: 1.55;
+}
+
+.card-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.card-list li {
+  font-size: 0.88rem;
+  color: var(--text-slate);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.card-list li::before {
+  content: '▸';
+  color: var(--accent-cyan);
+  font-weight: bold;
+}
+
+/* Steps Flow Layout (01 02 03 04) */
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  position: relative;
+  margin-top: 15px;
+}
+
+.step-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  line-height: 1;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.step-desc {
+  font-size: 0.86rem;
+  color: var(--text-slate);
+  line-height: 1.5;
+}
+
+/* Diagram Container */
+.diagram-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.diagram-stage svg {
+  width: 100%;
+  height: 100%;
+  max-height: 380px;
+}
+
+/* Comparison Matrix Cards */
+.comparison-card {
+  background: rgba(13, 25, 54, 0.7);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.comparison-card.highlight {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.12);
+}
+
+.comparison-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  width: fit-content;
+}
+
+.tag-trad {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.tag-gen {
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+/* Code Snippet Box */
+.code-box {
+  background: rgba(4, 9, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #7dd3fc;
+  overflow-x: auto;
+}
+
+/* Key Takeaway / Callout Banner */
+.callout-banner {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.15) 0%, rgba(0, 240, 255, 0.08) 100%);
+  border-left: 3px solid var(--accent-cyan);
+  padding: 12px 18px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.9rem;
+  color: var(--text-slate);
+  margin-top: 16px;
+}
+
+.callout-banner strong {
+  color: #ffffff;
+}
+
+/* App Footer Navigation Bar */
+.app-footer {
+  height: 56px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  z-index: 10;
+}
+
+.slide-counter {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.slide-subhint {
+  font-size: 0.8rem;
+  color: var(--text-subtle);
+  font-style: italic;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-nav {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-nav-primary {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue-light);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+}
+
+.btn-nav-primary:hover {
+  background: var(--accent-blue-light);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+/* Overview Modal Grid */
+.overview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: none;
+}
+
+.overview-modal.active {
+  display: block;
+}
+
+.overview-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 8, 20, 0.88);
+  backdrop-filter: blur(10px);
+}
+
+.overview-container {
+  position: relative;
+  z-index: 2;
+  width: 90vw;
+  max-width: 1300px;
+  height: 88vh;
+  margin: 6vh auto;
+  background: rgba(9, 17, 40, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+}
+
+.overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 24px;
+}
+
+.overview-title-group h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.overview-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.overview-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  padding-right: 8px;
+}
+
+.overview-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overview-grid::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
+}
+
+.thumb-card {
+  background: rgba(13, 25, 54, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.thumb-card:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(18, 35, 75, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.thumb-card.active-thumb {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+}
+
+.thumb-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+.thumb-title {
+  font-size: 0.82rem;
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.thumb-tag {
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+}
+
+/* Shortcuts Modal */
+.shortcuts-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.shortcuts-modal.active {
+  display: flex;
+}
+
+.shortcuts-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 8, 20, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.shortcuts-card {
+  position: relative;
+  z-index: 2;
+  width: 440px;
+  background: rgba(9, 17, 40, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 24px;
+}
+
+.shortcuts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.shortcuts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-slate);
+}
+
+kbd {
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+}
+
+  </style>
 </head>
 <body class="bg-dark text-slate">
 
@@ -48,7 +881,7 @@
         <span id="slide-counter" class="slide-counter">01 / 63</span>
       </div>
       <div class="footer-center">
-        <span class="slide-subhint">Navegue com as setas ← → ou espaço</span>
+        <span class="slide-subhint">Navegue com as setas ← → ou espaço · [F] Tela Cheia · [O] Visão Geral</span>
       </div>
       <div class="footer-right">
         <button id="btn-prev" class="btn-nav" title="Slide Anterior (←)" aria-label="Anterior">
@@ -66,7 +899,7 @@
       <div class="overview-container">
         <div class="overview-header">
           <div class="overview-title-group">
-            <h2>Visão Geral da Apresentação</h2>
+            <h2>Visão Geral da Apresentação (63 Slides)</h2>
             <span class="overview-subtitle">Selecione qualquer slide para saltar diretamente</span>
           </div>
           <button id="btn-close-overview" class="btn-icon" aria-label="Fechar Visão Geral">
@@ -102,9 +935,2721 @@
 
   </div>
 
-  <!-- Scripts -->
-  <script src="js/diagrams.js"></script>
-  <script src="js/slides-data.js"></script>
-  <script src="js/engine.js"></script>
+  <!-- Scripts Inlined for 100% Offline Portability & Instant Zero-CORS Loading -->
+  <script>
+/**
+ * DIAGRAMS — Biblioteca de Diagramas Técnicos e Ilustrações SVG
+ * Estética Gamma: Fundo escuro, linhas luminosas ciano/azul elétrico, visual tecnológico limpo.
+ */
+
+const DIAGRAMS = {
+  // Arte Isométrica de Capa (Estilo Servidor Futurista com Fichas de Dados do Gamma)
+  renderCoverArt() {
+    return `
+      <svg viewBox="0 0 500 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+        <defs>
+          <linearGradient id="cyberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#2563EB" stop-opacity="0.2"/>
+          </linearGradient>
+          <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#13234d"/>
+            <stop offset="100%" stop-color="#070d1e"/>
+          </linearGradient>
+          <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="8" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+        </defs>
+
+        <!-- Servidor Central Isométrico -->
+        <g transform="translate(180, 80)">
+          <!-- Face Superior Servidor -->
+          <polygon points="120,20 220,70 120,120 20,70" fill="#1e3a7a" stroke="#00F0FF" stroke-width="1.5"/>
+          <!-- Face Direita Servidor -->
+          <polygon points="220,70 220,260 120,310 120,120" fill="#0c1736" stroke="#2563EB" stroke-width="1.5"/>
+          <!-- Face Esquerda Servidor -->
+          <polygon points="20,70 120,120 120,310 20,260" fill="#081026" stroke="#00F0FF" stroke-width="1.5"/>
+
+          <!-- Ranhuras e Luzes Frontais -->
+          <line x1="45" y1="120" x2="95" y2="145" stroke="#00F0FF" stroke-width="2" stroke-linecap="round"/>
+          <line x1="45" y1="150" x2="95" y2="175" stroke="#00F0FF" stroke-width="2" stroke-linecap="round"/>
+          <line x1="45" y1="180" x2="95" y2="205" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+          <line x1="45" y1="210" x2="95" y2="235" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+          
+          <!-- Núcleo Processador Luminoso -->
+          <circle cx="70" cy="95" r="14" fill="#00F0FF" opacity="0.3" filter="url(#glowFilter)"/>
+          <circle cx="70" cy="95" r="7" fill="#00F0FF"/>
+        </g>
+
+        <!-- Fichas de Dados / Tokens Flutuando -->
+        <g transform="translate(40, 140)">
+          <!-- Carta 1 -->
+          <polygon points="70,140 130,110 170,130 110,160" fill="url(#serverGrad)" stroke="#00F0FF" stroke-width="1.5"/>
+          <line x1="90" y1="135" x2="135" y2="122" stroke="#38BDF8" stroke-width="1.5"/>
+          <!-- Carta 2 -->
+          <polygon points="110,90 170,60 210,80 150,110" fill="url(#serverGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+          <line x1="130" y1="85" x2="175" y2="72" stroke="#00F0FF" stroke-width="1.5"/>
+          <!-- Carta 3 -->
+          <polygon points="150,40 210,10 250,30 190,60" fill="url(#serverGrad)" stroke="#60A5FA" stroke-width="1.5"/>
+        </g>
+
+        <!-- Linhas de Conexão Luminosas -->
+        <path d="M120,290 Q200,280 250,220" stroke="#00F0FF" stroke-dasharray="4,4" stroke-width="1.5" opacity="0.8"/>
+        <path d="M170,330 Q240,310 290,260" stroke="#3B82F6" stroke-dasharray="4,4" stroke-width="1.5" opacity="0.6"/>
+      </svg>
+    `;
+  },
+
+  // Arte Geométrica Holográfica das Transições (Pirâmide Wireframe Luminosa)
+  renderSectionArt(num = '01') {
+    return `
+      <svg viewBox="0 0 380 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto;">
+        <defs>
+          <filter id="prismGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+        </defs>
+        <!-- Prisma Wireframe 3D -->
+        <g transform="translate(40, 20)">
+          <!-- Pirâmide Externa -->
+          <polygon points="150,20 280,240 20,240" fill="rgba(14, 28, 64, 0.35)" stroke="#00F0FF" stroke-width="2"/>
+          <polygon points="150,20 280,240 180,280" fill="rgba(37, 99, 235, 0.2)" stroke="#38BDF8" stroke-width="1.5"/>
+          <polygon points="150,20 20,240 180,280" fill="rgba(6, 12, 32, 0.5)" stroke="#2563EB" stroke-width="1.5"/>
+          <line x1="20" y1="240" x2="180" y2="280" stroke="#00F0FF" stroke-width="2"/>
+          <line x1="280" y1="240" x2="180" y2="280" stroke="#00F0FF" stroke-width="2"/>
+
+          <!-- Estrutura Geométrica Interna -->
+          <polygon points="150,90 220,210 80,210" stroke="rgba(0, 240, 255, 0.6)" stroke-dasharray="3,3" stroke-width="1.2"/>
+          <circle cx="150" cy="20" r="5" fill="#00F0FF" filter="url(#prismGlow)"/>
+          <circle cx="180" cy="280" r="4" fill="#38BDF8"/>
+          <circle cx="280" cy="240" r="4" fill="#2563EB"/>
+          <circle cx="20" cy="240" r="4" fill="#2563EB"/>
+
+          <!-- Partículas Orbitais -->
+          <circle cx="110" cy="110" r="2.5" fill="#00F0FF" opacity="0.8"/>
+          <circle cx="200" cy="160" r="3" fill="#38BDF8" opacity="0.9"/>
+          <circle cx="130" cy="190" r="2" fill="#93C5FD" opacity="0.7"/>
+          <circle cx="230" cy="100" r="2" fill="#00F0FF" opacity="0.6"/>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 1. Diagrama Comparativo: IA Tradicional vs IA Generativa
+  renderAiComparison() {
+    return `
+      <svg viewBox="0 0 940 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Painel IA Tradicional -->
+        <rect x="20" y="20" width="430" height="300" rx="14" fill="rgba(11, 20, 48, 0.75)" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1.5"/>
+        <rect x="40" y="40" width="130" height="28" rx="6" fill="rgba(59, 130, 246, 0.2)" stroke="#3B82F6"/>
+        <text x="50" y="58" fill="#60A5FA" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700">IA TRADICIONAL</text>
+        <text x="40" y="95" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700">Decide a partir de padrões</text>
+
+        <!-- Fluxo Tradicional -->
+        <g transform="translate(40, 120)">
+          <!-- Passo 1 -->
+          <rect x="0" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="12" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">ENTRADA</text>
+          <text x="12" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Dados tabular,</text>
+          <text x="12" y="60" fill="#F8FAFC" font-size="12" font-weight="600">sinais, histórico</text>
+          
+          <line x1="115" y1="35" x2="135" y2="35" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"/>
+          
+          <!-- Passo 2 -->
+          <rect x="140" y="0" width="110" height="70" rx="8" fill="rgba(59, 130, 246, 0.15)" stroke="#3B82F6"/>
+          <text x="152" y="25" fill="#60A5FA" font-size="11" font-family="'JetBrains Mono'">MODELO</text>
+          <text x="152" y="45" fill="#FFFFFF" font-size="12" font-weight="600">Classificação,</text>
+          <text x="152" y="60" fill="#FFFFFF" font-size="12" font-weight="600">Regressão</text>
+
+          <line x1="255" y1="35" x2="275" y2="35" stroke="#3B82F6" stroke-width="2"/>
+
+          <!-- Passo 3 -->
+          <rect x="280" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="292" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">SAÍDA</text>
+          <text x="292" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Rótulo / Score</text>
+          <text x="292" y="60" fill="#38BDF8" font-size="11">Fraude: 98%</text>
+        </g>
+        <text x="40" y="240" fill="#94A3B8" font-size="13">Exemplos: Detecção de fraude bancária, previsão de churn, recomendação de filmes em catálogo.</text>
+
+        <!-- Painel IA Generativa -->
+        <rect x="490" y="20" width="430" height="300" rx="14" fill="rgba(11, 20, 48, 0.75)" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5"/>
+        <rect x="510" y="40" width="130" height="28" rx="6" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF"/>
+        <text x="522" y="58" fill="#00F0FF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700">IA GENERATIVA</text>
+        <text x="510" y="95" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700">Cria novas saídas originais</text>
+
+        <!-- Fluxo Generativo -->
+        <g transform="translate(510, 120)">
+          <!-- Passo 1 -->
+          <rect x="0" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="12" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">PROMPT</text>
+          <text x="12" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Instrução,</text>
+          <text x="12" y="60" fill="#F8FAFC" font-size="12" font-weight="600">Contexto multimodal</text>
+          
+          <line x1="115" y1="35" x2="135" y2="35" stroke="#00F0FF" stroke-width="2"/>
+          
+          <!-- Passo 2 -->
+          <rect x="140" y="0" width="110" height="70" rx="8" fill="rgba(0, 240, 255, 0.18)" stroke="#00F0FF"/>
+          <text x="152" y="25" fill="#00F0FF" font-size="11" font-family="'JetBrains Mono'">LLM / DIFUSÃO</text>
+          <text x="152" y="45" fill="#FFFFFF" font-size="12" font-weight="600">Transformer,</text>
+          <text x="152" y="60" fill="#FFFFFF" font-size="12" font-weight="600">Amostragem</text>
+
+          <line x1="255" y1="35" x2="275" y2="35" stroke="#00F0FF" stroke-width="2"/>
+
+          <!-- Passo 3 -->
+          <rect x="280" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="292" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">CONTEÚDO</text>
+          <text x="292" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Texto, Código,</text>
+          <text x="292" y="60" fill="#00F0FF" font-size="11">Imagem, Áudio</text>
+        </g>
+        <text x="510" y="240" fill="#94A3B8" font-size="13">Exemplos: Redigir relatórios técnicos, sintetizar código-fonte, criar ilustrações realistas, raciocínio em linguagem natural.</text>
+      </svg>
+    `;
+  },
+
+  // 2. Fluxo de Processamento de Texto em PLN
+  renderNlpPipeline() {
+    return `
+      <svg viewBox="0 0 940 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <defs>
+          <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2563EB"/>
+            <stop offset="100%" stop-color="#00F0FF"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Linha de Fluxo Central -->
+        <line x1="160" y1="130" x2="800" y2="130" stroke="url(#pipeGrad)" stroke-width="3" stroke-dasharray="6,4"/>
+
+        <!-- Etapa 1: Texto Bruto -->
+        <g transform="translate(40, 65)">
+          <rect x="0" y="0" width="150" height="130" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.2)"/>
+          <circle cx="28" cy="28" r="14" fill="rgba(59, 130, 246, 0.2)"/>
+          <text x="24" y="32" fill="#60A5FA" font-size="12" font-weight="bold">01</text>
+          <text x="18" y="65" fill="#FFFFFF" font-size="14" font-weight="700">Texto Bruto</text>
+          <text x="18" y="85" fill="#94A3B8" font-size="11">Frases humanas,</text>
+          <text x="18" y="100" fill="#94A3B8" font-size="11">caracteres, pontuação</text>
+          <rect x="18" y="112" width="114" height="6" rx="3" fill="rgba(255,255,255,0.08)"/>
+        </g>
+
+        <!-- Etapa 2: Tokenização -->
+        <g transform="translate(235, 65)">
+          <rect x="0" y="0" width="150" height="130" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#38BDF8"/>
+          <circle cx="28" cy="28" r="14" fill="rgba(0, 240, 255, 0.2)"/>
+          <text x="24" y="32" fill="#00F0FF" font-size="12" font-weight="bold">02</text>
+          <text x="18" y="65" fill="#FFFFFF" font-size="14" font-weight="700">Tokenização</text>
+          <text x="18" y="85" fill="#94A3B8" font-size="11">Divisão em subwords,</text>
+          <text x="18" y="100" fill="#00F0FF" font-size="11" font-family="'JetBrains Mono'">[Token_IDs]</text>
+          <rect x="18" y="112" width="114" height="6" rx="3" fill="rgba(0, 240, 255, 0.3)"/>
+        </g>
+
+        <!-- Etapa 3: Embeddings -->
+        <g transform="translate(430, 65)">
+          <rect x="0" y="0" width="150" height="130" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#00F0FF"/>
+          <circle cx="28" cy="28" r="14" fill="rgba(0, 240, 255, 0.3)"/>
+          <text x="24" y="32" fill="#00F0FF" font-size="12" font-weight="bold">03</text>
+          <text x="18" y="65" fill="#FFFFFF" font-size="14" font-weight="700">Embeddings</text>
+          <text x="18" y="85" fill="#94A3B8" font-size="11">Vetores numéricos</text>
+          <text x="18" y="100" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">[0.24, -0.81, ...]</text>
+          <rect x="18" y="112" width="114" height="6" rx="3" fill="rgba(0, 240, 255, 0.6)"/>
+        </g>
+
+        <!-- Etapa 4: Camada de Tarefa -->
+        <g transform="translate(625, 65)">
+          <rect x="0" y="0" width="170" height="130" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.4)"/>
+          <circle cx="28" cy="28" r="14" fill="rgba(59, 130, 246, 0.3)"/>
+          <text x="24" y="32" fill="#60A5FA" font-size="12" font-weight="bold">04</text>
+          <text x="18" y="65" fill="#FFFFFF" font-size="14" font-weight="700">Aplicação Final</text>
+          <text x="18" y="85" fill="#94A3B8" font-size="11">Sentiment Analysis,</text>
+          <text x="18" y="100" fill="#94A3B8" font-size="11">Tradução, RAG, Geração</text>
+          <rect x="18" y="112" width="134" height="6" rx="3" fill="rgba(59, 130, 246, 0.4)"/>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 3. Diagrama do Espaço Vetorial de Embeddings e Similaridade Semântica
+  renderEmbeddingsVectorSpace() {
+    return `
+      <svg viewBox="0 0 940 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Eixos Cartesianos 2D -->
+        <line x1="80" y1="280" x2="620" y2="280" stroke="#334155" stroke-width="2"/>
+        <line x1="80" y1="280" x2="80" y2="30" stroke="#334155" stroke-width="2"/>
+        <text x="600" y="300" fill="#64748B" font-size="12" font-family="'JetBrains Mono'">Dimensão 1 (Contexto Real)</text>
+        <text x="30" y="40" fill="#64748B" font-size="12" font-family="'JetBrains Mono'" transform="rotate(-90 30,40)">Dimensão 2 (Gênero)</text>
+
+        <!-- Grade Sutil -->
+        <line x1="200" y1="280" x2="200" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2"/>
+        <line x1="360" y1="280" x2="360" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2"/>
+        <line x1="520" y1="280" x2="520" y2="30" stroke="rgba(255,255,255,0.03)" stroke-dasharray="2,2"/>
+
+        <!-- Cluster 1: Realeza -->
+        <circle cx="480" cy="80" r="7" fill="#00F0FF"/>
+        <text x="495" y="85" fill="#FFFFFF" font-size="13" font-weight="700">Rei</text>
+        <text x="495" y="100" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono'">[0.82, 0.74]</text>
+
+        <circle cx="460" cy="170" r="7" fill="#00F0FF"/>
+        <text x="475" y="175" fill="#FFFFFF" font-size="13" font-weight="700">Rainha</text>
+        <text x="475" y="190" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono'">[0.79, 0.18]</text>
+
+        <!-- Vetor de Translação de Gênero -->
+        <line x1="480" y1="80" x2="460" y2="170" stroke="#00F0FF" stroke-width="2" stroke-dasharray="4,4"/>
+        <text x="490" y="130" fill="#38BDF8" font-size="11" font-style="italic">- Gênero</text>
+
+        <!-- Cluster 2: Pessoas Comuns -->
+        <circle cx="240" cy="90" r="7" fill="#3B82F6"/>
+        <text x="255" y="95" fill="#FFFFFF" font-size="13" font-weight="700">Homem</text>
+        <text x="255" y="110" fill="#60A5FA" font-size="10" font-family="'JetBrains Mono'">[0.18, 0.72]</text>
+
+        <circle cx="220" cy="180" r="7" fill="#3B82F6"/>
+        <text x="235" y="185" fill="#FFFFFF" font-size="13" font-weight="700">Mulher</text>
+        <text x="235" y="200" fill="#60A5FA" font-size="10" font-family="'JetBrains Mono'">[0.15, 0.16]</text>
+
+        <line x1="240" y1="90" x2="220" y2="180" stroke="#3B82F6" stroke-width="2" stroke-dasharray="4,4"/>
+        <text x="250" y="140" fill="#60A5FA" font-size="11" font-style="italic">- Gênero</text>
+
+        <!-- Relação Semântica Linear -->
+        <line x1="240" y1="90" x2="480" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="220" y1="180" x2="460" y2="170" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+        <!-- Painel Explicativo Lateral -->
+        <rect x="660" y="30" width="260" height="250" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.2)"/>
+        <text x="680" y="60" fill="#00F0FF" font-size="13" font-weight="700" font-family="'JetBrains Mono'">ÁLGEBRA VETORIAL</text>
+        <text x="680" y="95" fill="#FFFFFF" font-size="14" font-weight="600">Rei - Homem + Mulher</text>
+        <text x="680" y="115" fill="#00F0FF" font-size="16" font-weight="700">≈ Rainha</text>
+        <text x="680" y="150" fill="#94A3B8" font-size="12" line-height="1.5">Modelos de embedding mapeiam palavras com significados semelhantes para pontos próximos no espaço multidimensional.</text>
+        <rect x="680" y="210" width="220" height="40" rx="6" fill="rgba(0, 240, 255, 0.1)" stroke="rgba(0, 240, 255, 0.3)"/>
+        <text x="692" y="235" fill="#38BDF8" font-size="11" font-weight="bold">Similaridade Cosseno: cos(θ) ≈ 0.94</text>
+      </svg>
+    `;
+  },
+
+  // 4. Arquitetura Transformer Simplificada (Multi-Head Attention, Add&Norm, FFN)
+  renderTransformerArchitecture() {
+    return `
+      <svg viewBox="0 0 940 330" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Bloco de Entrada -->
+        <g transform="translate(40, 110)">
+          <rect x="0" y="0" width="160" height="90" rx="8" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.3)"/>
+          <text x="16" y="30" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">INPUTS</text>
+          <text x="16" y="52" fill="#FFFFFF" font-size="13" font-weight="700">Input Tokens</text>
+          <text x="16" y="72" fill="#94A3B8" font-size="11">+ Positional Encoding</text>
+        </g>
+
+        <!-- Seta -->
+        <line x1="205" y1="155" x2="250" y2="155" stroke="#00F0FF" stroke-width="2"/>
+
+        <!-- Bloco Central: Camada do Transformer -->
+        <g transform="translate(255, 20)">
+          <rect x="0" y="0" width="410" height="280" rx="14" fill="rgba(9, 17, 40, 0.9)" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1.5"/>
+          <text x="20" y="32" fill="#00F0FF" font-family="'JetBrains Mono'" font-size="12" font-weight="700">BLOCO TRANSFORMER (Nx)</text>
+
+          <!-- Subbloco 1: Multi-Head Attention -->
+          <rect x="20" y="48" width="370" height="70" rx="8" fill="rgba(37, 99, 235, 0.2)" stroke="#2563EB"/>
+          <text x="35" y="74" fill="#FFFFFF" font-size="14" font-weight="700">Multi-Head Self-Attention</text>
+          <text x="35" y="94" fill="#93C5FD" font-size="11">Cálculo de atenção paralela: Q (Query), K (Key), V (Value)</text>
+
+          <!-- Conexão Residual 1 -->
+          <path d="M5,83 L15,83" stroke="#38BDF8" stroke-width="2"/>
+
+          <!-- Subbloco Add & Norm -->
+          <rect x="110" y="128" width="190" height="28" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)"/>
+          <text x="155" y="146" fill="#F8FAFC" font-size="11" font-weight="600">Add & LayerNorm</text>
+
+          <!-- Subbloco 2: Feed Forward -->
+          <rect x="20" y="166" width="370" height="65" rx="8" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF"/>
+          <text x="35" y="192" fill="#FFFFFF" font-size="14" font-weight="700">Feed-Forward Neural Network</text>
+          <text x="35" y="212" fill="#38BDF8" font-size="11">Projeção linear não-linear densa (ReLU/GELU/SwiGLU)</text>
+
+          <!-- Subbloco Add & Norm 2 -->
+          <rect x="110" y="240" width="190" height="26" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)"/>
+          <text x="155" y="258" fill="#F8FAFC" font-size="11" font-weight="600">Add & LayerNorm</text>
+        </g>
+
+        <!-- Seta -->
+        <line x1="670" y1="155" x2="715" y2="155" stroke="#00F0FF" stroke-width="2"/>
+
+        <!-- Bloco de Saída -->
+        <g transform="translate(720, 100)">
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.3)"/>
+          <text x="16" y="28" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">OUTPUTS</text>
+          <text x="16" y="52" fill="#FFFFFF" font-size="13" font-weight="700">Linear + Softmax</text>
+          <text x="16" y="72" fill="#00F0FF" font-size="12" font-family="'JetBrains Mono'">Probabilidades</text>
+          <text x="16" y="90" fill="#94A3B8" font-size="11">Predição do Próximo Token</text>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 5. Ciclo de Treinamento, Função de Perda (Loss) e Backpropagation
+  renderTrainingGradientLoop() {
+    return `
+      <svg viewBox="0 0 940 310" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Nó 1: Forward Pass -->
+        <g transform="translate(60, 110)">
+          <rect x="0" y="0" width="170" height="90" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#3B82F6"/>
+          <text x="16" y="28" fill="#60A5FA" font-size="11" font-family="'JetBrains Mono'">PASSO 1</text>
+          <text x="16" y="52" fill="#FFFFFF" font-size="14" font-weight="700">Forward Pass</text>
+          <text x="16" y="72" fill="#94A3B8" font-size="11">Dados passam pela rede</text>
+        </g>
+
+        <!-- Seta Forward -->
+        <path d="M235,155 L285,155" stroke="#3B82F6" stroke-width="2.5"/>
+
+        <!-- Nó 2: Loss Function -->
+        <g transform="translate(290, 110)">
+          <rect x="0" y="0" width="170" height="90" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#F59E0B"/>
+          <text x="16" y="28" fill="#FBBF24" font-size="11" font-family="'JetBrains Mono'">PASSO 2</text>
+          <text x="16" y="52" fill="#FFFFFF" font-size="14" font-weight="700">Cálculo de Perda</text>
+          <text x="16" y="72" fill="#FBBF24" font-size="11" font-family="'JetBrains Mono'">Loss = L(ŷ, y)</text>
+        </g>
+
+        <!-- Seta Loss para Backprop -->
+        <path d="M465,155 L515,155" stroke="#F59E0B" stroke-width="2.5"/>
+
+        <!-- Nó 3: Backpropagation & Gradientes -->
+        <g transform="translate(520, 110)">
+          <rect x="0" y="0" width="180" height="90" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#00F0FF"/>
+          <text x="16" y="28" fill="#00F0FF" font-size="11" font-family="'JetBrains Mono'">PASSO 3</text>
+          <text x="16" y="52" fill="#FFFFFF" font-size="14" font-weight="700">Backpropagation</text>
+          <text x="16" y="72" fill="#00F0FF" font-size="11" font-family="'JetBrains Mono'">Gradiente: ∇W = ∂L/∂W</text>
+        </g>
+
+        <!-- Seta Backprop para Otimizador -->
+        <path d="M705,155 L745,155" stroke="#00F0FF" stroke-width="2.5"/>
+
+        <!-- Nó 4: Atualização de Pesos -->
+        <g transform="translate(750, 110)">
+          <rect x="0" y="0" width="160" height="90" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#10B981"/>
+          <text x="16" y="28" fill="#34D399" font-size="11" font-family="'JetBrains Mono'">PASSO 4</text>
+          <text x="16" y="52" fill="#FFFFFF" font-size="14" font-weight="700">Atualização</text>
+          <text x="16" y="72" fill="#34D399" font-size="10" font-family="'JetBrains Mono'">W_novo = W - η·∇W</text>
+        </g>
+
+        <!-- Loop de Feedback / Retorno -->
+        <path d="M830,205 C830,270 145,270 145,205" stroke="#00F0FF" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="440" y="285" fill="#38BDF8" font-size="12" font-family="'JetBrains Mono'" text-anchor="middle">Próxima Época / Batch (Loop Iterativo de Aprendizado)</text>
+      </svg>
+    `;
+  },
+
+  // 6. Matrizes PEFT: LoRA e QLoRA (Decomposição de Baixo Rank e Quantização 4-bit)
+  renderLoraQloraMatrices() {
+    return `
+      <svg viewBox="0 0 940 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Matriz Base Congelada (W0) -->
+        <g transform="translate(60, 40)">
+          <rect x="0" y="0" width="160" height="220" rx="8" fill="rgba(255, 255, 255, 0.04)" stroke="#64748B" stroke-width="2"/>
+          <text x="80" y="105" fill="#FFFFFF" font-size="22" font-weight="800" text-anchor="middle">W₀</text>
+          <text x="80" y="130" fill="#94A3B8" font-size="12" text-anchor="middle">d × k</text>
+          <rect x="25" y="160" width="110" height="24" rx="4" fill="rgba(100, 116, 139, 0.2)"/>
+          <text x="80" y="176" fill="#CBD5E1" font-size="11" text-anchor="middle" font-family="'JetBrains Mono'">CONGELADA ❄️</text>
+          <text x="80" y="210" fill="#38BDF8" font-size="10" text-anchor="middle" font-family="'JetBrains Mono'">QLoRA: NF4 (4-bit)</text>
+        </g>
+
+        <!-- Sinal de Soma -->
+        <text x="270" y="160" fill="#00F0FF" font-size="32" font-weight="700">+</text>
+
+        <!-- Matrizes de Baixo Rank (Adapters Treináveis) -->
+        <!-- Matriz B -->
+        <g transform="translate(340, 40)">
+          <rect x="0" y="0" width="55" height="220" rx="6" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF" stroke-width="2"/>
+          <text x="27" y="105" fill="#00F0FF" font-size="20" font-weight="800" text-anchor="middle">B</text>
+          <text x="27" y="130" fill="#38BDF8" font-size="11" text-anchor="middle">d × r</text>
+          <text x="27" y="200" fill="#38BDF8" font-size="9" text-anchor="middle" font-family="'JetBrains Mono'">Treinável</text>
+        </g>
+
+        <!-- Multiplicação -->
+        <text x="435" y="160" fill="#00F0FF" font-size="24" font-weight="700">×</text>
+
+        <!-- Matriz A -->
+        <g transform="translate(480, 120)">
+          <rect x="0" y="0" width="160" height="55" rx="6" fill="rgba(37, 99, 235, 0.2)" stroke="#3B82F6" stroke-width="2"/>
+          <text x="80" y="32" fill="#60A5FA" font-size="20" font-weight="800" text-anchor="middle">A</text>
+          <text x="80" y="47" fill="#93C5FD" font-size="11" text-anchor="middle">r × k</text>
+        </g>
+
+        <!-- Painel de Comparação e Fórmulas à Direita -->
+        <g transform="translate(680, 40)">
+          <rect x="0" y="0" width="230" height="220" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.3)"/>
+          <text x="18" y="30" fill="#00F0FF" font-size="12" font-weight="700" font-family="'JetBrains Mono'">EQUAÇÃO FUNDAMENTAL</text>
+          <text x="18" y="60" fill="#FFFFFF" font-size="15" font-weight="700">h = W₀·x + ΔW·x</text>
+          <text x="18" y="85" fill="#38BDF8" font-size="14" font-weight="600">ΔW = B × A</text>
+
+          <line x1="18" y1="105" x2="212" y2="105" stroke="rgba(255,255,255,0.08)"/>
+
+          <text x="18" y="130" fill="#94A3B8" font-size="11">Rank r ≪ min(d, k) (ex: r=8, 16)</text>
+          <text x="18" y="150" fill="#34D399" font-size="12" font-weight="bold">✓ Redução de VRAM em até 80%</text>
+          <text x="18" y="170" fill="#34D399" font-size="12" font-weight="bold">✓ Treina modelos 70B em 1 GPU</text>
+          <text x="18" y="195" fill="#CBD5E1" font-size="11">Zero perda de performance!</text>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 7. Arquitetura RAG Ponta a Ponta (Offline vs Online)
+  renderRagPipeline() {
+    return `
+      <svg viewBox="0 0 940 330" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Bloco Fase Offline (Indexação) -->
+        <rect x="20" y="20" width="900" height="120" rx="10" fill="rgba(13, 25, 54, 0.55)" stroke="rgba(59, 130, 246, 0.3)"/>
+        <text x="35" y="42" fill="#60A5FA" font-size="11" font-weight="700" font-family="'JetBrains Mono'">FASE 1: INGESTÃO E INDEXAÇÃO (OFFLINE)</text>
+
+        <g transform="translate(40, 55)">
+          <rect x="0" y="0" width="130" height="60" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="12" y="25" fill="#FFFFFF" font-size="12" font-weight="bold">Documentos</text>
+          <text x="12" y="45" fill="#94A3B8" font-size="10">PDFs, Docs, Web</text>
+
+          <line x1="135" y1="30" x2="165" y2="30" stroke="#3B82F6" stroke-width="2"/>
+
+          <rect x="170" y="0" width="130" height="60" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="12" y="25" fill="#FFFFFF" font-size="12" font-weight="bold" transform="translate(170,0)">Chunking</text>
+          <text x="12" y="45" fill="#94A3B8" font-size="10" transform="translate(170,0)">Divisão em blocos</text>
+
+          <line x1="305" y1="30" x2="335" y2="30" stroke="#3B82F6" stroke-width="2"/>
+
+          <rect x="340" y="0" width="150" height="60" rx="6" fill="rgba(0, 240, 255, 0.1)" stroke="#00F0FF"/>
+          <text x="12" y="25" fill="#00F0FF" font-size="12" font-weight="bold" transform="translate(340,0)">Embedding Model</text>
+          <text x="12" y="45" fill="#38BDF8" font-size="10" transform="translate(340,0)">Gera vetores densos</text>
+
+          <line x1="495" y1="30" x2="525" y2="30" stroke="#00F0FF" stroke-width="2"/>
+
+          <rect x="530" y="0" width="170" height="60" rx="6" fill="rgba(37, 99, 235, 0.25)" stroke="#3B82F6"/>
+          <text x="12" y="25" fill="#FFFFFF" font-size="12" font-weight="bold" transform="translate(530,0)">Vector Database</text>
+          <text x="12" y="45" fill="#93C5FD" font-size="10" transform="translate(530,0)">Pinecone, Chroma, Qdrant</text>
+        </g>
+
+        <!-- Bloco Fase Online (Consulta e Recuperação) -->
+        <rect x="20" y="160" width="900" height="150" rx="10" fill="rgba(13, 25, 54, 0.75)" stroke="rgba(0, 240, 255, 0.4)"/>
+        <text x="35" y="182" fill="#00F0FF" font-size="11" font-weight="700" font-family="'JetBrains Mono'">FASE 2: RECUPERAÇÃO E GERAÇÃO (ONLINE / RUNTIME)</text>
+
+        <g transform="translate(40, 195)">
+          <rect x="0" y="0" width="130" height="80" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="12" y="25" fill="#FFFFFF" font-size="12" font-weight="bold">Pergunta Usuário</text>
+          <text x="12" y="45" fill="#94A3B8" font-size="10">"Qual o prazo de</text>
+          <text x="12" y="60" fill="#94A3B8" font-size="10">garantia do produto?"</text>
+
+          <line x1="135" y1="40" x2="165" y2="40" stroke="#00F0FF" stroke-width="2"/>
+
+          <rect x="170" y="0" width="140" height="80" rx="6" fill="rgba(0, 240, 255, 0.12)" stroke="#00F0FF"/>
+          <text x="12" y="25" fill="#00F0FF" font-size="12" font-weight="bold" transform="translate(170,0)">Busca Vetorial</text>
+          <text x="12" y="45" fill="#38BDF8" font-size="10" transform="translate(170,0)">Cosine Similarity,</text>
+          <text x="12" y="60" fill="#38BDF8" font-size="10" transform="translate(170,0)">MMR, Reranking</text>
+
+          <line x1="315" y1="40" x2="345" y2="40" stroke="#00F0FF" stroke-width="2"/>
+
+          <rect x="350" y="0" width="160" height="80" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="12" y="25" fill="#FFFFFF" font-size="12" font-weight="bold" transform="translate(350,0)">Prompt Aumentado</text>
+          <text x="12" y="45" fill="#CBD5E1" font-size="10" transform="translate(350,0)">[Contexto dos Chunks]</text>
+          <text x="12" y="60" fill="#94A3B8" font-size="10" transform="translate(350,0)">+ Instrução original</text>
+
+          <line x1="515" y1="40" x2="545" y2="40" stroke="#00F0FF" stroke-width="2"/>
+
+          <rect x="550" y="0" width="140" height="80" rx="6" fill="rgba(37, 99, 235, 0.3)" stroke="#2563EB"/>
+          <text x="12" y="25" fill="#FFFFFF" font-size="12" font-weight="bold" transform="translate(550,0)">LLM (Geração)</text>
+          <text x="12" y="45" fill="#93C5FD" font-size="10" transform="translate(550,0)">Gera resposta com</text>
+          <text x="12" y="60" fill="#93C5FD" font-size="10" transform="translate(550,0)">grounding preciso</text>
+
+          <line x1="695" y1="40" x2="725" y2="40" stroke="#00F0FF" stroke-width="2"/>
+
+          <rect x="730" y="0" width="130" height="80" rx="6" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981"/>
+          <text x="12" y="25" fill="#34D399" font-size="12" font-weight="bold" transform="translate(730,0)">Resposta Final</text>
+          <text x="12" y="45" fill="#FFFFFF" font-size="10" transform="translate(730,0)">Sem alucinação,</text>
+          <text x="12" y="60" fill="#CBD5E1" font-size="10" transform="translate(730,0)">com fontes citadas</text>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 8. Pipeline LangChain
+  renderLangchainPipeline() {
+    return `
+      <svg viewBox="0 0 940 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Componente 1: PromptTemplate -->
+        <g transform="translate(40, 80)">
+          <rect x="0" y="0" width="160" height="110" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#3B82F6"/>
+          <text x="14" y="28" fill="#60A5FA" font-size="10" font-family="'JetBrains Mono'">PROMPT TEMPLATE</text>
+          <text x="14" y="52" fill="#FFFFFF" font-size="13" font-weight="700">Variáveis e Regras</text>
+          <text x="14" y="75" fill="#94A3B8" font-size="11">system_message</text>
+          <text x="14" y="92" fill="#94A3B8" font-size="11">{input_query}</text>
+        </g>
+
+        <!-- Seta Pipe LCEL -->
+        <g transform="translate(205, 125)">
+          <line x1="0" y1="10" x2="45" y2="10" stroke="#00F0FF" stroke-width="2"/>
+          <text x="22" y="0" fill="#00F0FF" font-size="14" font-weight="bold" text-anchor="middle">|</text>
+        </g>
+
+        <!-- Componente 2: ChatModel / LLM -->
+        <g transform="translate(260, 80)">
+          <rect x="0" y="0" width="170" height="110" rx="10" fill="rgba(0, 240, 255, 0.12)" stroke="#00F0FF" stroke-width="2"/>
+          <text x="14" y="28" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono'">CHAT MODEL</text>
+          <text x="14" y="52" fill="#FFFFFF" font-size="13" font-weight="700">OpenAI / Gemini</text>
+          <text x="14" y="75" fill="#38BDF8" font-size="11">Invocação de API</text>
+          <text x="14" y="92" fill="#38BDF8" font-size="11">temperature=0.2</text>
+        </g>
+
+        <!-- Seta Pipe LCEL -->
+        <g transform="translate(435, 125)">
+          <line x1="0" y1="10" x2="45" y2="10" stroke="#00F0FF" stroke-width="2"/>
+          <text x="22" y="0" fill="#00F0FF" font-size="14" font-weight="bold" text-anchor="middle">|</text>
+        </g>
+
+        <!-- Componente 3: OutputParser -->
+        <g transform="translate(490, 80)">
+          <rect x="0" y="0" width="160" height="110" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="#10B981"/>
+          <text x="14" y="28" fill="#34D399" font-size="10" font-family="'JetBrains Mono'">OUTPUT PARSER</text>
+          <text x="14" y="52" fill="#FFFFFF" font-size="13" font-weight="700">Estruturação</text>
+          <text x="14" y="75" fill="#94A3B8" font-size="11">JSON / Pydantic</text>
+          <text x="14" y="92" fill="#94A3B8" font-size="11">StrOutputParser</text>
+        </g>
+
+        <!-- Conexões de Suporte: Memory e Tools -->
+        <g transform="translate(260, 215)">
+          <rect x="0" y="0" width="170" height="55" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)"/>
+          <text x="14" y="24" fill="#E2E8F0" font-size="11" font-weight="700">🧠 Memory & Context</text>
+          <text x="14" y="42" fill="#94A3B8" font-size="10">Buffer, VectorStoreMemory</text>
+          <line x1="85" y1="0" x2="85" y2="-25" stroke="#64748B" stroke-dasharray="3,3"/>
+        </g>
+
+        <!-- Painel Resumo LCEL -->
+        <g transform="translate(680, 80)">
+          <rect x="0" y="0" width="220" height="190" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.25)"/>
+          <text x="16" y="28" fill="#00F0FF" font-size="11" font-weight="700" font-family="'JetBrains Mono'">LANGCHAIN LCEL</text>
+          <text x="16" y="55" fill="#FFFFFF" font-size="13" font-weight="600">Sintaxe Declarativa:</text>
+          <rect x="16" y="70" width="188" height="50" rx="4" fill="rgba(4,9,23,0.8)"/>
+          <text x="24" y="92" fill="#7DD3FC" font-size="11" font-family="'JetBrains Mono'">chain = prompt</text>
+          <text x="24" y="108" fill="#7DD3FC" font-size="11" font-family="'JetBrains Mono'">  | model | parser</text>
+          <text x="16" y="145" fill="#94A3B8" font-size="11">Orquestração modular de chamadas a LLMs, memória, conectores e ferramentas externas.</text>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 9. Arquitetura de um Agente de IA: Percepção, Raciocínio, Memória e Ação
+  renderAgentArchitecture() {
+    return `
+      <svg viewBox="0 0 940 330" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Ambiente Externo (Esquerda) -->
+        <g transform="translate(40, 95)">
+          <rect x="0" y="0" width="130" height="140" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)"/>
+          <text x="16" y="30" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">AMBIENTE</text>
+          <text x="16" y="55" fill="#FFFFFF" font-size="14" font-weight="700">Mundo Real</text>
+          <text x="16" y="80" fill="#CBD5E1" font-size="11">• Usuário / Web</text>
+          <text x="16" y="100" fill="#CBD5E1" font-size="11">• APIs e Bancos</text>
+          <text x="16" y="120" fill="#CBD5E1" font-size="11">• Sistemas SO</text>
+        </g>
+
+        <!-- Seta Sensores (Percepção) -->
+        <line x1="175" y1="135" x2="235" y2="135" stroke="#00F0FF" stroke-width="2"/>
+        <text x="205" y="125" fill="#00F0FF" font-size="10" text-anchor="middle">Sensores</text>
+
+        <!-- Núcleo do Agente (Caixa Central) -->
+        <rect x="240" y="30" width="450" height="270" rx="14" fill="rgba(9, 17, 40, 0.9)" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1.5"/>
+        <text x="260" y="55" fill="#00F0FF" font-family="'JetBrains Mono'" font-size="12" font-weight="700">AGENTE DE IA: CICLO COGNITIVO</text>
+
+        <!-- Submódulo 1: Raciocínio (LLM / ReAct Planner) -->
+        <rect x="260" y="75" width="250" height="130" rx="8" fill="rgba(37, 99, 235, 0.2)" stroke="#2563EB"/>
+        <text x="275" y="100" fill="#FFFFFF" font-size="14" font-weight="700">Raciocínio & Planejamento</text>
+        <text x="275" y="125" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">Thought: "Preciso checar X"</text>
+        <text x="275" y="145" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">Action: search_database()</text>
+        <text x="275" y="165" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">Observation: "Retornou Y"</text>
+        <text x="275" y="185" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono'">Reflection: "Objetivo atingido"</text>
+
+        <!-- Submódulo 2: Memória -->
+        <rect x="525" y="75" width="145" height="130" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)"/>
+        <text x="540" y="100" fill="#FFFFFF" font-size="13" font-weight="700">Memória</text>
+        <text x="540" y="125" fill="#94A3B8" font-size="11">• Curto Prazo</text>
+        <text x="540" y="142" fill="#64748B" font-size="10">(Chat History)</text>
+        <text x="540" y="165" fill="#94A3B8" font-size="11">• Longo Prazo</text>
+        <text x="540" y="182" fill="#64748B" font-size="10">(Vector DB)</text>
+
+        <!-- Submódulo 3: Ferramentas / Tools (Atuadores) -->
+        <rect x="260" y="220" width="410" height="65" rx="8" fill="rgba(0, 240, 255, 0.12)" stroke="#00F0FF"/>
+        <text x="275" y="244" fill="#00F0FF" font-size="12" font-weight="700">FERRAMENTAS (TOOLS / FUNCTION CALLING)</text>
+        <text x="275" y="265" fill="#CBD5E1" font-size="11">Calculadora · Interpretador Python · Consulta SQL · Web Browser · APIs REST</text>
+
+        <!-- Seta Atuadores de volta ao Ambiente -->
+        <path d="M260,255 L105,255 L105,240" stroke="#00F0FF" stroke-width="2"/>
+        <text x="180" y="272" fill="#00F0FF" font-size="10" text-anchor="middle">Atuadores / Ações</text>
+
+        <!-- Painel Lateral: Chatbot vs Agente -->
+        <g transform="translate(710, 30)">
+          <rect x="0" y="0" width="200" height="270" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.25)"/>
+          <text x="16" y="30" fill="#38BDF8" font-size="11" font-weight="700" font-family="'JetBrains Mono'">DIFERENÇA CHAVE</text>
+          
+          <text x="16" y="60" fill="#94A3B8" font-size="11" font-weight="bold">CHATBOT:</text>
+          <text x="16" y="80" fill="#CBD5E1" font-size="11">Passivo. Responde apenas o que foi perguntado em uma única interação.</text>
+
+          <line x1="16" y1="105" x2="184" y2="105" stroke="rgba(255,255,255,0.08)"/>
+
+          <text x="16" y="130" fill="#00F0FF" font-size="11" font-weight="bold">AGENTE:</text>
+          <text x="16" y="150" fill="#CBD5E1" font-size="11">Autônomo e proativo. Quebra metas complexas em subtarefas, chama ferramentas e corrige erros até concluir o objetivo.</text>
+        </g>
+      </svg>
+    `;
+  },
+
+  // 10. LangGraph: Orquestração de Grafos Cíclicos com Estado e Checkpoints
+  renderLangGraphState() {
+    return `
+      <svg viewBox="0 0 940 310" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <!-- Ponto de Entrada START -->
+        <circle cx="90" cy="155" r="28" fill="rgba(37, 99, 235, 0.25)" stroke="#3B82F6" stroke-width="2"/>
+        <text x="90" y="160" fill="#60A5FA" font-size="11" font-weight="800" text-anchor="middle" font-family="'JetBrains Mono'">START</text>
+
+        <!-- Seta -->
+        <line x1="120" y1="155" x2="190" y2="155" stroke="#3B82F6" stroke-width="2"/>
+
+        <!-- Nó do Agente (Node: Agent) -->
+        <g transform="translate(195, 105)">
+          <rect x="0" y="0" width="180" height="100" rx="10" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF" stroke-width="2"/>
+          <text x="16" y="30" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono'">NODE: AGENT</text>
+          <text x="16" y="55" fill="#FFFFFF" font-size="14" font-weight="700">Decisor Central</text>
+          <text x="16" y="78" fill="#38BDF8" font-size="11">Gera pensamento e</text>
+          <text x="16" y="93" fill="#38BDF8" font-size="11">decide próxima ação</text>
+        </g>
+
+        <!-- Aresta Condicional (Diamond / Decisão) -->
+        <g transform="translate(425, 120)">
+          <polygon points="35,0 70,35 35,70 0,35" fill="rgba(245, 158, 11, 0.2)" stroke="#F59E0B" stroke-width="1.5"/>
+          <text x="35" y="39" fill="#FBBF24" font-size="10" font-weight="bold" text-anchor="middle">Tool?</text>
+        </g>
+        <line x1="380" y1="155" x2="425" y2="155" stroke="#00F0FF" stroke-width="2"/>
+
+        <!-- Ramo 1: Execução de Tools (Ciclo) -->
+        <path d="M460,120 L460,65 L570,65" stroke="#F59E0B" stroke-width="2"/>
+        <text x="475" y="55" fill="#FBBF24" font-size="10">Sim (chamar tool)</text>
+
+        <g transform="translate(575, 25)">
+          <rect x="0" y="0" width="160" height="80" rx="8" fill="rgba(13, 25, 54, 0.85)" stroke="#F59E0B"/>
+          <text x="14" y="25" fill="#FBBF24" font-size="10" font-family="'JetBrains Mono'">NODE: TOOLS</text>
+          <text x="14" y="48" fill="#FFFFFF" font-size="12" font-weight="bold">Executa Ferramenta</text>
+          <text x="14" y="66" fill="#94A3B8" font-size="10">Atualiza Estado (State)</text>
+        </g>
+
+        <!-- Retorno do Nó de Tools para o Agente (Ciclo Fechado) -->
+        <path d="M655,105 L655,125 C655,135 645,135 635,135 L400,135 C380,135 380,125 380,120" stroke="#00F0FF" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <path d="M575,65 C520,65 300,65 300,105" stroke="#00F0FF" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+        <!-- Ramo 2: Fim (END) -->
+        <path d="M495,155 L580,155" stroke="#10B981" stroke-width="2"/>
+        <text x="515" y="145" fill="#34D399" font-size="10">Não (resposta final)</text>
+
+        <!-- Nó END -->
+        <circle cx="620" cy="155" r="28" fill="rgba(16, 185, 129, 0.25)" stroke="#10B981" stroke-width="2"/>
+        <text x="620" y="160" fill="#34D399" font-size="11" font-weight="800" text-anchor="middle" font-family="'JetBrains Mono'">END</text>
+
+        <!-- Painel Lateral: Recursos de Destaque do LangGraph -->
+        <g transform="translate(700, 45)">
+          <rect x="0" y="0" width="210" height="220" rx="10" fill="rgba(13, 25, 54, 0.85)" stroke="rgba(56, 189, 248, 0.25)"/>
+          <text x="16" y="28" fill="#00F0FF" font-size="11" font-weight="700" font-family="'JetBrains Mono'">POR QUE LANGGRAPH?</text>
+          
+          <text x="16" y="60" fill="#38BDF8" font-size="12" font-weight="bold">1. Suporte a Ciclos:</text>
+          <text x="16" y="78" fill="#CBD5E1" font-size="11">Diferente de DAGs rígidas, agentes precisam iterar até resolver.</text>
+
+          <text x="16" y="115" fill="#38BDF8" font-size="12" font-weight="bold">2. Estado Centralizado:</text>
+          <text x="16" y="133" fill="#CBD5E1" font-size="11">Schema compartilhado e tipado entre todos os nós.</text>
+
+          <text x="16" y="170" fill="#38BDF8" font-size="12" font-weight="bold">3. Checkpointing:</text>
+          <text x="16" y="188" fill="#CBD5E1" font-size="11">Pausa para aprovação humana (Human-in-the-loop) e volta no tempo.</text>
+        </g>
+      </svg>
+    `;
+  }
+};
+
+// Suporte Browser e Node/ESM
+if (typeof window !== 'undefined') {
+  window.DIAGRAMS = DIAGRAMS;
+}
+
+
+/**
+ * SLIDES_DATA — Base de Dados Completa da Apresentação
+ * Organização rigorosa em blocos e slides temáticos.
+ */
+
+const SLIDES_DATA = [
+  // =========================================================================
+  // SLIDE 0: CAPA DA APRESENTAÇÃO
+  // =========================================================================
+  {
+    id: '0.0',
+    type: 'cover',
+    sectionBadge: '00 · CAPA',
+    category: 'FUNDAMENTOS · APLICAÇÃO',
+    titleHtml: 'Inteligência<br><span>Artificial:</span><br>do fundamento à aplicação',
+    description: 'Uma jornada didática e aprofundada por IA Generativa, Processamento de Linguagem Natural (PLN), Large Language Models (LLMs), Treinamento & PEFT, RAG e Sistemas Agênticos Autônomos.',
+  },
+
+  // =========================================================================
+  // BLOCO 1: INTRODUÇÃO À INTELIGÊNCIA ARTIFICIAL
+  // =========================================================================
+  {
+    id: 'trans-01',
+    type: 'transition',
+    sectionNumber: '01',
+    sectionBadge: '01 · INTRODUÇÃO À IA',
+    title: 'Fundamentos de Inteligência Artificial',
+    description: 'Como sistemas computacionais transformam dados brutos em decisões inteligentes e por que diferentes classes de problemas exigem arquiteturas específicas.',
+  },
+  {
+    id: '1.1',
+    type: 'content',
+    sectionBadge: '01 · INTRODUÇÃO À IA',
+    tag: 'FUNDAMENTOS',
+    title: 'O que é Inteligência Artificial?',
+    subtitle: 'A ciência e engenharia de criar máquinas capazes de simular a cognição humana.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Percepção e Dados
+          </div>
+          <p class="card-text">Capacidade de absorver sinais do ambiente — dados tabulares, textos, imagens, áudios e sensores físicos — transformando-os em representações matemáticas computáveis.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Reconhecimento de Padrões
+          </div>
+          <p class="card-text">Algoritmos de aprendizado de máquina ajustam parâmetros internos para encontrar correlações complexas e regras implícitas sem depender de programação estática manual.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Decisão e Ação
+          </div>
+          <p class="card-text">Execução de previsões, inferências ou gerações otimizadas para maximizar uma métrica de sucesso, desde classificar um diagnóstico médico até guiar um veículo.</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Conceito Chave:</strong> A IA moderna não segue regras rígidas "se/então" (if/else), mas aprende distribuições probabilísticas a partir da exposição a grandes volumes de dados.
+      </div>
+    `
+  },
+  {
+    id: '1.2',
+    type: 'content',
+    sectionBadge: '01 · INTRODUÇÃO À IA',
+    tag: 'COMPARATIVO ARQUITETURAL',
+    title: 'IA Tradicional vs. IA Generativa',
+    subtitle: 'Dois paradigmas fundamentais para a resolução de problemas computacionais.',
+    diagramKey: 'renderAiComparison',
+    bodyHtml: `
+      <!-- O diagrama renderAiComparison é injetado diretamente -->
+    `
+  },
+  {
+    id: '1.3',
+    type: 'content',
+    sectionBadge: '01 · INTRODUÇÃO À IA',
+    tag: 'PANORAMA DE MERCADO',
+    title: 'Principais Aplicações da IA Atualmente',
+    subtitle: 'Como a IA permeia os setores mais críticos da economia global.',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Saúde & Bioengenharia</div>
+          <div class="step-desc">Predição de dobramento de proteínas (AlphaFold), diagnóstico por imagem tomográfica e triagem preditiva de pacientes críticos.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Finanças & Risco</div>
+          <div class="step-desc">Detecção de transações fraudulentas em milissegundos, concessão de crédito automatizada e modelos de precificação dinâmica de risco.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Engenharia de Software</div>
+          <div class="step-desc">Geração autônoma de código, autocompletar contextual (Copilots), testes automatizados e refatoração de sistemas legados.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Operações & Atendimento</div>
+          <div class="step-desc">Copilotos de suporte empresarial, automação de processos repetitivos (RPA inteligente) e extração de insights de documentos não estruturados.</div>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Impacto Global:</strong> A IA transitou de uma tecnologia de suporte experimental para a infraestrutura operacional primária das empresas contemporâneas.
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 2: INTELIGÊNCIA ARTIFICIAL GENERATIVA
+  // =========================================================================
+  {
+    id: 'trans-02',
+    type: 'transition',
+    sectionNumber: '02',
+    sectionBadge: '02 · IA GENERATIVA',
+    title: 'Inteligência Artificial Generativa',
+    description: 'Como modelos aprendem a representação latente do mundo e combinam padrões para sintetizar conteúdos originais com alta fidelidade semântica.',
+  },
+  {
+    id: '2.1',
+    type: 'content',
+    sectionBadge: '02 · IA GENERATIVA',
+    tag: 'CONCEITO CENTRAL',
+    title: 'O que é IA Generativa?',
+    subtitle: 'A transição de modelos discriminativos para modelos probabilísticos de síntese.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Aprendizado de Distribuições</div>
+          <p class="card-text">Diferente de um banco de dados que apenas copia e cola registros existentes, a IA Generativa modela a <strong>distribuição de probabilidade conjunta P(X)</strong> dos dados de treinamento.</p>
+          <ul class="card-list">
+            <li>Identifica estruturas gramaticais, estilos visuais e lógica de raciocínio.</li>
+            <li>Consegue interpolar entre conceitos nunca vistos juntos na natureza.</li>
+            <li>Gera novas amostras indistinguíveis daquelas criadas por humanos.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Probabilidade Condicional P(X | Contexto)</div>
+          <p class="card-text">A geração ocorre condicionada a um estímulo inicial (o prompt). O modelo avalia:</p>
+          <div class="code-box" style="margin: 10px 0;">
+            P(próximo_elemento | elementos_anteriores, instrução)
+          </div>
+          <p class="card-text">Essa formulação matemática unifica a geração de texto, síntese de imagens fotorrealistas, composição musical e geração de código executável.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '2.2',
+    type: 'content',
+    sectionBadge: '02 · IA GENERATIVA',
+    tag: 'PIPELINE OPERACIONAL',
+    title: 'Como Funciona a Geração de Conteúdo?',
+    subtitle: 'Do input do usuário à síntese do artefato final.',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Instrução (Prompt)</div>
+          <div class="step-desc">O usuário fornece o comando e objetivos. O sistema normaliza e injeta metadados e restrições de sistema (system prompt).</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Contexto & Atenção</div>
+          <div class="step-desc">O modelo mapeia a intenção, recupera conexões semânticas na memória e pondera pesos de relevância em cada termo.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Amostragem Probabilística</div>
+          <div class="step-desc">Cálculo de logits com temperatura e Top-P para selecionar os próximos elementos candidatos com equilíbrio entre precisão e criatividade.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Síntese e Validação</div>
+          <div class="step-desc">O conteúdo é emitido token por token (ou etapa de difusão por etapa) até que um marcador de parada (EOS) encerre a geração.</div>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Propriedade Emergente:</strong> O modelo não possui "consciência", mas sim uma capacidade de compressão de conhecimento com generalização combinatorial.
+      </div>
+    `
+  },
+  {
+    id: '2.3',
+    type: 'content',
+    sectionBadge: '02 · IA GENERATIVA',
+    tag: 'MODALIDADES DE DADOS',
+    title: 'Tipos de Conteúdo Gerado',
+    subtitle: 'A expansão multimodal que redefiniu a interação homem-máquina.',
+    bodyHtml: `
+      <div class="grid-4col">
+        <div class="card-glass">
+          <div class="card-title">📝 Texto & Linguagem</div>
+          <p class="card-text">Artigos, relatórios técnicos, resumos, tradução multilíngue e respostas conversacionais com raciocínio encadeado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">🎨 Imagem & Arte</div>
+          <p class="card-text">Fotografias sintéticas, diagramas vetoriais, assets de jogos e protótipos de interfaces gerados por difusão latente.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">🎙️ Áudio & Voz</div>
+          <p class="card-text">Text-to-Speech hiper-realista, clonagem de voz com entonação emocional, isolamento acústico e composição musical.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">🎬 Vídeo & Código</div>
+          <p class="card-text">Simulações de vídeo temporalmente consistentes (Sora, Veo) e programação end-to-end de sistemas web e bancos de dados.</p>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 24px;">
+        <strong>Convergência Multimodal:</strong> Modelos atuais nativos (ex: Gemini 1.5, GPT-4o) recebem áudio, imagem e vídeo diretamente no mesmo espaço de tokens, eliminando conversões separadas.
+      </div>
+    `
+  },
+  {
+    id: '2.4',
+    type: 'content',
+    sectionBadge: '02 · IA GENERATIVA',
+    tag: 'FAMÍLIAS DE MODELOS',
+    title: 'Modelos Generativos e suas Aplicações',
+    subtitle: 'As arquiteturas fundamentais que sustentam a revolução da IA moderna.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Transformers Autoregressivos</div>
+          <p class="card-text">Base de modelos como GPT, Claude, LLaMA e Gemini. Especialistas em sequências temporais e texto através de mecanismos de autoatenção paralela.</p>
+          <ul class="card-list">
+            <li>Aplicações: Chatbots, copilotos de código, tradução e RAG.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Modelos de Difusão (Diffusion)</div>
+          <p class="card-text">Destroem gradualmente o ruído gaussiano para revelar imagens nítidas (Stable Diffusion, Midjourney, FLUX). Treinados com processo reverso de Wiener.</p>
+          <ul class="card-list">
+            <li>Aplicações: Criação de arte, design de produto e geração de vídeo.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">VAEs e GANs</div>
+          <p class="card-text">Variational Autoencoders mapeiam distribuições em espaços latentes contínuos. Redes Generativas Adversariais competem gerador vs. discriminador.</p>
+          <ul class="card-list">
+            <li>Aplicações: Aumento de resolução (Super Resolution), deepfakes e compressão.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 3: PROCESSAMENTO DE LINGUAGEM NATURAL (PLN)
+  // =========================================================================
+  {
+    id: 'trans-03',
+    type: 'transition',
+    sectionNumber: '03',
+    sectionBadge: '03 · PROCESSAMENTO DE LINGUAGEM NATURAL',
+    title: 'Processamento de Linguagem Natural (PLN)',
+    description: 'Como computadores decodificam a ambiguidade, a gramática e a semântica da linguagem humana para transformá-la em sinais matemáticos manipuláveis.',
+  },
+  {
+    id: '3.1',
+    type: 'content',
+    sectionBadge: '03 · PROCESSAMENTO DE LINGUAGEM NATURAL',
+    tag: 'FLUXO END-TO-END',
+    title: 'O que é PLN e seu Pipeline Estrutural',
+    subtitle: 'A ponte entre símbolos linguísticos humanos e tensores matemáticos.',
+    diagramKey: 'renderNlpPipeline',
+    bodyHtml: `
+      <!-- O diagrama renderNlpPipeline é injetado diretamente -->
+    `
+  },
+  {
+    id: '3.2',
+    type: 'content',
+    sectionBadge: '03 · PROCESSAMENTO DE LINGUAGEM NATURAL',
+    tag: 'CASO CLÁSSICO DE APLICAÇÃO',
+    title: 'Sentiment Analysis (Análise de Sentimento)',
+    subtitle: 'Extração automatizada de polaridade, emoção e tom em linguagem natural.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Objetivos & Níveis de Análise</div>
+          <p class="card-text">Determina a atitude expressa em textos (avaliações de clientes, mídias sociais, suporte e pesquisas de mercado):</p>
+          <ul class="card-list">
+            <li><strong>Polaridade:</strong> Positivo, Neutro ou Negativo.</li>
+            <li><strong>Intensidade:</strong> Score contínuo [-1.0 a +1.0].</li>
+            <li><strong>Detecção de Subjetividade:</strong> Fatos objetivos vs. opiniões pessoais.</li>
+            <li><strong>Baseada em Aspectos (ABSA):</strong> Identifica sentimento específico sobre partes de um produto (ex: "bateria excelente, mas tela frágil").</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Exemplo Prático de Inferência</div>
+          <div class="code-box" style="margin-bottom: 12px;">
+            Texto: "O atendimento demorou 40 minutos, mas o atendente resolveu o problema perfeitamente!"
+          </div>
+          <p class="card-text"><strong>Desafio Linguístico:</strong> A conjunção adversativa "mas" altera a ênfase da frase. Modelos ingênuos de contagem de palavras falham; modelos modernos com atenção contextual identificam que o sentimento predominante final é <em>positivo</em>.</p>
+          <div class="callout-banner" style="margin-top: 10px;">
+            Score do Modelo: <strong>+0.72 (Positivo)</strong> · Confiança: 96%
+          </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '3.3',
+    type: 'content',
+    sectionBadge: '03 · PROCESSAMENTO DE LINGUAGEM NATURAL',
+    tag: 'UNIDADES BÁSICAS',
+    title: 'Tokenização: A Linguagem das Máquinas',
+    subtitle: 'Como o texto contínuo é fragmentado em unidades atômicas (tokens).',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Abordagens de Tokenização</div>
+          <ul class="card-list">
+            <li><strong>Por Palavra:</strong> Vocabulário gigante, falha em palavras desconhecidas (OOV).</li>
+            <li><strong>Por Caractere:</strong> Vocabulário minúsculo, mas sequências longas e perda semântica.</li>
+            <li><strong>Subword (Padrão Moderno):</strong> Divide termos raros em pedaços conhecidos (ex: BPE, WordPiece, SentencePiece).</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Byte-Pair Encoding (BPE)</div>
+          <p class="card-text">Algoritmo que mescla iterativamente os pares de bytes mais frequentes no corpus de treino até atingir o vocabulário desejado (ex: 32k a 128k tokens).</p>
+          <div class="code-box" style="margin-top: 10px;">
+            "Inteligência" → ["Intel", "igên", "cia"]<br>
+            "Tokenização" → ["Token", "iza", "ção"]
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Regra Prática de Proporção</div>
+          <p class="card-text">Para o idioma português e inglês:</p>
+          <div class="callout-banner" style="margin-top: 10px;">
+            <strong>1 token ≈ 4 caracteres</strong><br>
+            <strong>100 tokens ≈ 75 palavras</strong>
+          </div>
+          <p class="card-text" style="margin-top: 8px;">Pontuações, espaços e números também consomem tokens específicos do vocabulário.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '3.4',
+    type: 'content',
+    sectionBadge: '03 · PROCESSAMENTO DE LINGUAGEM NATURAL',
+    tag: 'GEOMETRIA SEMÂNTICA',
+    title: 'Embeddings e Representação Vetorial',
+    subtitle: 'Como converter significado textual em coordenadas em um espaço multidimensional.',
+    diagramKey: 'renderEmbeddingsVectorSpace',
+    bodyHtml: `
+      <!-- O diagrama renderEmbeddingsVectorSpace é injetado diretamente -->
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 4: LARGE LANGUAGE MODELS (LLMs)
+  // =========================================================================
+  {
+    id: 'trans-04',
+    type: 'transition',
+    sectionNumber: '04',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    title: 'Large Language Models (LLMs)',
+    description: 'Como modelos massivos de linguagem aprenderam a codificar raciocínio, semântica contextual e conhecimentos enciclopédicos a partir da escala e da atenção.',
+  },
+  {
+    id: '4.1',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'ESCALA E EMERGÊNCIA',
+    title: 'O que são Large Language Models (LLMs)?',
+    subtitle: 'Redes neurais profundas com dezenas a centenas de bilhões de parâmetros treinadas em corpora monumentais.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Escala Sem Precedentes</div>
+          <p class="card-text">Modelos que contêm de 7 bilhões a mais de 400 bilhões de conexões numéricas (pesos), ingerindo trilhões de tokens de livros, artigos científicos, código e web.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Capacidades Emergentes</div>
+          <p class="card-text">Ao cruzar certos limiares de escala (compute, dados e parâmetros), os modelos demonstram habilidades não programadas: raciocínio lógico, tradução zero-shot, analogias e resolução de problemas matemáticos.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Leis de Escala (Scaling Laws)</div>
+          <p class="card-text">Descobertas empíricas (Kaplan et al., Chinchilla/DeepMind) comprovam que a performance preditiva dos LLMs segue uma lei de potência previsível à medida que aumentamos o poder computacional e o volume de dados limpos.</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Fórmula de Sucesso:</strong> Grande volume de dados de alta qualidade + Arquitetura Transformer escalável + Clusters maciços de GPUs/TPUs = Modelo Fundacional.
+      </div>
+    `
+  },
+  {
+    id: '4.2',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'MECÂNICA OPERACIONAL',
+    title: 'Como os LLMs Funcionam na Prática?',
+    subtitle: 'A elegância de uma tarefa única: previsão autorregressiva do próximo token.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Geração Autorregressiva</div>
+          <p class="card-text">O LLM prevê exatamente um token por vez. O token gerado é anexado ao final do texto e realimentado na rede para calcular o próximo token da cadeia:</p>
+          <div class="code-box" style="margin: 12px 0;">
+            x_1 → Gera x_2<br>
+            [x_1, x_2] → Gera x_3<br>
+            [x_1, x_2, x_3] → Gera x_4...
+          </div>
+          <p class="card-text">Todo o raciocínio complexo, geração de código e empatia textual é resultado desse processo iterativo de predição sequencial.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Logits, Softmax e Hiperparâmetros</div>
+          <p class="card-text">A camada final emite um vetor de pontuações não normalizadas (<strong>Logits</strong>) para cada palavra do vocabulário. O <strong>Softmax</strong> converte em probabilidades que somam 100%.</p>
+          <ul class="card-list">
+            <li><strong>Temperature:</strong> Controla a aleatoriedade. Valores baixos (0.0 a 0.2) geram respostas focadas e determinísticas; valores altos (0.7 a 1.0) incentivam criatividade.</li>
+            <li><strong>Top-P (Nucleus Sampling):</strong> Considera apenas o menor conjunto de tokens cuja soma de probabilidade atinge o limiar P (ex: 90%), eliminando opções absurdas.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '4.3',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'ARQUITETURA CORE',
+    title: 'A Revolução da Arquitetura Transformer',
+    subtitle: 'Processamento paralelo, autoatenção (Self-Attention) e semântica contextual.',
+    diagramKey: 'renderTransformerArchitecture',
+    bodyHtml: `
+      <!-- O diagrama renderTransformerArchitecture é injetado diretamente -->
+    `
+  },
+  {
+    id: '4.4',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'MEMÓRIA OPERACIONAL',
+    title: 'Tokens e Janela de Contexto',
+    subtitle: 'O limite de atenção imediata do modelo durante uma sessão de inferência.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Janela de Contexto (Context Window)</div>
+          <p class="card-text">É a quantidade máxima de tokens que o modelo consegue "enxergar" simultaneamente na memória de trabalho (incluindo prompt do sistema, histórico e resposta).</p>
+          <ul class="card-list">
+            <li>GPT-3: 2.048 tokens</li>
+            <li>GPT-4: 8k a 128k tokens</li>
+            <li>Claude 3.5 / Gemini 1.5: 200k a 2.000.000+ tokens</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">O Custo Quadrático O(N²)</div>
+          <p class="card-text">No mecanismo clássico de atenção, cada token calcula produto escalar com todos os outros tokens. Dobrar a janela quadruplica o consumo computacional e de VRAM na atenção padrão.</p>
+          <p class="card-text" style="margin-top: 8px;">Inovações como FlashAttention, RoPE (Rotary Position Embeddings) e KV Cache tornaram possíveis janelas de milhões de tokens.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Atenção e "Lost in the Middle"</div>
+          <p class="card-text">Mesmo com janelas de 1M de tokens, estudos mostram que modelos tendem a lembrar com mais precisão do início (primacy) e do fim (recency) do prompt, às vezes degradando a recuperação de dados no meio do texto.</p>
+          <div class="callout-banner" style="margin-top: 10px;">
+            Dica Prática: Coloque instruções críticas e esquemas de resposta no início ou no fim do prompt.
+          </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '4.5',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'ANATOMIA INTERNA',
+    title: 'Parâmetros, Pesos e Biases',
+    subtitle: 'Os números fundamentais que armazenam o conhecimento adquirido pelo modelo.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">O que são Parâmetros?</div>
+          <p class="card-text">São as variáveis matemáticas internas que a rede ajusta durante o treinamento. Quando dizemos que um modelo tem <strong>70B parâmetros</strong>, significa que ele possui 70 bilhões de coeficientes numéricos.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Pesos (Weights)</div>
+          <p class="card-text">Representam a força de conexão e relevância entre neurônios de camadas sucessivas. São organizados em matrizes gigantescas (projeções de Query, Key, Value e camadas Feed-Forward).</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Biases (Vieses de Ativação)</div>
+          <p class="card-text">Valores aditivos independentes do input que permitem deslocar a função de ativação, garantindo que o neurônio possa disparar mesmo quando as entradas ponderadas forem nulas.</p>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 20px;">
+        <strong>Impacto em Memória (VRAM):</strong> Em precisão total (FP32), cada parâmetro consome 4 bytes. Um modelo de 70B requer 280 GB apenas para carregar os pesos na memória! Daí a necessidade vital de técnicas como quantização.
+      </div>
+    `
+  },
+  {
+    id: '4.6',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'A FASE MAIS CUSTOSA',
+    title: 'Treinamento dos Modelos: O Pré-treinamento',
+    subtitle: 'A absorção auto-supervisionada da estrutura da linguagem humana.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Pré-Treinamento (Pre-training)</div>
+          <p class="card-text">O modelo recebe trilhões de palavras sem anotações manuais. O objetivo da função de perda é puramente prever a próxima palavra oculta (Causal Language Modeling - CLM):</p>
+          <ul class="card-list">
+            <li>Volume: 3 a 15 trilhões de tokens de alta curadoria.</li>
+            <li>Infraestrutura: Milhares de GPUs conectadas via rede de altíssima velocidade (InfiniBand).</li>
+            <li>Custo: Milhões de dólares em eletricidade e computação por rodada.</li>
+            <li>Resultado: Um <strong>Base Model</strong> com vasto conhecimento do mundo, mas sem formato de assistente instruído.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Exemplo de Comportamento do Base Model</div>
+          <div class="code-box" style="margin-bottom: 10px;">
+            Input: "Como fazer uma receita de bolo de cenoura?"<br><br>
+            Base Model pode responder: "Como fazer uma receita de bolo de chocolate? Como fazer pudim?"
+          </div>
+          <p class="card-text">O Base Model apenas completa texto estatisticamente (como se fosse a página de um fórum com várias perguntas parecidas). Ele ainda não aprendeu a agir como um assistente que responde e ajuda o usuário.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '4.7',
+    type: 'content',
+    sectionBadge: '04 · LARGE LANGUAGE MODELS',
+    tag: 'ESPECIALIZAÇÃO E ALINHAMENTO',
+    title: 'Fine-Tuning e Aprendizado de Máquina',
+    subtitle: 'Transformando um modelo básico em um assistente útil, seguro e especialista.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Alinhamento de Instrução</div>
+          <p class="card-text">O Fine-Tuning supervisionado expõe o modelo a milhares de pares curados de perguntas e respostas ideais, ensinando-o a seguir instruções, admitir incertezas e recusar comandos maliciosos.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Especialização de Domínio</div>
+          <p class="card-text">Ajusta o vocabulário e a probabilidade condicional para áreas técnicas com jargões estritos: pareceres jurídicos, laudos médicos, sintaxe de linguagens proprietárias de programação.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">RLHF & DPO</div>
+          <p class="card-text">Reinforcement Learning from Human Feedback (RLHF) e Direct Preference Optimization (DPO) refinam o comportamento do modelo com base no julgamento humano de utilidade e segurança.</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Analogia Didática:</strong> O Pré-treinamento é a graduação geral (aprende a ler, escrever e raciocinar); o Fine-Tuning é a residência médica ou especialização técnica.
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 5: TREINAMENTO E ADAPTAÇÃO DE MODELOS
+  // =========================================================================
+  {
+    id: 'trans-05',
+    type: 'transition',
+    sectionNumber: '05',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    title: 'Treinamento e Adaptação de Modelos',
+    subtitle: 'Como ajustar pesos eficientemente: Transfer Learning, LoRA, QLoRA, Quantização e Métricas de Avaliação.',
+    description: 'Técnicas de engenharia moderna para adaptar modelos bilionários em hardware acessível mantendo alta capacidade de generalização.',
+  },
+  {
+    id: '5.1',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'REAPROVEITAMENTO INTELIGENTE',
+    title: 'Transfer Learning e Transfer Rate',
+    subtitle: 'A base do aprendizado moderno: nunca comece a treinar do zero.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Transfer Learning (Aprendizado por Transferência)</div>
+          <p class="card-text">Em vez de inicializar pesos aleatoriamente (o que exigiria milhões de dólares), aproveitamos representações latentes profundas já aprendidas pelo modelo pré-treinado.</p>
+          <ul class="card-list">
+            <li>Camadas iniciais capturam sintaxe e relações gramaticais universais.</li>
+            <li>Camadas intermediárias abstraem fatos e raciocínio lógico.</li>
+            <li>Ajustamos prioritariamente as camadas superiores para a tarefa específica.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Transfer Rate (Taxa de Transferência)</div>
+          <p class="card-text">Mede a eficiência e a velocidade com que o conhecimento de uma tarefa de origem (fonte) é absorvido pela tarefa de destino:</p>
+          <ul class="card-list">
+            <li><strong>Transferência Positiva:</strong> Domínios correlatos aceleram o aprendizado e reduzem drasticamente o volume de dados rotulados necessários.</li>
+            <li><strong>Transferência Negativa:</strong> Ocorre quando o domínio de origem introduz preconceitos ou ruídos incompatíveis com o novo objetivo.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '5.2',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'SFT',
+    title: 'Supervised Fine-Tuning (SFT)',
+    subtitle: 'Treinamento supervisionado com datasets de instrução de alta qualidade.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Estrutura dos Dados</div>
+          <p class="card-text">Formato Instruction-Input-Output (ex: formato ChatML ou Alpaca):</p>
+          <div class="code-box" style="margin-top: 8px;">
+            {"instruction": "Resuma o texto...", "input": "...", "output": "..."}
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Qualidade vs. Quantidade</div>
+          <p class="card-text">Descobertas como o estudo LIMA (Less Is More for Alignment) provaram que 1.000 exemplos impecavelmente escritos produzem um alinhamento superior a 100.000 exemplos barulhentos.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Loss Masking</div>
+          <p class="card-text">Durante o cálculo de perda no SFT, mascaramos os tokens da pergunta (prompt) e calculamos gradientes de perda <em>apenas sobre a resposta ideal gerada</em>, otimizando o modelo para responder.</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Objetivo:</strong> Moldar a persona do assistente, o tom de voz, o formato de resposta e a aderência a restrições de formatação (JSON, markdown).
+      </div>
+    `
+  },
+  {
+    id: '5.3',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'MECÂNICA MATEMÁTICA',
+    title: 'Gradientes e Atualização de Pesos',
+    subtitle: 'O ciclo perpétuo de Forward Pass, Cálculo de Loss e Descida do Gradiente.',
+    diagramKey: 'renderTrainingGradientLoop',
+    bodyHtml: `
+      <!-- O diagrama renderTrainingGradientLoop é injetado diretamente -->
+    `
+  },
+  {
+    id: '5.4',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'PEFT EFICIENTE',
+    title: 'PEFT: LoRA e QLoRA',
+    subtitle: 'Adaptação Eficiente de Parâmetros com matrizes de baixo rank e quantização de 4 bits.',
+    diagramKey: 'renderLoraQloraMatrices',
+    bodyHtml: `
+      <!-- O diagrama renderLoraQloraMatrices é injetado diretamente -->
+    `
+  },
+  {
+    id: '5.5',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'COMPRESSÃO DE MODELOS',
+    title: 'Quantização de Modelos: FP32 → NF4',
+    subtitle: 'Reduzindo a precisão numérica para democratizar o uso de modelos de ponta.',
+    bodyHtml: `
+      <div class="grid-4col">
+        <div class="card-glass">
+          <div class="card-title">FP32 (32-bit Float)</div>
+          <p class="card-text">4 bytes por peso. Precisão científica máxima. Raramente usado em inferência devido ao consumo absurdo de memória.</p>
+          <div class="callout-banner" style="margin-top: 8px;"><strong>4 GB / 1B params</strong></div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">FP16 / BF16 (16-bit)</div>
+          <p class="card-text">2 bytes por peso. Bfloat16 mantém a faixa dinâmica de FP32. Padrão da indústria para treino e inferência nativa.</p>
+          <div class="callout-banner" style="margin-top: 8px;"><strong>2 GB / 1B params</strong></div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">INT8 (8-bit Integer)</div>
+          <p class="card-text">1 byte por peso. Mapeia números contínuos em inteiros discretos [-128 a 127] usando escala e ponto zero com perda imperceptível.</p>
+          <div class="callout-banner" style="margin-top: 8px;"><strong>1 GB / 1B params</strong></div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">INT4 / NF4 (4-bit)</div>
+          <p class="card-text">0.5 byte por peso. NormalFloat4 (QLoRA) distribui valores conforme uma curva gaussiana teórica ótima. Roda um modelo 70B em apenas 40 GB de VRAM!</p>
+          <div class="callout-banner" style="margin-top: 8px;"><strong>0.5 GB / 1B params</strong></div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '5.6',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'GENERALIZAÇÃO E DIAGNÓSTICO',
+    title: 'Overfitting, Underfitting, Generalization e Epochs',
+    subtitle: 'O equilíbrio fino entre memorizar os dados de treino e aprender regras gerais.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Underfitting (Subajuste)</div>
+          <p class="card-text">O modelo é simples demais ou treinado por poucas épocas. A perda permanece alta tanto nos dados de treino quanto nos dados de validação.</p>
+          <div class="callout-banner" style="margin-top: 8px;">Ação: Aumentar épocas, capacidade do modelo ou learning rate.</div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Generalization (O Ponto Ideal)</div>
+          <p class="card-text">O modelo captura a estrutura semântica implícita. As perdas de treino e validação diminuem em harmonia, garantindo excelente performance em dados inéditos.</p>
+          <div class="callout-banner" style="margin-top: 8px;">Meta de ouro de qualquer projeto de Machine Learning.</div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Overfitting (Superajuste)</div>
+          <p class="card-text">O modelo memorizou o dataset de treino (decorou ruídos e exceções). A perda de treino continua caindo, mas a perda de validação sobe acentuadamente.</p>
+          <div class="callout-banner" style="margin-top: 8px;">Ação: Early Stopping, Dropout, Regularização L2 e mais dados.</div>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 20px;">
+        <strong>Conceito de Época (Epoch):</strong> Uma época representa exatamente uma passagem completa de todo o conjunto de dados de treinamento pela rede neural. Em LLMs, devido ao volume colossal de dados, costuma-se treinar por poucas épocas (1 a 3 épocas no SFT).
+      </div>
+    `
+  },
+  {
+    id: '5.7',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'BENCHMARKS DE QUALIDADE',
+    title: 'Avaliação de Modelos: ROUGE e Métricas Modernas',
+    subtitle: 'Como medir quantitativamente o sucesso de um modelo gerador de texto.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Métricas Baseadas em N-Grams</div>
+          <ul class="card-list">
+            <li><strong>ROUGE-1:</strong> Sobreposição de unigramas (palavras individuais) entre o texto gerado e a referência humana.</li>
+            <li><strong>ROUGE-2:</strong> Sobreposição de pares de palavras consecutivas (bigramas), avaliando fluidez sintática.</li>
+            <li><strong>ROUGE-L:</strong> Maior subsequência comum (LCS), preservando a ordem natural do texto.</li>
+            <li><strong>BLEU:</strong> Métrica clássica com foco em precisão, amplamente usada em tradução mecânica.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Perplexidade (PPL)</div>
+          <p class="card-text">Mede a incerteza do modelo ao prever o próximo token. É o exponencial da entropia cruzada média:</p>
+          <div class="code-box" style="margin: 8px 0;">PPL = exp(CrossEntropyLoss)</div>
+          <p class="card-text"><strong>Quanto menor a perplexidade, mais confiante e preciso</strong> é o modelo sobre a distribuição da língua.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">LLM-as-a-Judge (O Padrão Atual)</div>
+          <p class="card-text">Métricas como ROUGE falham quando a resposta é ótima, mas escrita com sinônimos diferentes. Por isso, usa-se um modelo de ponta (ex: GPT-4) para avaliar:</p>
+          <ul class="card-list">
+            <li>Fidelidade e ausência de alucinação (Hallucination score).</li>
+            <li>Aderência rigorosa à instrução solicitada.</li>
+            <li>Completude e tom adequado.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '5.8',
+    type: 'content',
+    sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
+    tag: 'DISTINÇÃO TÉCNICA',
+    title: 'Prediction vs. Classification em PLN',
+    subtitle: 'Compreendendo os dois objetivos fundamentais de inferência em linguagem natural.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Classification (Classificação)</div>
+          <p class="card-text">O objetivo é atribuir uma entrada a uma ou mais categorias pré-definidas em um espaço discreto:</p>
+          <ul class="card-list">
+            <li><strong>Saída:</strong> Distribuição sobre classes fixas (ex: [Spam, Não-Spam] ou [Positivo, Neutro, Negativo]).</li>
+            <li><strong>Métricas:</strong> Acurácia, Precision, Recall, F1-Score e Matriz de Confusão.</li>
+            <li><strong>Arquitetura Típica:</strong> Encoders (BERT, RoBERTa) com um classificador Linear no topo do token [CLS].</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Prediction / Generation (Predição de Sequência)</div>
+          <p class="card-text">O objetivo é gerar uma sequência aberta de novos elementos, continuando o contexto:</p>
+          <ul class="card-list">
+            <li><strong>Saída:</strong> Cadeia contínua de tokens no espaço aberto do vocabulário (ex: redação de e-mail, raciocínio em etapas).</li>
+            <li><strong>Métricas:</strong> Perplexidade, ROUGE, BLEU, avaliação humana e LLM-as-a-Judge.</li>
+            <li><strong>Arquitetura Típica:</strong> Decoders autoregressivos (GPT, LLaMA, Mistral).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Conexão Moderna:</strong> LLMs generativos atuais conseguem realizar tarefas de classificação apenas formulando a saída como texto estruturado (ex: responder em JSON {"categoria": "financeiro"}).
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 6: RAG (RETRIEVAL-AUGMENTED GENERATION)
+  // =========================================================================
+  {
+    id: 'trans-06',
+    type: 'transition',
+    sectionNumber: '06',
+    sectionBadge: '06 · RAG',
+    title: 'RAG (Retrieval-Augmented Generation)',
+    description: 'Como conectar LLMs a bases de dados dinâmicas e privadas, eliminando alucinações e garantindo respostas precisas e rastreáveis.',
+  },
+  {
+    id: '6.1',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'FUNDAMENTOS DE RAG',
+    title: 'O que é RAG e Por que Utilizá-lo?',
+    subtitle: 'A solução definitiva para o corte temporal de conhecimento e dados corporativos privados.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Mitigação de Alucinações</div>
+          <p class="card-text">LLMs são modelos estatísticos que podem inventar fatos convincentes. O RAG "ancora" (Grounding) a resposta estritamente nos trechos de documentos reais recuperados.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Dados Privados & Segredos</div>
+          <p class="card-text">Permite que o modelo responda sobre manuais internos, contratos confidenciais e dados de ERP sem precisar retreinar a rede nem expor dados sensíveis ao treinamento público.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Atualização em Tempo Real</div>
+          <p class="card-text">Enquanto retreinar um LLM leva semanas ou meses, atualizar uma base RAG é instantâneo: basta indexar novos documentos ou deletar arquivos obsoletos no banco vetorial.</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Princípio do Livro Aberto:</strong> Sem RAG, o LLM faz uma prova consultando apenas a memória da cabeça (pesos). Com RAG, o LLM faz uma prova com consulta a livros e manuais específicos abertos à sua frente.
+      </div>
+    `
+  },
+  {
+    id: '6.2',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'DECISÃO ESTRATÉGICA',
+    title: 'RAG vs. Fine-Tuning: Quando Usar Cada Um?',
+    subtitle: 'Compreendendo os papéis complementares de recuperação de fatos vs. mudança de comportamento.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="comparison-card highlight">
+          <span class="comparison-tag tag-gen">RAG (RECUPERAÇÃO DE CONTEXTO)</span>
+          <div class="card-title">Foco: O QUE o modelo sabe (Fatos & Dados)</div>
+          <ul class="card-list">
+            <li><strong>Dinâmica:</strong> Dados mudam diariamente ou por segundo.</li>
+            <li><strong>Rastreabilidade:</strong> Cita explicitamente a fonte e a página consultada.</li>
+            <li><strong>Custo & Hardware:</strong> Baixo custo computacional; não exige GPUs potentes de treino.</li>
+            <li><strong>Casos de Uso:</strong> Suporte ao cliente, busca jurídica, consulta a políticas internas, documentação técnica.</li>
+          </ul>
+        </div>
+        <div class="comparison-card">
+          <span class="comparison-tag tag-trad">FINE-TUNING (ADAPTAÇÃO DE PESOS)</span>
+          <div class="card-title">Foco: COMO o modelo se comporta (Estilo & Formato)</div>
+          <ul class="card-list">
+            <li><strong>Dinâmica:</strong> Padrões estáveis de escrita e sintaxe especializada.</li>
+            <li><strong>Rastreabilidade:</strong> Black-box estatística; não cita fontes específicas.</li>
+            <li><strong>Custo & Hardware:</strong> Requer pipelines de curadoria, treino supervisionado e GPUs.</li>
+            <li><strong>Casos de Uso:</strong> Ensinar jargões médicos estritos, forçar respostas em JSON rigoroso, clonar o tom de voz de uma marca.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.3',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'FLUXO DE SISTEMA',
+    title: 'Arquitetura RAG Ponta a Ponta',
+    subtitle: 'A separação entre a fase offline de ingestão/indexação e a fase online de consulta e geração.',
+    diagramKey: 'renderRagPipeline',
+    bodyHtml: `
+      <!-- O diagrama renderRagPipeline é injetado diretamente -->
+    `
+  },
+  {
+    id: '6.4',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'INFRAESTRUTURA DE DADOS',
+    title: 'Embeddings e Bancos de Dados Vetoriais',
+    subtitle: 'Armazenando e consultando bilhões de vetores em milissegundos.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Por que Bancos Tradicionais Falham?</div>
+          <p class="card-text">Bancos relacionais (SQL) buscam correspondências exatas por palavras-chave (WHERE texto LIKE '%termo%'). Falham com sinônimos, erros de digitação e conceitos abstratos.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Vector Databases Modernos</div>
+          <p class="card-text">Otimizados para cálculo de vizinhos mais próximos (Approximate Nearest Neighbors - ANN) em espaços de alta dimensão (768 a 3.072 dimensões).</p>
+          <ul class="card-list">
+            <li>Managed Cloud: Pinecone, Weaviate</li>
+            <li>Open-Source: Chroma, Qdrant, Milvus</li>
+            <li>Extensões SQL: PostgreSQL com pgvector</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Algoritmos de Indexação (HNSW)</div>
+          <p class="card-text">Hierarchical Navigable Small World (HNSW) cria uma estrutura de grafos multinível que encontra os vetores mais similares em tempo logarítmico O(log N), evitando comparar com todos os dados da base.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.5',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'ENGENHARIA DE DADOS',
+    title: 'Chunking e Estratégias de Recuperação',
+    subtitle: 'Como fatiar documentos mantendo integridade semântica e contexto suficiente.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Fixed-Size com Overlap</div>
+          <p class="card-text">Divide o texto em blocos fixos de tokens (ex: 500 tokens) com uma sobreposição (overlap de 50 tokens) para evitar que frases importantes sejam cortadas no meio.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Recursive Character Chunking</div>
+          <p class="card-text">Algoritmo inteligente do LangChain que tenta quebrar primeiro por quebras de parágrafo (\n\n), depois por frases (\n ou ponto) e só em último caso por palavras ou caracteres.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Semantic Chunking</div>
+          <p class="card-text">Calcula a similaridade de embedding entre sentenças consecutivas. O corte ocorre apenas quando a distância semântica ultrapassa um limiar (mudança de tópico).</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>O Trade-off de Ouro:</strong> Chunks muito pequenos perdem o contexto global da ideia; chunks muito grandes diluem a especificidade do embedding e estouram a janela de contexto.
+      </div>
+    `
+  },
+  {
+    id: '6.6',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'MÉTRICAS MATEMÁTICAS',
+    title: 'Métricas de Similaridade Vetorial',
+    subtitle: 'Similaridade de Cosseno, Distância Euclidiana e Produto Escalar.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Similaridade de Cosseno</div>
+          <div class="code-box" style="margin: 8px 0;">cos(θ) = (A · B) / (||A|| ||B||)</div>
+          <p class="card-text">Mede o ângulo entre os dois vetores, normalizando pelo seu tamanho. Varia de -1 (opostos) a +1 (idênticos). <strong>É a métrica mais recomendada para PLN</strong>, pois independe do comprimento do texto.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Distância Euclidiana (L2)</div>
+          <div class="code-box" style="margin: 8px 0;">d(A, B) = √Σ(A_i - B_i)²</div>
+          <p class="card-text">Mede a distância geométrica em linha reta entre dois pontos. Quanto menor o valor, mais próximos são os vetores. Sensível à magnitude dos vetores (comprimento do documento).</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Produto Escalar (Dot Product)</div>
+          <div class="code-box" style="margin: 8px 0;">A · B = Σ(A_i × B_i)</div>
+          <p class="card-text">Multiplica e soma as coordenadas diretamente. Se os vetores já estiverem previamente normalizados (magnitude = 1), o produto escalar é matematicamente idêntico ao cosseno, com custo computacional menor.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.7',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'TÉCNICAS AVANÇADAS',
+    title: 'Técnicas Avançadas: MMR e Reranking',
+    subtitle: 'Superando as limitações da busca vetorial ingênua.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Maximal Marginal Relevance (MMR)</div>
+          <p class="card-text">A busca pura traz frequentemente 3 ou 4 chunks quase idênticos que repetem a mesma informação. O MMR otimiza conjuntamente:</p>
+          <ul class="card-list">
+            <li><strong>Relevância:</strong> Quão próximo o chunk está da pergunta do usuário.</li>
+            <li><strong>Diversidade:</strong> Quão diferente o chunk é dos chunks já selecionados anteriormente.</li>
+          </ul>
+          <p class="card-text" style="margin-top: 8px;">Garante que o LLM receba múltiplos pontos de vista e informações complementares no prompt.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Reranking com Cross-Encoders</div>
+          <p class="card-text">Bi-encoders (bancos vetoriais normais) comparam vetores de forma rápida, mas superficial. O Reranking introduz uma segunda etapa de alta precisão:</p>
+          <ul class="card-list">
+            <li>1ª Etapa (Fast Retrieval): O Vector DB recupera os Top-50 candidatos em 10ms.</li>
+            <li>2ª Etapa (Cross-Encoder): Um modelo de Rerank (ex: Cohere Rerank, BGE-Reranker) avalia conjuntamente a pergunta e o documento, reordenando com precisão cirúrgica e entregando apenas os Top-3 melhores ao LLM.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.8',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'PROMPT AUGMENTATION',
+    title: 'Geração de Respostas com Contexto Recuperado',
+    subtitle: 'A síntese final fundamentada nos dados recuperados.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Anatomia do Prompt Aumentado</div>
+          <div class="code-box">
+            SYSTEM: Você é um assistente técnico corporativo.<br>
+            Responda APENAS com base nos fragmentos de contexto abaixo.<br>
+            Se a resposta não constar no contexto, diga "Não possuo essa informação".<br><br>
+            --- CONTEXTO RECUPERADO ---<br>
+            [Doc 1 - Página 14]: A política de devolução é de até 30 dias corridos...<br>
+            [Doc 2 - Página 22]: Para produtos da linha Pro, a garantia é estendida...<br><br>
+            --- PERGUNTA DO USUÁRIO ---<br>
+            {pergunta_do_usuario}
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Benefícios Críticos para Produção</div>
+          <ul class="card-list">
+            <li><strong>Citação de Fontes:</strong> O modelo aponta com precisão o documento e parágrafo de onde extraiu o fato.</li>
+            <li><strong>Controle de Acesso (RBAC):</strong> Usuários só recuperam chunks de documentos aos quais seus perfis corporativos têm permissão de leitura.</li>
+            <li><strong>Governança e Auditoria:</strong> Toda resposta pode ser conferida por humanos auditores em segundos.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 7: FRAMEWORKS E CONSTRUÇÃO DE APLICAÇÕES COM IA
+  // =========================================================================
+  {
+    id: 'trans-07',
+    type: 'transition',
+    sectionNumber: '07',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    title: 'Frameworks e Construção de Aplicações com IA',
+    description: 'Como sair de chamadas de API isoladas para arquiteturas escaláveis e modulares com LangChain, templates, gerenciamento de memória e orquestração.',
+  },
+  {
+    id: '7.1',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'ECOSSISTEMA LANGCHAIN',
+    title: 'O que é LangChain?',
+    subtitle: 'O framework de orquestração padrão da indústria para conectar dados, memória e modelos de linguagem.',
+    diagramKey: 'renderLangchainPipeline',
+    bodyHtml: `
+      <!-- O diagrama renderLangchainPipeline é injetado diretamente -->
+    `
+  },
+  {
+    id: '7.2',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'ENGENHARIA DE PROMPTS',
+    title: 'Prompt Templates e Engenharia de Prompt',
+    subtitle: 'Estruturação parametrizável de instruções para garantir repetibilidade e robustez.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Prompt Templates</div>
+          <p class="card-text">Evita concatenação insegura de strings. Permite reutilizar esquemas com validação de tipagem:</p>
+          <div class="code-box" style="margin-top: 8px;">
+            template = "Traduza de {origem} para {destino}: {texto}"
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Técnicas: Zero-Shot vs Few-Shot</div>
+          <p class="card-text"><strong>Zero-shot:</strong> O modelo executa a tarefa sem exemplos prévios.<br><strong>Few-shot:</strong> O prompt fornece 2 a 5 exemplos resolvidos (pares entrada $\rightarrow$ saída), calibrando o padrão de formatação desejado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Chain-of-Thought (CoT)</div>
+          <p class="card-text">Instruir o modelo a "pensar passo a passo antes de dar a resposta final". Isso ativa caminhos de raciocínio lógico no Transformer, aumentando a acurácia em tarefas complexas em até 40%.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.3',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'GERENCIAMENTO DE ESTADO',
+    title: 'Memory e Gerenciamento de Contexto',
+    subtitle: 'Como dar continuidade a diálogos sem estourar limites de tokens e custos de inferência.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">ConversationBufferMemory</div>
+          <p class="card-text">Guarda o histórico bruto de todas as mensagens. Simples e direto, mas perigoso em conversas longas pois estoura a janela de contexto rapidamente.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">ConversationSummaryMemory</div>
+          <p class="card-text">Usa um LLM auxiliar rápido para resumir periodicamente o passado da conversa, preservando fatos cruciais em poucas linhas e mantendo a contagem de tokens estável.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">VectorStoreMemory</div>
+          <p class="card-text">Armazena interações passadas em um banco vetorial. Diante de uma nova pergunta, recupera apenas os momentos do passado semanticamente relevantes para a resposta atual.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.4',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'INGESTÃO UNIVERSAL',
+    title: 'Document Loaders, Transformers e Web Scraping',
+    subtitle: 'Conectores padronizados para alimentar sistemas de IA com dados de qualquer fonte.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Document Loaders</div>
+          <p class="card-text">Mais de 100 conectores nativos:</p>
+          <ul class="card-list">
+            <li>PDFs (PyPDF, PDFMiner, Unstructured)</li>
+            <li>Repositórios Git e Markdown</li>
+            <li>Confluence, Notion, Google Drive e Slack</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Web Scraping Inteligente</div>
+          <p class="card-text">Loaders modernos (Playwright, Selenium, Firecrawl) renderizam SPAs em JavaScript e extraem o conteúdo textual limpo, descartando automaticamente anúncios, headers e menus irrelevantes.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Document Transformers</div>
+          <p class="card-text">Limpeza de HTML, tradução automática, remoção de dados pessoais identificáveis (PII/LGPD) e padronização de metadados antes da indexação vetorial.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.5',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'DESACOPLAMENTO DE PROVEDORES',
+    title: 'Integração com APIs de LLMs',
+    subtitle: 'Flexibilidade para alternar entre provedores proprietários e modelos locais open-source.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">APIs Proprietárias em Nuvem</div>
+          <p class="card-text">Modelos hospedados com garantia de SLA e capacidades de topo de linha:</p>
+          <ul class="card-list">
+            <li><strong>OpenAI:</strong> GPT-4o, GPT-4o-mini, o1 (raciocínio avançado).</li>
+            <li><strong>Google:</strong> Gemini 1.5 Pro / Flash (janela de 2M tokens e multimodalidade).</li>
+            <li><strong>Anthropic:</strong> Claude 3.5 Sonnet (referência em código e escrita natural).</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Modelos Open-Source & Locais</div>
+          <p class="card-text">Privacidade total e controle absoluto sem envio de dados para servidores terceiros:</p>
+          <ul class="card-list">
+            <li><strong>Ollama / vLLM:</strong> Servidores locais de inferência com throughput altíssimo.</li>
+            <li><strong>Modelos Fundacionais Livres:</strong> Meta LLaMA 3.1, Mistral / Mixtral, Qwen 2.5, DeepSeek.</li>
+            <li><strong>Portabilidade LangChain:</strong> Basta trocar a classe <code>ChatOpenAI</code> por <code>ChatOllama</code> sem alterar uma única linha de lógica de negócio da aplicação!</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.6',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'ARQUITETURA DE PRODUÇÃO',
+    title: 'Pipeline de Construção de Aplicações com IA',
+    subtitle: 'A anatomia de uma arquitetura empresarial completa em camadas.',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Camada de Interface (UI)</div>
+          <div class="step-desc">Web apps (Next.js/React), chats corporativos (Teams, Slack) e fluxos assíncronos com feedback de streaming em tempo real.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Gateway & Segurança</div>
+          <div class="step-desc">Autenticação, rate limiting, controle de custos (token tracking), detecção de prompt injection e filtros de segurança (guardrails).</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Orquestrador & RAG</div>
+          <div class="step-desc">LangChain / LlamaIndex roteando intenções, consultando cache semântico (Redis) e buscando contexto em bancos vetoriais.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Modelos & Ferramentas</div>
+          <div class="step-desc">LLMs executando raciocínio e function calling conectado a ERPs, CRMs, APIs bancárias e geradores de relatórios.</div>
+        </div>
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 8: AGENTES DE INTELIGÊNCIA ARTIFICIAL
+  // =========================================================================
+  {
+    id: 'trans-08',
+    type: 'transition',
+    sectionNumber: '08',
+    sectionBadge: '08 · AGENTES DE IA',
+    title: 'Agentes de Inteligência Artificial',
+    subtitle: 'Da Geração de Texto à Autonomia Prática',
+    description: 'A fronteira da IA contemporânea: sistemas capazes de perceber ambientes, raciocinar, planejar estratégias em múltiplos passos e executar ações no mundo real com ferramentas.',
+  },
+  {
+    id: '8.1',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'O SALTO COGNITIVO',
+    title: 'O que são Agentes de Inteligência Artificial?',
+    subtitle: 'Entidades autônomas que perseguem metas em ambientes dinâmicos.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Autonomia Deliberativa</div>
+          <p class="card-text">O agente não precisa que o humano especifique cada clique. Diante de um objetivo de alto nível ("Audite este relatório financeiro e gere um resumo em PDF"), o agente decide quais etapas seguir.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Tomada de Decisão em Loop</div>
+          <p class="card-text">Executa ciclos contínuos de percepção $\rightarrow$ reflexão $\rightarrow$ ação $\rightarrow$ correção de rota até que o critério de sucesso do objetivo seja matematicamente satisfeito.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Interação com o Mundo</div>
+          <p class="card-text">Equipado com ferramentas (tools), o agente lê e-mails, executa consultas SQL, roda scripts Python, navega na internet e aciona APIs corporativas externas.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.2',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'MUDANÇA DE PARADIGMA',
+    title: 'Chatbot Convencional vs. Agente Autônomo',
+    subtitle: 'Compreendendo por que os agentes representam o próximo grande ciclo tecnológico.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="comparison-card">
+          <span class="comparison-tag tag-trad">CHATBOT CONVENCIONAL</span>
+          <div class="card-title">Passivo e Reativo</div>
+          <ul class="card-list">
+            <li><strong>Fluxo:</strong> 1 Pergunta $\rightarrow$ 1 Resposta em texto.</li>
+            <li><strong>Escopo:</strong> Limitado a sintetizar informações que já estão dentro do seu contexto.</li>
+            <li><strong>Ação:</strong> Não possui braços operacionais; se uma API falhar, apenas reporta o erro ao usuário.</li>
+            <li><strong>Exemplo:</strong> "Como posso cancelar minha passagem aérea?" $\rightarrow$ Responde explicando a regra.</li>
+          </ul>
+        </div>
+        <div class="comparison-card highlight">
+          <span class="comparison-tag tag-gen">AGENTE DE IA AUTÔNOMO</span>
+          <div class="card-title">Proativo, Resolutivo e Orientado a Metas</div>
+          <ul class="card-list">
+            <li><strong>Fluxo:</strong> Meta $\rightarrow$ Decomposição em subtarefas $\rightarrow$ Múltiplas ações $\rightarrow$ Validação.</li>
+            <li><strong>Escopo:</strong> Busca ativamente dados externos em tempo real e corrige os próprios erros.</li>
+            <li><strong>Ação:</strong> Chama a API da companhia aérea, cancela a passagem e emite o comprovante.</li>
+            <li><strong>Exemplo:</strong> "Cancele a passagem do voo 402 e peça reembolso" $\rightarrow$ <em>Executa a transação completa</em>.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.3',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'ARQUITETURA COGNITIVA',
+    title: 'Arquitetura Completa de um Agente de IA',
+    subtitle: 'A simbiose entre Percepção, Raciocínio, Memória e Atuação.',
+    diagramKey: 'renderAgentArchitecture',
+    bodyHtml: `
+      <!-- O diagrama renderAgentArchitecture é injetado diretamente -->
+    `
+  },
+  {
+    id: '8.4',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'DECOMPOSIÇÃO DE MÓDULOS',
+    title: 'Componentes Fundamentais: Sensores, Processadores e Atuadores',
+    subtitle: 'A tríade clássica da robótica adaptada aos sistemas cognitivos modernos.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">1. Sensores (Percepção)</div>
+          <p class="card-text">Capturam o estado atual do ambiente:</p>
+          <ul class="card-list">
+            <li>Mensagens do usuário no chat</li>
+            <li>Respostas de requisições HTTP e webhooks</li>
+            <li>DOM de páginas web e capturas de tela (visão computacional)</li>
+            <li>Logs e códigos de retorno de execução de terminal</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">2. Processadores (Cérebro)</div>
+          <p class="card-text">O LLM atuando como motor de raciocínio lógico:</p>
+          <ul class="card-list">
+            <li>Interpreta a intenção e define a estratégia</li>
+            <li>Planeja a decomposição da meta (Planner)</li>
+            <li>Decide qual ferramenta chamar e com quais parâmetros</li>
+            <li>Avalia se o resultado obtido foi suficiente (Self-reflection)</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">3. Atuadores (Ação)</div>
+          <p class="card-text">Os mecanismos que modificam o ambiente:</p>
+          <ul class="card-list">
+            <li>Executores de código (sandbox Python, bash)</li>
+            <li>Conectores de banco de dados (INSERT, UPDATE)</li>
+            <li>Disparo de e-mails e mensagens de mensageria</li>
+            <li>Navegadores headless (cliques e formulários)</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.5',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'EXTENSIBILIDADE',
+    title: 'Ferramentas (Tools) e Function Calling',
+    subtitle: 'A interface estruturada que conecta a inteligência do modelo a qualquer software do mundo.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">O que é Function Calling?</div>
+          <p class="card-text">É a capacidade nativa de LLMs modernos de analisar um esquema de funções em JSON/OpenAPI e, quando necessário, pausar a geração e emitir uma chamada estruturada com argumentos validados:</p>
+          <div class="code-box" style="margin-top: 10px;">
+            {<br>
+            &nbsp;&nbsp;"name": "calcular_imposto",<br>
+            &nbsp;&nbsp;"arguments": {"valor": 15000, "regime": "lucro_presumido"}<br>
+            }
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Exemplos Comuns de Ferramentas</div>
+          <ul class="card-list">
+            <li><strong>Calculadora / Python REPL:</strong> Elimina erros aritméticos e resolve álgebra complexa com precisão determinística.</li>
+            <li><strong>SQL Tool:</strong> Converte perguntas em linguagem natural em queries SQL executadas contra o banco analítico.</li>
+            <li><strong>Search API (Tavily, Google Serper):</strong> Recupera informações atualizadas em tempo real da internet aberta.</li>
+            <li><strong>File System Tools:</strong> Lê, edita, compila e comita arquivos em repositórios de código.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.6',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'FRAMEWORK DE RACIOCÍNIO',
+    title: 'Ciclo de Execução de um Agente: ReAct',
+    subtitle: 'Synergizing Reasoning and Acting in Language Models (Yao et al., 2022).',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Thought (Pensamento)</div>
+          <div class="step-desc">O agente verbaliza explicitamente seu raciocínio: "Para responder qual empresa teve maior lucro, primeiro preciso buscar a receita da empresa A."</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Action (Ação)</div>
+          <div class="step-desc">O agente escolhe e aciona uma ferramenta específica com parâmetros estruturados: <code>buscar_dados_financeiros(ticket="A")</code>.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Observation (Observação)</div>
+          <div class="step-desc">O ambiente retorna a resposta da ferramenta (ex: "Lucro líquido: R$ 2,4 bi"). O resultado é injetado no contexto do agente.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Reflection & Resposta</div>
+          <div class="step-desc">O agente avalia se já possui dados suficientes. Se sim, emite a resposta final ao usuário; se não, inicia um novo ciclo.</div>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Vantagem do ReAct:</strong> O rastreamento explícito do pensamento (Thought) permite auditar exatamente por que o agente tomou cada decisão e facilita a autocorreção em caso de falhas de ferramentas.
+      </div>
+    `
+  },
+  {
+    id: '8.7',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'AUTOMAÇÃO VISUAL',
+    title: 'LAMs (Large Action Models)',
+    subtitle: 'Modelos treinados especificamente para operar interfaces gráficas humanas (GUI).',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Além de APIs Padronizadas</div>
+          <p class="card-text">Muitos softwares corporativos antigos não possuem APIs REST. Os LAMs operam diretamente na tela: enxergam botões, inputs, menus e popups usando visão computacional.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Mapeamento Visuo-Espacial</div>
+          <p class="card-text">Traduzem comandos ("reserve o hotel mais barato") em sequências precisas de cliques do mouse (x, y), rolagem de página e digitação no teclado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Exemplos e Tendência (OS Agents)</div>
+          <p class="card-text">Claude Computer Use, Rabbit OS e sistemas de automação de navegador (Playwright agents) transformam qualquer computador ou aplicativo em um espaço operável pela IA.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.8',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'CASOS REAIS',
+    title: 'Aplicações Reais de Agentes Autônomos',
+    subtitle: 'Como a autonomia prática está gerando valor mensurável na indústria.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Software Engineering Agents</div>
+          <p class="card-text">Agentes como Devin, GitHub Copilot Workspace e assistentes autônomos que recebem uma issue do GitHub, clonam o repositório, escrevem o código, rodam os testes unitários, corrigem bugs e abrem o Pull Request prontos para revisão.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Operações & Atendimento Resolutivo</div>
+          <p class="card-text">Em vez de apenas responder dúvidas frequentes, o agente altera cadastros, processa estornos bancários, atualiza cartões de crédito e renegocia contratos acessando o sistema central da empresa de forma segura.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Pesquisa Científica & Inteligência de Mercado</div>
+          <p class="card-text">Agentes que passam horas navegando por dezenas de sites de concorrentes, baixam demonstrativos em PDF, extraem tabelas financeiras e compilam relatórios analíticos completos em minutos.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.9',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'COLABORAÇÃO DISTRIBUÍDA',
+    title: 'Sistemas Multi-Agentes (Multi-Agent Systems)',
+    subtitle: 'Superando agentes individuais através da especialização, colaboração e debate.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Especialização de Papéis</div>
+          <p class="card-text">Assim como em uma equipe humana, dividir tarefas complexas entre agentes especialistas (ex: Pesquisador, Redator, Revisor de Código, Gerente de Projeto) gera resultados muito superiores a um único agente generalista sobrecarregado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Padrões de Orquestração</div>
+          <ul class="card-list">
+            <li><strong>Sequencial (Pipeline):</strong> A saída do agente A é a entrada do agente B.</li>
+            <li><strong>Hierárquico (Supervisor):</strong> Um agente líder delega tarefas e avalia entregas.</li>
+            <li><strong>Debate / Consenso:</strong> Agentes com personas diferentes debatem até convergir na melhor solução.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Frameworks de Destaque</div>
+          <p class="card-text">Ferramentas como CrewAI, AutoGen (Microsoft) e LangGraph tornam viável a criação de equipes autônomas coordenadas com facilidade.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '9.0',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'ORQUESTRAÇÃO ROBUSTA',
+    title: 'LangGraph: Orquestração Baseada em Grafos',
+    subtitle: 'Controle fino de estado, ciclos adaptativos e checkpoints para fluxos agênticos profissionais.',
+    diagramKey: 'renderLangGraphState',
+    bodyHtml: `
+      <!-- O diagrama renderLangGraphState é injetado diretamente -->
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 9: CONCLUSÃO E SÍNTESE APLICADA
+  // =========================================================================
+  {
+    id: 'trans-09',
+    type: 'transition',
+    sectionNumber: '09',
+    sectionBadge: '09 · CONCLUSÃO',
+    title: 'Conclusão e Síntese Aplicada',
+    description: 'A visão holística conectando os fundamentos teóricos à criação de produtos e ecossistemas inteligentes de alto impacto no mundo real.',
+  },
+  {
+    id: '9.1',
+    type: 'content',
+    sectionBadge: '09 · CONCLUSÃO',
+    tag: 'SÍNTESE COGNITIVA',
+    title: 'A Jornada Evolutiva da Inteligência Artificial',
+    subtitle: 'Do processamento estatístico de caracteres à cognição autônoma com ferramentas.',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">PLN Clássico & Tokens</div>
+          <div class="step-desc">Aprendeu a transformar a ambiguidade da linguagem humana em representações vetoriais contínuas (embeddings).</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Transformers & LLMs</div>
+          <div class="step-desc">A arquitetura de atenção permitiu modelar o contexto global e absorver conhecimento enciclopédico através de pré-treinamento massivo.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Adaptação & Grounding</div>
+          <div class="step-desc">PEFT (LoRA/QLoRA) e RAG resolveram as dores críticas de custo, privacidade, atualização contínua e alucinações.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Agentes Autônomos</div>
+          <div class="step-desc">Os LLMs deixaram de ser apenas geradores passivos de texto para se tornarem o motor cognitivo central de ação no mundo real.</div>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Conclusão Central:</strong> Cada nova tecnologia não substituiu a anterior, mas construiu um degrau sobre ela. O sucesso na IA depende de dominar todos os elos dessa corrente.
+      </div>
+    `
+  },
+  {
+    id: '9.2',
+    type: 'content',
+    sectionBadge: '09 · CONCLUSÃO',
+    tag: 'MAPA HOLÍSTICO',
+    title: 'A Matriz de Interconexão: Como GenAI, PLN e LLMs se Fundem',
+    subtitle: 'A relação simbiótica entre as disciplinas que formam a moderna pilha de Inteligência Artificial.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">1. A Base: PLN e Embeddings</div>
+          <p class="card-text">O Processamento de Linguagem Natural fornece os fundamentos matemáticos: tokenização, semântica vetorial e métricas de similaridade. Sem isso, os modelos não conseguem manipular texto.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">2. O Motor: LLMs e Transformers</div>
+          <p class="card-text">Os Large Language Models são a manifestação máxima do PLN moderno em escala colossal, codificando gramática, bom senso, analogias e habilidades de raciocínio lógico.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">3. O Resultado: IA Generativa</div>
+          <p class="card-text">A IA Generativa é o paradigma de aplicação final, onde o motor Transformer sintetiza novos artefatos (textos, códigos, imagens) a partir de instruções humanas.</p>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 20px;">
+        <strong>Visão Sistêmica:</strong> O PLN é a linguagem matemática; o LLM é o processador cognitivo; e a IA Generativa é o meio criativo pelo qual humanos e máquinas colaboram.
+      </div>
+    `
+  },
+  {
+    id: '9.3',
+    type: 'content',
+    sectionBadge: '09 · CONCLUSÃO',
+    tag: 'FRAMEWORK DE PROJETOS',
+    title: 'O Tridente de Potencialização: RAG, Fine-Tuning e Agentes',
+    subtitle: 'Como orquestrar as três grandes técnicas para criar soluções corporativas de ponta.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">RAG: Conhecimento Factual</div>
+          <p class="card-text">Conecta o sistema à verdade factual atualizada dos bancos de dados e documentos da empresa, garantindo confiabilidade absoluta e rastreabilidade com fontes citadas.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Fine-Tuning: Comportamento</div>
+          <p class="card-text">Especializa o modelo em tarefas de altíssima precisão de formato, estilo e vocabulário técnico estrito, reduzindo o tamanho do prompt e latência de inferência.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Agentes: Execução e Ação</div>
+          <p class="card-text">Dota o sistema de autonomia para chamar APIs, tomar decisões condicionais, consultar o RAG quando tiver dúvidas e resolver problemas ponta a ponta sem supervisão constante.</p>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 24px;">
+        <strong>A Equação do Sucesso em Projetos Reais:</strong><br>
+        <span style="color: #00f0ff; font-family: 'JetBrains Mono'; font-size: 1.05rem; font-weight: 700;">
+          Aplicação de Alto Impacto = (Modelo Base Eficiente) + (RAG para Fatos) + (PEFT/LoRA para Estilo) + (Agente para Automação de Ações)
+        </span>
+      </div>
+    `
+  }
+];
+
+// Compatibilidade
+if (typeof window !== 'undefined') {
+  window.SLIDES_DATA = SLIDES_DATA;
+}
+
+
+/**
+ * SlideEngine — Motor de Apresentação Fluida e Dinâmica
+ * Suporta navegação por teclado, toque, hash na URL, visão geral e fullscreen.
+ */
+
+class SlideEngine {
+  constructor(options = {}) {
+    this.slides = options.slides || (typeof window !== 'undefined' && window.SLIDES_DATA ? window.SLIDES_DATA : []);
+    this.diagrams = options.diagrams || (typeof window !== 'undefined' && window.DIAGRAMS ? window.DIAGRAMS : {});
+    this.currentIndex = 0;
+    this.isOverviewOpen = false;
+    this.isShortcutsOpen = false;
+
+    if (options.autoInit !== false && typeof window !== 'undefined') {
+      this.init();
+    }
+  }
+
+  init() {
+    this.stageEl = document.getElementById('slide-stage');
+    this.progressBarEl = document.getElementById('progress-bar');
+    this.counterEl = document.getElementById('slide-counter');
+    this.sectionBadgeEl = document.getElementById('section-badge');
+    this.overviewModalEl = document.getElementById('overview-modal');
+    this.overviewGridEl = document.getElementById('overview-grid');
+    this.shortcutsModalEl = document.getElementById('shortcuts-modal');
+
+    // Inicializar slide a partir do hash se presente
+    const initialSlide = this.readHash();
+    if (initialSlide >= 0 && initialSlide < this.slides.length) {
+      this.currentIndex = initialSlide;
+    }
+
+    this.bindEvents();
+    this.renderCurrentSlide();
+    this.renderOverviewGrid();
+    this.updateUI();
+  }
+
+  bindEvents() {
+    if (typeof window === 'undefined') return;
+
+    // Teclado
+    window.addEventListener('keydown', (e) => this.handleKeyDown(e));
+
+    // Botões de Navegação
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    const btnOverview = document.getElementById('btn-overview');
+    const btnCloseOverview = document.getElementById('btn-close-overview');
+    const btnShortcuts = document.getElementById('btn-shortcuts');
+    const btnCloseShortcuts = document.getElementById('btn-close-shortcuts');
+
+    if (btnPrev) btnPrev.addEventListener('click', () => this.prev());
+    if (btnNext) btnNext.addEventListener('click', () => this.next());
+    if (btnFullscreen) btnFullscreen.addEventListener('click', () => this.toggleFullscreen());
+    if (btnOverview) btnOverview.addEventListener('click', () => this.toggleOverview());
+    if (btnCloseOverview) btnCloseOverview.addEventListener('click', () => this.toggleOverview(false));
+    if (btnShortcuts) btnShortcuts.addEventListener('click', () => this.toggleShortcuts());
+    if (btnCloseShortcuts) btnCloseShortcuts.addEventListener('click', () => this.toggleShortcuts(false));
+
+    // Fechar modais ao clicar no backdrop
+    const overviewBackdrop = document.querySelector('.overview-backdrop');
+    if (overviewBackdrop) {
+      overviewBackdrop.addEventListener('click', () => this.toggleOverview(false));
+    }
+    const shortcutsBackdrop = document.querySelector('.shortcuts-backdrop');
+    if (shortcutsBackdrop) {
+      shortcutsBackdrop.addEventListener('click', () => this.toggleShortcuts(false));
+    }
+
+    // Suporte a Toque (Swipe)
+    this.bindTouch();
+
+    // Histórico Hash
+    window.addEventListener('hashchange', () => {
+      const idx = this.readHash();
+      if (idx >= 0 && idx < this.slides.length && idx !== this.currentIndex) {
+        this.goTo(idx, false);
+      }
+    });
+  }
+
+  handleKeyDown(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    // Se visão geral estiver aberta, ESC fecha
+    if (this.isOverviewOpen) {
+      if (e.key === 'Escape' || e.key.toLowerCase() === 'o') {
+        e.preventDefault();
+        this.toggleOverview(false);
+      }
+      return;
+    }
+
+    // Se atalhos estiverem abertos, ESC fecha
+    if (this.isShortcutsOpen) {
+      if (e.key === 'Escape' || e.key === '?') {
+        e.preventDefault();
+        this.toggleShortcuts(false);
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowRight':
+      case ' ':
+      case 'PageDown':
+        e.preventDefault();
+        this.next();
+        break;
+      case 'ArrowLeft':
+      case 'PageUp':
+        e.preventDefault();
+        this.prev();
+        break;
+      case 'Home':
+        e.preventDefault();
+        this.first();
+        break;
+      case 'End':
+        e.preventDefault();
+        this.last();
+        break;
+      case 'f':
+      case 'F':
+        e.preventDefault();
+        this.toggleFullscreen();
+        break;
+      case 'o':
+      case 'O':
+      case 'g':
+      case 'G':
+        e.preventDefault();
+        this.toggleOverview(true);
+        break;
+      case '?':
+        e.preventDefault();
+        this.toggleShortcuts(true);
+        break;
+      case 'Escape':
+        this.toggleOverview(false);
+        this.toggleShortcuts(false);
+        break;
+    }
+  }
+
+  bindTouch() {
+    if (typeof window === 'undefined') return;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const diffX = e.changedTouches[0].screenX - touchStartX;
+      const diffY = e.changedTouches[0].screenY - touchStartY;
+
+      // Detecta swipe horizontal predominante
+      if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          this.next();
+        } else {
+          this.prev();
+        }
+      }
+    }, { passive: true });
+  }
+
+  goTo(index, updateHash = true) {
+    if (index < 0 || index >= this.slides.length) return;
+    this.currentIndex = index;
+    if (typeof window !== 'undefined') {
+      this.renderCurrentSlide();
+      this.updateUI();
+      if (updateHash) {
+        this.updateHash();
+      }
+    }
+  }
+
+  next() {
+    if (this.currentIndex < this.slides.length - 1) {
+      this.goTo(this.currentIndex + 1);
+    }
+  }
+
+  prev() {
+    if (this.currentIndex > 0) {
+      this.goTo(this.currentIndex - 1);
+    }
+  }
+
+  first() {
+    this.goTo(0);
+  }
+
+  last() {
+    this.goTo(this.slides.length - 1);
+  }
+
+  getProgressPercent() {
+    if (!this.slides || this.slides.length === 0) return 0;
+    return Math.round(((this.currentIndex + 1) / this.slides.length) * 100);
+  }
+
+  updateUI() {
+    if (typeof window === 'undefined') return;
+
+    // Barra de progresso
+    if (this.progressBarEl) {
+      this.progressBarEl.style.width = `${this.getProgressPercent()}%`;
+    }
+
+    // Contador
+    if (this.counterEl) {
+      const currentFormatted = String(this.currentIndex + 1).padStart(2, '0');
+      const totalFormatted = String(this.slides.length).padStart(2, '0');
+      this.counterEl.textContent = `${currentFormatted} / ${totalFormatted}`;
+    }
+
+    // Badge de Seção
+    if (this.sectionBadgeEl && this.slides[this.currentIndex]) {
+      const slide = this.slides[this.currentIndex];
+      this.sectionBadgeEl.textContent = slide.sectionBadge || 'INTELIGÊNCIA ARTIFICIAL';
+    }
+
+    // Atualiza destaque no grid de visão geral
+    if (this.overviewGridEl) {
+      const thumbs = this.overviewGridEl.querySelectorAll('.thumb-card');
+      thumbs.forEach((thumb, idx) => {
+        if (idx === this.currentIndex) {
+          thumb.classList.add('active-thumb');
+          if (this.isOverviewOpen) {
+            thumb.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+        } else {
+          thumb.classList.remove('active-thumb');
+        }
+      });
+    }
+  }
+
+  updateHash() {
+    if (typeof window === 'undefined') return;
+    window.location.hash = `slide-${this.currentIndex + 1}`;
+  }
+
+  readHash() {
+    if (typeof window === 'undefined') return 0;
+    const match = window.location.hash.match(/#slide-(\d+)/);
+    if (match && match[1]) {
+      return parseInt(match[1], 10) - 1;
+    }
+    return 0;
+  }
+
+  toggleFullscreen() {
+    if (typeof document === 'undefined') return;
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+  }
+
+  toggleOverview(force) {
+    if (!this.overviewModalEl) return;
+    this.isOverviewOpen = force !== undefined ? force : !this.isOverviewOpen;
+    if (this.isOverviewOpen) {
+      this.overviewModalEl.classList.add('active');
+      this.overviewModalEl.setAttribute('aria-hidden', 'false');
+      this.updateUI();
+    } else {
+      this.overviewModalEl.classList.remove('active');
+      this.overviewModalEl.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  toggleShortcuts(force) {
+    if (!this.shortcutsModalEl) return;
+    this.isShortcutsOpen = force !== undefined ? force : !this.isShortcutsOpen;
+    if (this.isShortcutsOpen) {
+      this.shortcutsModalEl.classList.add('active');
+      this.shortcutsModalEl.setAttribute('aria-hidden', 'false');
+    } else {
+      this.shortcutsModalEl.classList.remove('active');
+      this.shortcutsModalEl.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  renderCurrentSlide() {
+    if (!this.stageEl || !this.slides[this.currentIndex]) return;
+    const slide = this.slides[this.currentIndex];
+
+    let html = '';
+    if (slide.type === 'cover') {
+      html = this.renderCoverSlide(slide);
+    } else if (slide.type === 'transition') {
+      html = this.renderTransitionSlide(slide);
+    } else {
+      html = this.renderContentSlide(slide);
+    }
+
+    this.stageEl.innerHTML = `<div class="slide-transition" style="width: 100%; height: 100%;">${html}</div>`;
+
+    // Se o slide tiver pós-renderização dinâmica (ex: interatividade em canvas ou botões de teste)
+    if (typeof slide.onMounted === 'function') {
+      slide.onMounted(this.stageEl);
+    }
+  }
+
+  renderCoverSlide(slide) {
+    const artSvg = slide.artSvg || (this.diagrams && this.diagrams.renderCoverArt ? this.diagrams.renderCoverArt() : '');
+    return `
+      <div class="slide-cover">
+        <div class="cover-left">
+          <div class="cover-category">${slide.category || 'FUNDAMENTOS · APLICAÇÃO'}</div>
+          <h1 class="cover-title">${slide.titleHtml || 'Inteligência <span>Artificial:</span><br>do fundamento à aplicação'}</h1>
+          <p class="cover-description">${slide.description || 'Uma jornada por IA Generativa, PLN, LLMs, RAG, frameworks e agentes de IA.'}</p>
+          <div class="cover-meta">
+            <span class="cover-meta-pill">Guia Técnico Completo</span>
+            <span class="cover-meta-pill">63 Slides Didáticos</span>
+            <span class="cover-meta-pill">Aplicações Reais</span>
+          </div>
+        </div>
+        <div class="cover-art-container">
+          ${artSvg}
+        </div>
+      </div>
+    `;
+  }
+
+  renderTransitionSlide(slide) {
+    const artSvg = slide.artSvg || (this.diagrams && this.diagrams.renderSectionArt ? this.diagrams.renderSectionArt(slide.sectionNumber) : '');
+    return `
+      <div class="slide-section-divider">
+        <div class="divider-left">
+          <div class="divider-num">${slide.sectionNumber || '01'}</div>
+          <h2 class="divider-title">${slide.title || 'Título da Seção'}</h2>
+          <p class="divider-desc">${slide.description || 'Descrição detalhada do bloco de tópicos abordados nesta seção.'}</p>
+        </div>
+        <div class="divider-art">
+          ${artSvg}
+        </div>
+      </div>
+    `;
+  }
+
+  renderContentSlide(slide) {
+    let diagramHtml = '';
+    if (slide.diagramKey && this.diagrams && typeof this.diagrams[slide.diagramKey] === 'function') {
+      diagramHtml = `<div class="diagram-stage">${this.diagrams[slide.diagramKey]()}</div>`;
+    }
+
+    return `
+      <div class="slide-content-wrap">
+        <div class="content-header">
+          <span class="content-tag">${slide.tag || 'CONCEITO'}</span>
+          <h2 class="content-title">${slide.title || ''}</h2>
+          ${slide.subtitle ? `<p class="content-subtitle">${slide.subtitle}</p>` : ''}
+        </div>
+        <div class="content-body">
+          ${slide.bodyHtml || ''}
+          ${diagramHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  renderOverviewGrid() {
+    if (!this.overviewGridEl) return;
+    this.overviewGridEl.innerHTML = this.slides.map((s, idx) => {
+      const num = String(idx + 1).padStart(2, '0');
+      const title = s.title || (s.type === 'cover' ? 'Capa da Apresentação' : `Slide ${num}`);
+      const tag = s.tag || s.category || (s.type === 'transition' ? `BLOCO ${s.sectionNumber}` : 'SLIDE');
+      return `
+        <div class="thumb-card ${idx === this.currentIndex ? 'active-thumb' : ''}" data-index="${idx}">
+          <div class="thumb-num">${num}</div>
+          <div class="thumb-tag">${tag}</div>
+          <div class="thumb-title">${title}</div>
+        </div>
+      `;
+    }).join('');
+
+    // Listener para clique nos cards de miniatura
+    const cards = this.overviewGridEl.querySelectorAll('.thumb-card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const index = parseInt(card.getAttribute('data-index'), 10);
+        this.goTo(index);
+        this.toggleOverview(false);
+      });
+    });
+  }
+}
+
+// Compatibilidade Browser e Node/ESM
+if (typeof window !== 'undefined') {
+  window.SlideEngine = SlideEngine;
+}
+
+
+
+// Auto-inicialização imediata
+document.addEventListener('DOMContentLoaded', () => {
+  if (!window.presentation) {
+    window.presentation = new SlideEngine({
+      slides: window.SLIDES_DATA,
+      diagrams: window.DIAGRAMS
+    });
+  }
+});
+  </script>
 </body>
 </html>

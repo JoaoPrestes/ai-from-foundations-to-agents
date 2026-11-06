@@ -4,7 +4,8 @@
   "description": "Apresentação Web Didática e Interativa sobre IA, GenAI, PLN, LLMs, Treinamento, RAG e Agentes de IA",
   "type": "module",
   "scripts": {
-    "test": "node --test tests/*.mjs"
+    "test": "node --test tests/*.mjs",
+    "build": "node scripts/build.mjs"
   },
   "author": "João Prestes",
   "license": "MIT"
