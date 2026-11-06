@@ -779,6 +779,781 @@ const SLIDES_DATA = [
         <strong>Conexão Moderna:</strong> LLMs generativos atuais conseguem realizar tarefas de classificação apenas formulando a saída como texto estruturado (ex: responder em JSON {"categoria": "financeiro"}).
       </div>
     `
+  },
+
+  // =========================================================================
+  // BLOCO 6: RAG (RETRIEVAL-AUGMENTED GENERATION)
+  // =========================================================================
+  {
+    id: 'trans-06',
+    type: 'transition',
+    sectionNumber: '06',
+    sectionBadge: '06 · RAG',
+    title: 'RAG (Retrieval-Augmented Generation)',
+    description: 'Como conectar LLMs a bases de dados dinâmicas e privadas, eliminando alucinações e garantindo respostas precisas e rastreáveis.',
+  },
+  {
+    id: '6.1',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'FUNDAMENTOS DE RAG',
+    title: 'O que é RAG e Por que Utilizá-lo?',
+    subtitle: 'A solução definitiva para o corte temporal de conhecimento e dados corporativos privados.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Mitigação de Alucinações</div>
+          <p class="card-text">LLMs são modelos estatísticos que podem inventar fatos convincentes. O RAG "ancora" (Grounding) a resposta estritamente nos trechos de documentos reais recuperados.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Dados Privados & Segredos</div>
+          <p class="card-text">Permite que o modelo responda sobre manuais internos, contratos confidenciais e dados de ERP sem precisar retreinar a rede nem expor dados sensíveis ao treinamento público.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Atualização em Tempo Real</div>
+          <p class="card-text">Enquanto retreinar um LLM leva semanas ou meses, atualizar uma base RAG é instantâneo: basta indexar novos documentos ou deletar arquivos obsoletos no banco vetorial.</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Princípio do Livro Aberto:</strong> Sem RAG, o LLM faz uma prova consultando apenas a memória da cabeça (pesos). Com RAG, o LLM faz uma prova com consulta a livros e manuais específicos abertos à sua frente.
+      </div>
+    `
+  },
+  {
+    id: '6.2',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'DECISÃO ESTRATÉGICA',
+    title: 'RAG vs. Fine-Tuning: Quando Usar Cada Um?',
+    subtitle: 'Compreendendo os papéis complementares de recuperação de fatos vs. mudança de comportamento.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="comparison-card highlight">
+          <span class="comparison-tag tag-gen">RAG (RECUPERAÇÃO DE CONTEXTO)</span>
+          <div class="card-title">Foco: O QUE o modelo sabe (Fatos & Dados)</div>
+          <ul class="card-list">
+            <li><strong>Dinâmica:</strong> Dados mudam diariamente ou por segundo.</li>
+            <li><strong>Rastreabilidade:</strong> Cita explicitamente a fonte e a página consultada.</li>
+            <li><strong>Custo & Hardware:</strong> Baixo custo computacional; não exige GPUs potentes de treino.</li>
+            <li><strong>Casos de Uso:</strong> Suporte ao cliente, busca jurídica, consulta a políticas internas, documentação técnica.</li>
+          </ul>
+        </div>
+        <div class="comparison-card">
+          <span class="comparison-tag tag-trad">FINE-TUNING (ADAPTAÇÃO DE PESOS)</span>
+          <div class="card-title">Foco: COMO o modelo se comporta (Estilo & Formato)</div>
+          <ul class="card-list">
+            <li><strong>Dinâmica:</strong> Padrões estáveis de escrita e sintaxe especializada.</li>
+            <li><strong>Rastreabilidade:</strong> Black-box estatística; não cita fontes específicas.</li>
+            <li><strong>Custo & Hardware:</strong> Requer pipelines de curadoria, treino supervisionado e GPUs.</li>
+            <li><strong>Casos de Uso:</strong> Ensinar jargões médicos estritos, forçar respostas em JSON rigoroso, clonar o tom de voz de uma marca.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.3',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'FLUXO DE SISTEMA',
+    title: 'Arquitetura RAG Ponta a Ponta',
+    subtitle: 'A separação entre a fase offline de ingestão/indexação e a fase online de consulta e geração.',
+    diagramKey: 'renderRagPipeline',
+    bodyHtml: `
+      <!-- O diagrama renderRagPipeline é injetado diretamente -->
+    `
+  },
+  {
+    id: '6.4',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'INFRAESTRUTURA DE DADOS',
+    title: 'Embeddings e Bancos de Dados Vetoriais',
+    subtitle: 'Armazenando e consultando bilhões de vetores em milissegundos.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Por que Bancos Tradicionais Falham?</div>
+          <p class="card-text">Bancos relacionais (SQL) buscam correspondências exatas por palavras-chave (WHERE texto LIKE '%termo%'). Falham com sinônimos, erros de digitação e conceitos abstratos.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Vector Databases Modernos</div>
+          <p class="card-text">Otimizados para cálculo de vizinhos mais próximos (Approximate Nearest Neighbors - ANN) em espaços de alta dimensão (768 a 3.072 dimensões).</p>
+          <ul class="card-list">
+            <li>Managed Cloud: Pinecone, Weaviate</li>
+            <li>Open-Source: Chroma, Qdrant, Milvus</li>
+            <li>Extensões SQL: PostgreSQL com pgvector</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Algoritmos de Indexação (HNSW)</div>
+          <p class="card-text">Hierarchical Navigable Small World (HNSW) cria uma estrutura de grafos multinível que encontra os vetores mais similares em tempo logarítmico O(log N), evitando comparar com todos os dados da base.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.5',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'ENGENHARIA DE DADOS',
+    title: 'Chunking e Estratégias de Recuperação',
+    subtitle: 'Como fatiar documentos mantendo integridade semântica e contexto suficiente.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Fixed-Size com Overlap</div>
+          <p class="card-text">Divide o texto em blocos fixos de tokens (ex: 500 tokens) com uma sobreposição (overlap de 50 tokens) para evitar que frases importantes sejam cortadas no meio.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Recursive Character Chunking</div>
+          <p class="card-text">Algoritmo inteligente do LangChain que tenta quebrar primeiro por quebras de parágrafo (\n\n), depois por frases (\n ou ponto) e só em último caso por palavras ou caracteres.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Semantic Chunking</div>
+          <p class="card-text">Calcula a similaridade de embedding entre sentenças consecutivas. O corte ocorre apenas quando a distância semântica ultrapassa um limiar (mudança de tópico).</p>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>O Trade-off de Ouro:</strong> Chunks muito pequenos perdem o contexto global da ideia; chunks muito grandes diluem a especificidade do embedding e estouram a janela de contexto.
+      </div>
+    `
+  },
+  {
+    id: '6.6',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'MÉTRICAS MATEMÁTICAS',
+    title: 'Métricas de Similaridade Vetorial',
+    subtitle: 'Similaridade de Cosseno, Distância Euclidiana e Produto Escalar.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Similaridade de Cosseno</div>
+          <div class="code-box" style="margin: 8px 0;">cos(θ) = (A · B) / (||A|| ||B||)</div>
+          <p class="card-text">Mede o ângulo entre os dois vetores, normalizando pelo seu tamanho. Varia de -1 (opostos) a +1 (idênticos). <strong>É a métrica mais recomendada para PLN</strong>, pois independe do comprimento do texto.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Distância Euclidiana (L2)</div>
+          <div class="code-box" style="margin: 8px 0;">d(A, B) = √Σ(A_i - B_i)²</div>
+          <p class="card-text">Mede a distância geométrica em linha reta entre dois pontos. Quanto menor o valor, mais próximos são os vetores. Sensível à magnitude dos vetores (comprimento do documento).</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Produto Escalar (Dot Product)</div>
+          <div class="code-box" style="margin: 8px 0;">A · B = Σ(A_i × B_i)</div>
+          <p class="card-text">Multiplica e soma as coordenadas diretamente. Se os vetores já estiverem previamente normalizados (magnitude = 1), o produto escalar é matematicamente idêntico ao cosseno, com custo computacional menor.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.7',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'TÉCNICAS AVANÇADAS',
+    title: 'Técnicas Avançadas: MMR e Reranking',
+    subtitle: 'Superando as limitações da busca vetorial ingênua.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Maximal Marginal Relevance (MMR)</div>
+          <p class="card-text">A busca pura traz frequentemente 3 ou 4 chunks quase idênticos que repetem a mesma informação. O MMR otimiza conjuntamente:</p>
+          <ul class="card-list">
+            <li><strong>Relevância:</strong> Quão próximo o chunk está da pergunta do usuário.</li>
+            <li><strong>Diversidade:</strong> Quão diferente o chunk é dos chunks já selecionados anteriormente.</li>
+          </ul>
+          <p class="card-text" style="margin-top: 8px;">Garante que o LLM receba múltiplos pontos de vista e informações complementares no prompt.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Reranking com Cross-Encoders</div>
+          <p class="card-text">Bi-encoders (bancos vetoriais normais) comparam vetores de forma rápida, mas superficial. O Reranking introduz uma segunda etapa de alta precisão:</p>
+          <ul class="card-list">
+            <li>1ª Etapa (Fast Retrieval): O Vector DB recupera os Top-50 candidatos em 10ms.</li>
+            <li>2ª Etapa (Cross-Encoder): Um modelo de Rerank (ex: Cohere Rerank, BGE-Reranker) avalia conjuntamente a pergunta e o documento, reordenando com precisão cirúrgica e entregando apenas os Top-3 melhores ao LLM.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '6.8',
+    type: 'content',
+    sectionBadge: '06 · RAG',
+    tag: 'PROMPT AUGMENTATION',
+    title: 'Geração de Respostas com Contexto Recuperado',
+    subtitle: 'A síntese final fundamentada nos dados recuperados.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">Anatomia do Prompt Aumentado</div>
+          <div class="code-box">
+            SYSTEM: Você é um assistente técnico corporativo.<br>
+            Responda APENAS com base nos fragmentos de contexto abaixo.<br>
+            Se a resposta não constar no contexto, diga "Não possuo essa informação".<br><br>
+            --- CONTEXTO RECUPERADO ---<br>
+            [Doc 1 - Página 14]: A política de devolução é de até 30 dias corridos...<br>
+            [Doc 2 - Página 22]: Para produtos da linha Pro, a garantia é estendida...<br><br>
+            --- PERGUNTA DO USUÁRIO ---<br>
+            {pergunta_do_usuario}
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Benefícios Críticos para Produção</div>
+          <ul class="card-list">
+            <li><strong>Citação de Fontes:</strong> O modelo aponta com precisão o documento e parágrafo de onde extraiu o fato.</li>
+            <li><strong>Controle de Acesso (RBAC):</strong> Usuários só recuperam chunks de documentos aos quais seus perfis corporativos têm permissão de leitura.</li>
+            <li><strong>Governança e Auditoria:</strong> Toda resposta pode ser conferida por humanos auditores em segundos.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 7: FRAMEWORKS E CONSTRUÇÃO DE APLICAÇÕES COM IA
+  // =========================================================================
+  {
+    id: 'trans-07',
+    type: 'transition',
+    sectionNumber: '07',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    title: 'Frameworks e Construção de Aplicações com IA',
+    description: 'Como sair de chamadas de API isoladas para arquiteturas escaláveis e modulares com LangChain, templates, gerenciamento de memória e orquestração.',
+  },
+  {
+    id: '7.1',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'ECOSSISTEMA LANGCHAIN',
+    title: 'O que é LangChain?',
+    subtitle: 'O framework de orquestração padrão da indústria para conectar dados, memória e modelos de linguagem.',
+    diagramKey: 'renderLangchainPipeline',
+    bodyHtml: `
+      <!-- O diagrama renderLangchainPipeline é injetado diretamente -->
+    `
+  },
+  {
+    id: '7.2',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'ENGENHARIA DE PROMPTS',
+    title: 'Prompt Templates e Engenharia de Prompt',
+    subtitle: 'Estruturação parametrizável de instruções para garantir repetibilidade e robustez.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Prompt Templates</div>
+          <p class="card-text">Evita concatenação insegura de strings. Permite reutilizar esquemas com validação de tipagem:</p>
+          <div class="code-box" style="margin-top: 8px;">
+            template = "Traduza de {origem} para {destino}: {texto}"
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Técnicas: Zero-Shot vs Few-Shot</div>
+          <p class="card-text"><strong>Zero-shot:</strong> O modelo executa a tarefa sem exemplos prévios.<br><strong>Few-shot:</strong> O prompt fornece 2 a 5 exemplos resolvidos (pares entrada $\rightarrow$ saída), calibrando o padrão de formatação desejado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Chain-of-Thought (CoT)</div>
+          <p class="card-text">Instruir o modelo a "pensar passo a passo antes de dar a resposta final". Isso ativa caminhos de raciocínio lógico no Transformer, aumentando a acurácia em tarefas complexas em até 40%.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.3',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'GERENCIAMENTO DE ESTADO',
+    title: 'Memory e Gerenciamento de Contexto',
+    subtitle: 'Como dar continuidade a diálogos sem estourar limites de tokens e custos de inferência.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">ConversationBufferMemory</div>
+          <p class="card-text">Guarda o histórico bruto de todas as mensagens. Simples e direto, mas perigoso em conversas longas pois estoura a janela de contexto rapidamente.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">ConversationSummaryMemory</div>
+          <p class="card-text">Usa um LLM auxiliar rápido para resumir periodicamente o passado da conversa, preservando fatos cruciais em poucas linhas e mantendo a contagem de tokens estável.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">VectorStoreMemory</div>
+          <p class="card-text">Armazena interações passadas em um banco vetorial. Diante de uma nova pergunta, recupera apenas os momentos do passado semanticamente relevantes para a resposta atual.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.4',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'INGESTÃO UNIVERSAL',
+    title: 'Document Loaders, Transformers e Web Scraping',
+    subtitle: 'Conectores padronizados para alimentar sistemas de IA com dados de qualquer fonte.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Document Loaders</div>
+          <p class="card-text">Mais de 100 conectores nativos:</p>
+          <ul class="card-list">
+            <li>PDFs (PyPDF, PDFMiner, Unstructured)</li>
+            <li>Repositórios Git e Markdown</li>
+            <li>Confluence, Notion, Google Drive e Slack</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Web Scraping Inteligente</div>
+          <p class="card-text">Loaders modernos (Playwright, Selenium, Firecrawl) renderizam SPAs em JavaScript e extraem o conteúdo textual limpo, descartando automaticamente anúncios, headers e menus irrelevantes.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Document Transformers</div>
+          <p class="card-text">Limpeza de HTML, tradução automática, remoção de dados pessoais identificáveis (PII/LGPD) e padronização de metadados antes da indexação vetorial.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.5',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'DESACOPLAMENTO DE PROVEDORES',
+    title: 'Integração com APIs de LLMs',
+    subtitle: 'Flexibilidade para alternar entre provedores proprietários e modelos locais open-source.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">APIs Proprietárias em Nuvem</div>
+          <p class="card-text">Modelos hospedados com garantia de SLA e capacidades de topo de linha:</p>
+          <ul class="card-list">
+            <li><strong>OpenAI:</strong> GPT-4o, GPT-4o-mini, o1 (raciocínio avançado).</li>
+            <li><strong>Google:</strong> Gemini 1.5 Pro / Flash (janela de 2M tokens e multimodalidade).</li>
+            <li><strong>Anthropic:</strong> Claude 3.5 Sonnet (referência em código e escrita natural).</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Modelos Open-Source & Locais</div>
+          <p class="card-text">Privacidade total e controle absoluto sem envio de dados para servidores terceiros:</p>
+          <ul class="card-list">
+            <li><strong>Ollama / vLLM:</strong> Servidores locais de inferência com throughput altíssimo.</li>
+            <li><strong>Modelos Fundacionais Livres:</strong> Meta LLaMA 3.1, Mistral / Mixtral, Qwen 2.5, DeepSeek.</li>
+            <li><strong>Portabilidade LangChain:</strong> Basta trocar a classe <code>ChatOpenAI</code> por <code>ChatOllama</code> sem alterar uma única linha de lógica de negócio da aplicação!</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '7.6',
+    type: 'content',
+    sectionBadge: '07 · FRAMEWORKS E APLICAÇÕES',
+    tag: 'ARQUITETURA DE PRODUÇÃO',
+    title: 'Pipeline de Construção de Aplicações com IA',
+    subtitle: 'A anatomia de uma arquitetura empresarial completa em camadas.',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Camada de Interface (UI)</div>
+          <div class="step-desc">Web apps (Next.js/React), chats corporativos (Teams, Slack) e fluxos assíncronos com feedback de streaming em tempo real.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Gateway & Segurança</div>
+          <div class="step-desc">Autenticação, rate limiting, controle de custos (token tracking), detecção de prompt injection e filtros de segurança (guardrails).</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Orquestrador & RAG</div>
+          <div class="step-desc">LangChain / LlamaIndex roteando intenções, consultando cache semântico (Redis) e buscando contexto em bancos vetoriais.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Modelos & Ferramentas</div>
+          <div class="step-desc">LLMs executando raciocínio e function calling conectado a ERPs, CRMs, APIs bancárias e geradores de relatórios.</div>
+        </div>
+      </div>
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 8: AGENTES DE INTELIGÊNCIA ARTIFICIAL
+  // =========================================================================
+  {
+    id: 'trans-08',
+    type: 'transition',
+    sectionNumber: '08',
+    sectionBadge: '08 · AGENTES DE IA',
+    title: 'Agentes de Inteligência Artificial',
+    subtitle: 'Da Geração de Texto à Autonomia Prática',
+    description: 'A fronteira da IA contemporânea: sistemas capazes de perceber ambientes, raciocinar, planejar estratégias em múltiplos passos e executar ações no mundo real com ferramentas.',
+  },
+  {
+    id: '8.1',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'O SALTO COGNITIVO',
+    title: 'O que são Agentes de Inteligência Artificial?',
+    subtitle: 'Entidades autônomas que perseguem metas em ambientes dinâmicos.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Autonomia Deliberativa</div>
+          <p class="card-text">O agente não precisa que o humano especifique cada clique. Diante de um objetivo de alto nível ("Audite este relatório financeiro e gere um resumo em PDF"), o agente decide quais etapas seguir.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Tomada de Decisão em Loop</div>
+          <p class="card-text">Executa ciclos contínuos de percepção $\rightarrow$ reflexão $\rightarrow$ ação $\rightarrow$ correção de rota até que o critério de sucesso do objetivo seja matematicamente satisfeito.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Interação com o Mundo</div>
+          <p class="card-text">Equipado com ferramentas (tools), o agente lê e-mails, executa consultas SQL, roda scripts Python, navega na internet e aciona APIs corporativas externas.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.2',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'MUDANÇA DE PARADIGMA',
+    title: 'Chatbot Convencional vs. Agente Autônomo',
+    subtitle: 'Compreendendo por que os agentes representam o próximo grande ciclo tecnológico.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="comparison-card">
+          <span class="comparison-tag tag-trad">CHATBOT CONVENCIONAL</span>
+          <div class="card-title">Passivo e Reativo</div>
+          <ul class="card-list">
+            <li><strong>Fluxo:</strong> 1 Pergunta $\rightarrow$ 1 Resposta em texto.</li>
+            <li><strong>Escopo:</strong> Limitado a sintetizar informações que já estão dentro do seu contexto.</li>
+            <li><strong>Ação:</strong> Não possui braços operacionais; se uma API falhar, apenas reporta o erro ao usuário.</li>
+            <li><strong>Exemplo:</strong> "Como posso cancelar minha passagem aérea?" $\rightarrow$ Responde explicando a regra.</li>
+          </ul>
+        </div>
+        <div class="comparison-card highlight">
+          <span class="comparison-tag tag-gen">AGENTE DE IA AUTÔNOMO</span>
+          <div class="card-title">Proativo, Resolutivo e Orientado a Metas</div>
+          <ul class="card-list">
+            <li><strong>Fluxo:</strong> Meta $\rightarrow$ Decomposição em subtarefas $\rightarrow$ Múltiplas ações $\rightarrow$ Validação.</li>
+            <li><strong>Escopo:</strong> Busca ativamente dados externos em tempo real e corrige os próprios erros.</li>
+            <li><strong>Ação:</strong> Chama a API da companhia aérea, cancela a passagem e emite o comprovante.</li>
+            <li><strong>Exemplo:</strong> "Cancele a passagem do voo 402 e peça reembolso" $\rightarrow$ <em>Executa a transação completa</em>.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.3',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'ARQUITETURA COGNITIVA',
+    title: 'Arquitetura Completa de um Agente de IA',
+    subtitle: 'A simbiose entre Percepção, Raciocínio, Memória e Atuação.',
+    diagramKey: 'renderAgentArchitecture',
+    bodyHtml: `
+      <!-- O diagrama renderAgentArchitecture é injetado diretamente -->
+    `
+  },
+  {
+    id: '8.4',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'DECOMPOSIÇÃO DE MÓDULOS',
+    title: 'Componentes Fundamentais: Sensores, Processadores e Atuadores',
+    subtitle: 'A tríade clássica da robótica adaptada aos sistemas cognitivos modernos.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">1. Sensores (Percepção)</div>
+          <p class="card-text">Capturam o estado atual do ambiente:</p>
+          <ul class="card-list">
+            <li>Mensagens do usuário no chat</li>
+            <li>Respostas de requisições HTTP e webhooks</li>
+            <li>DOM de páginas web e capturas de tela (visão computacional)</li>
+            <li>Logs e códigos de retorno de execução de terminal</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">2. Processadores (Cérebro)</div>
+          <p class="card-text">O LLM atuando como motor de raciocínio lógico:</p>
+          <ul class="card-list">
+            <li>Interpreta a intenção e define a estratégia</li>
+            <li>Planeja a decomposição da meta (Planner)</li>
+            <li>Decide qual ferramenta chamar e com quais parâmetros</li>
+            <li>Avalia se o resultado obtido foi suficiente (Self-reflection)</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">3. Atuadores (Ação)</div>
+          <p class="card-text">Os mecanismos que modificam o ambiente:</p>
+          <ul class="card-list">
+            <li>Executores de código (sandbox Python, bash)</li>
+            <li>Conectores de banco de dados (INSERT, UPDATE)</li>
+            <li>Disparo de e-mails e mensagens de mensageria</li>
+            <li>Navegadores headless (cliques e formulários)</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.5',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'EXTENSIBILIDADE',
+    title: 'Ferramentas (Tools) e Function Calling',
+    subtitle: 'A interface estruturada que conecta a inteligência do modelo a qualquer software do mundo.',
+    bodyHtml: `
+      <div class="grid-2col">
+        <div class="card-glass">
+          <div class="card-title">O que é Function Calling?</div>
+          <p class="card-text">É a capacidade nativa de LLMs modernos de analisar um esquema de funções em JSON/OpenAPI e, quando necessário, pausar a geração e emitir uma chamada estruturada com argumentos validados:</p>
+          <div class="code-box" style="margin-top: 10px;">
+            {<br>
+            &nbsp;&nbsp;"name": "calcular_imposto",<br>
+            &nbsp;&nbsp;"arguments": {"valor": 15000, "regime": "lucro_presumido"}<br>
+            }
+          </div>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Exemplos Comuns de Ferramentas</div>
+          <ul class="card-list">
+            <li><strong>Calculadora / Python REPL:</strong> Elimina erros aritméticos e resolve álgebra complexa com precisão determinística.</li>
+            <li><strong>SQL Tool:</strong> Converte perguntas em linguagem natural em queries SQL executadas contra o banco analítico.</li>
+            <li><strong>Search API (Tavily, Google Serper):</strong> Recupera informações atualizadas em tempo real da internet aberta.</li>
+            <li><strong>File System Tools:</strong> Lê, edita, compila e comita arquivos em repositórios de código.</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.6',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'FRAMEWORK DE RACIOCÍNIO',
+    title: 'Ciclo de Execução de um Agente: ReAct',
+    subtitle: 'Synergizing Reasoning and Acting in Language Models (Yao et al., 2022).',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Thought (Pensamento)</div>
+          <div class="step-desc">O agente verbaliza explicitamente seu raciocínio: "Para responder qual empresa teve maior lucro, primeiro preciso buscar a receita da empresa A."</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Action (Ação)</div>
+          <div class="step-desc">O agente escolhe e aciona uma ferramenta específica com parâmetros estruturados: <code>buscar_dados_financeiros(ticket="A")</code>.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Observation (Observação)</div>
+          <div class="step-desc">O ambiente retorna a resposta da ferramenta (ex: "Lucro líquido: R$ 2,4 bi"). O resultado é injetado no contexto do agente.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Reflection & Resposta</div>
+          <div class="step-desc">O agente avalia se já possui dados suficientes. Se sim, emite a resposta final ao usuário; se não, inicia um novo ciclo.</div>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Vantagem do ReAct:</strong> O rastreamento explícito do pensamento (Thought) permite auditar exatamente por que o agente tomou cada decisão e facilita a autocorreção em caso de falhas de ferramentas.
+      </div>
+    `
+  },
+  {
+    id: '8.7',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'AUTOMAÇÃO VISUAL',
+    title: 'LAMs (Large Action Models)',
+    subtitle: 'Modelos treinados especificamente para operar interfaces gráficas humanas (GUI).',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Além de APIs Padronizadas</div>
+          <p class="card-text">Muitos softwares corporativos antigos não possuem APIs REST. Os LAMs operam diretamente na tela: enxergam botões, inputs, menus e popups usando visão computacional.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Mapeamento Visuo-Espacial</div>
+          <p class="card-text">Traduzem comandos ("reserve o hotel mais barato") em sequências precisas de cliques do mouse (x, y), rolagem de página e digitação no teclado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Exemplos e Tendência (OS Agents)</div>
+          <p class="card-text">Claude Computer Use, Rabbit OS e sistemas de automação de navegador (Playwright agents) transformam qualquer computador ou aplicativo em um espaço operável pela IA.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.8',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'CASOS REAIS',
+    title: 'Aplicações Reais de Agentes Autônomos',
+    subtitle: 'Como a autonomia prática está gerando valor mensurável na indústria.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Software Engineering Agents</div>
+          <p class="card-text">Agentes como Devin, GitHub Copilot Workspace e assistentes autônomos que recebem uma issue do GitHub, clonam o repositório, escrevem o código, rodam os testes unitários, corrigem bugs e abrem o Pull Request prontos para revisão.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Operações & Atendimento Resolutivo</div>
+          <p class="card-text">Em vez de apenas responder dúvidas frequentes, o agente altera cadastros, processa estornos bancários, atualiza cartões de crédito e renegocia contratos acessando o sistema central da empresa de forma segura.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Pesquisa Científica & Inteligência de Mercado</div>
+          <p class="card-text">Agentes que passam horas navegando por dezenas de sites de concorrentes, baixam demonstrativos em PDF, extraem tabelas financeiras e compilam relatórios analíticos completos em minutos.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '8.9',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'COLABORAÇÃO DISTRIBUÍDA',
+    title: 'Sistemas Multi-Agentes (Multi-Agent Systems)',
+    subtitle: 'Superando agentes individuais através da especialização, colaboração e debate.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">Especialização de Papéis</div>
+          <p class="card-text">Assim como em uma equipe humana, dividir tarefas complexas entre agentes especialistas (ex: Pesquisador, Redator, Revisor de Código, Gerente de Projeto) gera resultados muito superiores a um único agente generalista sobrecarregado.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Padrões de Orquestração</div>
+          <ul class="card-list">
+            <li><strong>Sequencial (Pipeline):</strong> A saída do agente A é a entrada do agente B.</li>
+            <li><strong>Hierárquico (Supervisor):</strong> Um agente líder delega tarefas e avalia entregas.</li>
+            <li><strong>Debate / Consenso:</strong> Agentes com personas diferentes debatem até convergir na melhor solução.</li>
+          </ul>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Frameworks de Destaque</div>
+          <p class="card-text">Ferramentas como CrewAI, AutoGen (Microsoft) e LangGraph tornam viável a criação de equipes autônomas coordenadas com facilidade.</p>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: '9.0',
+    type: 'content',
+    sectionBadge: '08 · AGENTES DE IA',
+    tag: 'ORQUESTRAÇÃO ROBUSTA',
+    title: 'LangGraph: Orquestração Baseada em Grafos',
+    subtitle: 'Controle fino de estado, ciclos adaptativos e checkpoints para fluxos agênticos profissionais.',
+    diagramKey: 'renderLangGraphState',
+    bodyHtml: `
+      <!-- O diagrama renderLangGraphState é injetado diretamente -->
+    `
+  },
+
+  // =========================================================================
+  // BLOCO 9: CONCLUSÃO E SÍNTESE APLICADA
+  // =========================================================================
+  {
+    id: 'trans-09',
+    type: 'transition',
+    sectionNumber: '09',
+    sectionBadge: '09 · CONCLUSÃO',
+    title: 'Conclusão e Síntese Aplicada',
+    description: 'A visão holística conectando os fundamentos teóricos à criação de produtos e ecossistemas inteligentes de alto impacto no mundo real.',
+  },
+  {
+    id: '9.1',
+    type: 'content',
+    sectionBadge: '09 · CONCLUSÃO',
+    tag: 'SÍNTESE COGNITIVA',
+    title: 'A Jornada Evolutiva da Inteligência Artificial',
+    subtitle: 'Do processamento estatístico de caracteres à cognição autônoma com ferramentas.',
+    bodyHtml: `
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">PLN Clássico & Tokens</div>
+          <div class="step-desc">Aprendeu a transformar a ambiguidade da linguagem humana em representações vetoriais contínuas (embeddings).</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Transformers & LLMs</div>
+          <div class="step-desc">A arquitetura de atenção permitiu modelar o contexto global e absorver conhecimento enciclopédico através de pré-treinamento massivo.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Adaptação & Grounding</div>
+          <div class="step-desc">PEFT (LoRA/QLoRA) e RAG resolveram as dores críticas de custo, privacidade, atualização contínua e alucinações.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-title">Agentes Autônomos</div>
+          <div class="step-desc">Os LLMs deixaram de ser apenas geradores passivos de texto para se tornarem o motor cognitivo central de ação no mundo real.</div>
+        </div>
+      </div>
+      <div class="callout-banner">
+        <strong>Conclusão Central:</strong> Cada nova tecnologia não substituiu a anterior, mas construiu um degrau sobre ela. O sucesso na IA depende de dominar todos os elos dessa corrente.
+      </div>
+    `
+  },
+  {
+    id: '9.2',
+    type: 'content',
+    sectionBadge: '09 · CONCLUSÃO',
+    tag: 'MAPA HOLÍSTICO',
+    title: 'A Matriz de Interconexão: Como GenAI, PLN e LLMs se Fundem',
+    subtitle: 'A relação simbiótica entre as disciplinas que formam a moderna pilha de Inteligência Artificial.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">1. A Base: PLN e Embeddings</div>
+          <p class="card-text">O Processamento de Linguagem Natural fornece os fundamentos matemáticos: tokenização, semântica vetorial e métricas de similaridade. Sem isso, os modelos não conseguem manipular texto.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">2. O Motor: LLMs e Transformers</div>
+          <p class="card-text">Os Large Language Models são a manifestação máxima do PLN moderno em escala colossal, codificando gramática, bom senso, analogias e habilidades de raciocínio lógico.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">3. O Resultado: IA Generativa</div>
+          <p class="card-text">A IA Generativa é o paradigma de aplicação final, onde o motor Transformer sintetiza novos artefatos (textos, códigos, imagens) a partir de instruções humanas.</p>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 20px;">
+        <strong>Visão Sistêmica:</strong> O PLN é a linguagem matemática; o LLM é o processador cognitivo; e a IA Generativa é o meio criativo pelo qual humanos e máquinas colaboram.
+      </div>
+    `
+  },
+  {
+    id: '9.3',
+    type: 'content',
+    sectionBadge: '09 · CONCLUSÃO',
+    tag: 'FRAMEWORK DE PROJETOS',
+    title: 'O Tridente de Potencialização: RAG, Fine-Tuning e Agentes',
+    subtitle: 'Como orquestrar as três grandes técnicas para criar soluções corporativas de ponta.',
+    bodyHtml: `
+      <div class="grid-3col">
+        <div class="card-glass">
+          <div class="card-title">RAG: Conhecimento Factual</div>
+          <p class="card-text">Conecta o sistema à verdade factual atualizada dos bancos de dados e documentos da empresa, garantindo confiabilidade absoluta e rastreabilidade com fontes citadas.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Fine-Tuning: Comportamento</div>
+          <p class="card-text">Especializa o modelo em tarefas de altíssima precisão de formato, estilo e vocabulário técnico estrito, reduzindo o tamanho do prompt e latência de inferência.</p>
+        </div>
+        <div class="card-glass">
+          <div class="card-title">Agentes: Execução e Ação</div>
+          <p class="card-text">Dota o sistema de autonomia para chamar APIs, tomar decisões condicionais, consultar o RAG quando tiver dúvidas e resolver problemas ponta a ponta sem supervisão constante.</p>
+        </div>
+      </div>
+      <div class="callout-banner" style="margin-top: 24px;">
+        <strong>A Equação do Sucesso em Projetos Reais:</strong><br>
+        <span style="color: #00f0ff; font-family: 'JetBrains Mono'; font-size: 1.05rem; font-weight: 700;">
+          Aplicação de Alto Impacto = (Modelo Base Eficiente) + (RAG para Fatos) + (PEFT/LoRA para Estilo) + (Agente para Automação de Ações)
+        </span>
+      </div>
+    `
   }
 ];
 
