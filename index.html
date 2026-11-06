@@ -2439,27 +2439,68 @@ const SLIDES_DATA = [
     type: 'content',
     sectionBadge: '05 · TREINAMENTO E ADAPTAÇÃO',
     tag: 'REAPROVEITAMENTO INTELIGENTE',
-    title: 'Transfer Learning e Transfer Rate',
-    subtitle: 'A base do aprendizado moderno: nunca comece a treinar do zero.',
+    title: 'Transfer Learning',
+    subtitle: 'Reaproveitamento inteligente de conhecimento.',
     bodyHtml: `
-      <div class="grid-2col">
-        <div class="card-glass">
-          <div class="card-title">Transfer Learning (Aprendizado por Transferência)</div>
-          <p class="card-text">Em vez de inicializar pesos aleatoriamente (o que exigiria milhões de dólares), aproveitamos representações latentes profundas já aprendidas pelo modelo pré-treinado.</p>
-          <ul class="card-list">
-            <li>Camadas iniciais capturam sintaxe e relações gramaticais universais.</li>
-            <li>Camadas intermediárias abstraem fatos e raciocínio lógico.</li>
-            <li>Ajustamos prioritariamente as camadas superiores para a tarefa específica.</li>
-          </ul>
+      <!-- O que é? -->
+      <div class="card-glass" style="padding: 16px 20px; margin-bottom: 20px; border-left: 3px solid var(--accent-cyan); display: flex; align-items: flex-start; gap: 16px;">
+        <span style="font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: var(--accent-cyan); background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.3); padding: 4px 10px; border-radius: 4px; white-space: nowrap; margin-top: 2px;">O QUE É?</span>
+        <p style="margin: 0; color: var(--text-slate); font-size: 0.94rem; line-height: 1.55;">
+          É uma abordagem de Machine Learning que permite reutilizar o conhecimento adquirido por um modelo pré-treinado para resolver uma nova tarefa, reduzindo a necessidade de treinamento do zero.
+        </p>
+      </div>
+
+      <!-- Como Funciona o Transfer Learning (Fluxo do Ciclo de Reaproveitamento) -->
+      <div class="grid-3col" style="align-items: stretch;">
+        <!-- Etapa 01 -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800; color: var(--accent-cyan);">01</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 2px 8px; border-radius: 4px;">BASE GENERALISTA</span>
+            </div>
+            <div class="card-title" style="font-size: 1rem; margin-bottom: 10px;">MODELO PRÉ-TREINADO</div>
+            <ul class="card-list" style="margin-top: 0; gap: 10px;">
+              <li>Aprende padrões e representações a partir de grandes volumes de dados.</li>
+              <li>Desenvolve uma capacidade generalista que pode ser reaproveitada.</li>
+            </ul>
+          </div>
         </div>
-        <div class="card-glass">
-          <div class="card-title">Transfer Rate (Taxa de Transferência)</div>
-          <p class="card-text">Mede a eficiência e a velocidade com que o conhecimento de uma tarefa de origem (fonte) é absorvido pela tarefa de destino:</p>
-          <ul class="card-list">
-            <li><strong>Transferência Positiva:</strong> Domínios correlatos aceleram o aprendizado e reduzem drasticamente o volume de dados rotulados necessários.</li>
-            <li><strong>Transferência Negativa:</strong> Ocorre quando o domínio de origem introduz preconceitos ou ruídos incompatíveis com o novo objetivo.</li>
-          </ul>
+
+        <!-- Etapa 02 -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; position: relative; border-color: rgba(0, 240, 255, 0.35); box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800; color: var(--accent-cyan);">02</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 240, 255, 0.4); padding: 2px 8px; border-radius: 4px;">ESPECIALIZAÇÃO</span>
+            </div>
+            <div class="card-title" style="font-size: 1rem; margin-bottom: 10px;">TRANSFERÊNCIA E ADAPTAÇÃO</div>
+            <ul class="card-list" style="margin-top: 0; gap: 10px;">
+              <li>O conhecimento aprendido é aproveitado em uma nova tarefa ou domínio.</li>
+              <li>Técnicas como <strong>Fine-Tuning</strong> e <strong>LoRA</strong> permitem especializar o modelo.</li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Etapa 03 -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.3rem; font-weight: 800; color: var(--accent-cyan);">03</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 2px 8px; border-radius: 4px;">RESULTADO FINAL</span>
+            </div>
+            <div class="card-title" style="font-size: 1rem; margin-bottom: 10px;">MODELO ADAPTADO</div>
+            <ul class="card-list" style="margin-top: 0; gap: 10px;">
+              <li>Aplica o conhecimento anterior em uma finalidade específica.</li>
+              <li>Apresenta comportamento mais alinhado à tarefa desejada.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ideia Central -->
+      <div class="callout-banner" style="margin-top: 20px;">
+        <strong>IDEIA CENTRAL:</strong> Em vez de ensinar tudo novamente, transferimos conhecimentos já aprendidos e os adaptamos a um novo objetivo.
       </div>
     `
   },
