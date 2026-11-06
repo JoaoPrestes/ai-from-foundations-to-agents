@@ -101,74 +101,111 @@ const DIAGRAMS = {
   // 1. Diagrama Comparativo: IA Tradicional vs IA Generativa
   renderAiComparison() {
     return `
-      <svg viewBox="0 0 940 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
-        <!-- Painel IA Tradicional -->
-        <rect x="20" y="20" width="430" height="300" rx="14" fill="rgba(11, 20, 48, 0.75)" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1.5"/>
-        <rect x="40" y="40" width="130" height="28" rx="6" fill="rgba(59, 130, 246, 0.2)" stroke="#3B82F6"/>
-        <text x="50" y="58" fill="#60A5FA" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700">IA TRADICIONAL</text>
-        <text x="40" y="95" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700">Decide a partir de padrões</text>
+      <svg viewBox="0 0 940 365" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <defs>
+          <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#3B82F6"/>
+          </marker>
+          <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#00F0FF"/>
+          </marker>
+        </defs>
 
-        <!-- Fluxo Tradicional -->
-        <g transform="translate(40, 120)">
-          <!-- Passo 1 -->
-          <rect x="0" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="12" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">ENTRADA</text>
-          <text x="12" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Dados tabular,</text>
-          <text x="12" y="60" fill="#F8FAFC" font-size="12" font-weight="600">sinais, histórico</text>
-          
-          <line x1="115" y1="35" x2="135" y2="35" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow)"/>
-          
-          <!-- Passo 2 -->
-          <rect x="140" y="0" width="110" height="70" rx="8" fill="rgba(59, 130, 246, 0.15)" stroke="#3B82F6"/>
-          <text x="152" y="25" fill="#60A5FA" font-size="11" font-family="'JetBrains Mono'">MODELO</text>
-          <text x="152" y="45" fill="#FFFFFF" font-size="12" font-weight="600">Classificação,</text>
-          <text x="152" y="60" fill="#FFFFFF" font-size="12" font-weight="600">Regressão</text>
+        <!-- ================= COLUNA 1: IA TRADICIONAL ================= -->
+        <rect x="20" y="15" width="435" height="335" rx="14" fill="rgba(11, 20, 48, 0.78)" stroke="rgba(59, 130, 246, 0.45)" stroke-width="1.5"/>
+        
+        <!-- Header & Frase de Impacto -->
+        <rect x="40" y="32" width="132" height="26" rx="6" fill="rgba(59, 130, 246, 0.18)" stroke="#3B82F6"/>
+        <text x="50" y="49" fill="#60A5FA" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">IA TRADICIONAL</text>
+        <text x="40" y="84" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="17" font-weight="800">"Analisa dados e toma decisões"</text>
 
-          <line x1="255" y1="35" x2="275" y2="35" stroke="#3B82F6" stroke-width="2"/>
+        <!-- Fluxo Simplificado (3 Etapas) -->
+        <g transform="translate(40, 104)">
+          <!-- Entrada -->
+          <rect x="0" y="0" width="114" height="82" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
+          <text x="12" y="22" fill="#94A3B8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">ENTRADA</text>
+          <text x="12" y="44" fill="#F8FAFC" font-size="11" font-weight="600">Histórico e</text>
+          <text x="12" y="60" fill="#F8FAFC" font-size="11" font-weight="600">números</text>
 
-          <!-- Passo 3 -->
-          <rect x="280" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="292" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">SAÍDA</text>
-          <text x="292" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Rótulo / Score</text>
-          <text x="292" y="60" fill="#38BDF8" font-size="11">Fraude: 98%</text>
+          <line x1="116" y1="41" x2="134" y2="41" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+          <!-- Processo -->
+          <rect x="138" y="0" width="114" height="82" rx="8" fill="rgba(59, 130, 246, 0.15)" stroke="#3B82F6"/>
+          <text x="148" y="22" fill="#60A5FA" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">PROCESSO</text>
+          <text x="148" y="44" fill="#FFFFFF" font-size="11" font-weight="700">Reconhece</text>
+          <text x="148" y="60" fill="#FFFFFF" font-size="11" font-weight="700">padrões</text>
+
+          <line x1="254" y1="41" x2="272" y2="41" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+          <!-- Saída -->
+          <rect x="276" y="0" width="114" height="82" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
+          <text x="286" y="20" fill="#94A3B8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">SAÍDA</text>
+          <text x="286" y="38" fill="#F8FAFC" font-size="10" font-weight="600">Diagnóstico ou</text>
+          <text x="286" y="52" fill="#F8FAFC" font-size="10" font-weight="600">previsão</text>
+          <text x="286" y="68" fill="#38BDF8" font-size="9" font-family="'JetBrains Mono'">98% fraude</text>
         </g>
-        <!-- Exemplos IA Tradicional -->
-        <text x="40" y="235" fill="#60A5FA" font-size="12" font-weight="700" font-family="'JetBrains Mono'">EXEMPLOS PRÁTICOS:</text>
-        <text x="40" y="258" fill="#94A3B8" font-size="12">Detecção de fraude bancária, previsão de churn e recomendação de itens.</text>
 
-        <!-- Painel IA Generativa -->
-        <rect x="490" y="20" width="430" height="300" rx="14" fill="rgba(11, 20, 48, 0.75)" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5"/>
-        <rect x="510" y="40" width="130" height="28" rx="6" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF"/>
-        <text x="522" y="58" fill="#00F0FF" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700">IA GENERATIVA</text>
-        <text x="510" y="95" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="18" font-weight="700">Cria novas saídas originais</text>
+        <!-- Onde é Usada (Card de Exemplos) -->
+        <rect x="40" y="204" width="395" height="126" rx="8" fill="rgba(4, 9, 23, 0.5)" stroke="rgba(59, 130, 246, 0.25)"/>
+        <text x="54" y="226" fill="#60A5FA" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">ONDE É USADA:</text>
+        
+        <circle cx="58" cy="246" r="3" fill="#3B82F6"/>
+        <text x="68" y="250" fill="#CBD5E1" font-size="11.5">Bloqueio de compras suspeitas</text>
 
-        <!-- Fluxo Generativo -->
-        <g transform="translate(510, 120)">
-          <!-- Passo 1 -->
-          <rect x="0" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="12" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">PROMPT</text>
-          <text x="12" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Instrução,</text>
-          <text x="12" y="60" fill="#F8FAFC" font-size="12" font-weight="600">Contexto multimodal</text>
-          
-          <line x1="115" y1="35" x2="135" y2="35" stroke="#00F0FF" stroke-width="2"/>
-          
-          <!-- Passo 2 -->
-          <rect x="140" y="0" width="110" height="70" rx="8" fill="rgba(0, 240, 255, 0.18)" stroke="#00F0FF"/>
-          <text x="152" y="25" fill="#00F0FF" font-size="11" font-family="'JetBrains Mono'">LLM / DIFUSÃO</text>
-          <text x="152" y="45" fill="#FFFFFF" font-size="12" font-weight="600">Transformer,</text>
-          <text x="152" y="60" fill="#FFFFFF" font-size="12" font-weight="600">Amostragem</text>
+        <circle cx="58" cy="272" r="3" fill="#3B82F6"/>
+        <text x="68" y="276" fill="#CBD5E1" font-size="11.5">Previsão de perda de clientes (churn)</text>
 
-          <line x1="255" y1="35" x2="275" y2="35" stroke="#00F0FF" stroke-width="2"/>
+        <circle cx="58" cy="298" r="3" fill="#3B82F6"/>
+        <text x="68" y="302" fill="#CBD5E1" font-size="11.5">Sistemas de recomendação (filmes, produtos)</text>
 
-          <!-- Passo 3 -->
-          <rect x="280" y="0" width="110" height="70" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="292" y="25" fill="#94A3B8" font-size="11" font-family="'JetBrains Mono'">CONTEÚDO</text>
-          <text x="292" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Texto, Código,</text>
-          <text x="292" y="60" fill="#00F0FF" font-size="11">Imagem, Áudio</text>
+        <!-- ================= COLUNA 2: IA GENERATIVA ================= -->
+        <rect x="485" y="15" width="435" height="335" rx="14" fill="rgba(11, 20, 48, 0.78)" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5"/>
+        
+        <!-- Header & Frase de Impacto -->
+        <rect x="505" y="32" width="132" height="26" rx="6" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF"/>
+        <text x="515" y="49" fill="#00F0FF" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700">IA GENERATIVA</text>
+        <text x="505" y="84" fill="#FFFFFF" font-family="'Plus Jakarta Sans', sans-serif" font-size="17" font-weight="800">"Entende o contexto e cria do zero"</text>
+
+        <!-- Fluxo Simplificado (3 Etapas) -->
+        <g transform="translate(505, 104)">
+          <!-- Entrada -->
+          <rect x="0" y="0" width="114" height="82" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
+          <text x="12" y="20" fill="#94A3B8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">ENTRADA</text>
+          <text x="12" y="38" fill="#F8FAFC" font-size="10.5" font-weight="600">Instrução /</text>
+          <text x="12" y="52" fill="#F8FAFC" font-size="10.5" font-weight="600">Pergunta</text>
+          <text x="12" y="68" fill="#38BDF8" font-size="9.5" font-family="'JetBrains Mono'">(prompt)</text>
+
+          <line x1="116" y1="41" x2="134" y2="41" stroke="#00F0FF" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+          <!-- Processo -->
+          <rect x="138" y="0" width="114" height="82" rx="8" fill="rgba(0, 240, 255, 0.15)" stroke="#00F0FF"/>
+          <text x="146" y="20" fill="#00F0FF" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">PROCESSO</text>
+          <text x="146" y="38" fill="#FFFFFF" font-size="10.5" font-weight="700">Gera novas</text>
+          <text x="146" y="52" fill="#FFFFFF" font-size="10.5" font-weight="700">combinações</text>
+          <text x="146" y="68" fill="#38BDF8" font-size="9.5" font-family="'JetBrains Mono'">(LLM)</text>
+
+          <line x1="254" y1="41" x2="272" y2="41" stroke="#00F0FF" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+          <!-- Saída -->
+          <rect x="276" y="0" width="114" height="82" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)"/>
+          <text x="286" y="20" fill="#94A3B8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">SAÍDA</text>
+          <text x="286" y="38" fill="#00F0FF" font-size="10.5" font-weight="700">Conteúdo</text>
+          <text x="286" y="52" fill="#00F0FF" font-size="10.5" font-weight="700">novo</text>
+          <text x="286" y="68" fill="#94A3B8" font-size="9">(texto, cód, img)</text>
         </g>
-        <!-- Exemplos IA Generativa -->
-        <text x="510" y="235" fill="#00F0FF" font-size="12" font-weight="700" font-family="'JetBrains Mono'">EXEMPLOS PRÁTICOS:</text>
-        <text x="510" y="258" fill="#94A3B8" font-size="12">Redigir relatórios, sintetizar código, criar imagens e copilotos de raciocínio.</text>
+
+        <!-- Onde é Usada (Card de Exemplos) -->
+        <rect x="505" y="204" width="395" height="126" rx="8" fill="rgba(4, 9, 23, 0.5)" stroke="rgba(0, 240, 255, 0.25)"/>
+        <text x="519" y="226" fill="#00F0FF" font-size="11" font-weight="700" font-family="'JetBrains Mono', monospace">ONDE É USADA:</text>
+        
+        <circle cx="523" cy="246" r="3" fill="#00F0FF"/>
+        <text x="533" y="250" fill="#CBD5E1" font-size="11.5">Apoio e geração de código</text>
+
+        <circle cx="523" cy="272" r="3" fill="#00F0FF"/>
+        <text x="533" y="276" fill="#CBD5E1" font-size="11.5">Resumos e redação de documentos</text>
+
+        <circle cx="523" cy="298" r="3" fill="#00F0FF"/>
+        <text x="533" y="302" fill="#CBD5E1" font-size="11.5">Assistentes e copilotos de trabalho</text>
       </svg>
     `;
   },
