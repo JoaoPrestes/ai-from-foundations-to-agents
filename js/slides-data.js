@@ -445,7 +445,7 @@ const SLIDES_DATA = [
     sectionBadge: '04 · LARGE LANGUAGE MODELS',
     tag: 'MECÂNICA NA PRÁTICA',
     title: 'Como os LLMs Funcionam na Prática?',
-    subtitle: 'Tudo se resume a uma única tarefa: prever a próxima palavra.',
+    subtitle: 'Tudo se resume a uma única tarefa: prever o próximo token.',
     bodyHtml: `
       <div class="grid-2col" style="align-items: stretch;">
         <!-- Cartão 1 (Esquerda): Construção Passo a Passo -->
@@ -1132,118 +1132,135 @@ const SLIDES_DATA = [
     title: 'Inferência e Implantação de Modelos',
     subtitle: 'A transição crítica do treinamento computacional intensivo para a execução operacional no mundo real.',
     bodyHtml: `
-      <!-- 1. Treinamento vs. Inferência -->
-      <div class="grid-2col" style="align-items: stretch; gap: 16px;">
-        <!-- Card Treinamento -->
-        <div class="card-glass" style="border-top: 3px solid var(--accent-blue-light); padding: 16px;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <div class="card-title" style="margin: 0; font-size: 1rem;">01 | Fase de Treinamento (Training)</div>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.4);">Ajuste de Pesos</span>
-          </div>
-          <p class="card-text" style="color: var(--text-slate); font-size: 0.86rem; line-height: 1.5; margin-bottom: 10px;">
-            O modelo <strong>aprende padrões</strong> a partir de grandes volumes de dados brutos, atualizando continuamente seus parâmetros (pesos e biases) via backpropagation.
-          </p>
-          <div style="background: rgba(4, 9, 23, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.8rem; color: #94a3b8;">
-            <strong style="color: #93c5fd;">Características:</strong> Executado em clusters maciços de GPUs/TPUs durante dias ou semanas. Altíssimo custo computacional e processo iterativo.
-          </div>
-        </div>
-
-        <!-- Card Inferência -->
-        <div class="card-glass" style="border-top: 3px solid var(--accent-cyan); padding: 16px;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <div class="card-title" style="margin: 0; font-size: 1rem;">02 | Fase de Inferência (Inference)</div>
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(0, 240, 255, 0.4);">Pesos Congelados</span>
-          </div>
-          <p class="card-text" style="color: var(--text-slate); font-size: 0.86rem; line-height: 1.5; margin-bottom: 10px;">
-            O modelo com <strong>pesos fixos (congelados)</strong> utiliza o conhecimento adquirido para processar novos inputs em tempo real e produzir previsões ou respostas.
-          </p>
-          <div style="background: rgba(4, 9, 23, 0.6); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 0.8rem; color: #94a3b8;">
-            <strong style="color: var(--accent-cyan);">Características:</strong> Executado em milissegundos por requisição para servir usuários e aplicações. Foco total em latência, vazão e custo.
-          </div>
+      <!-- 1. Pipeline Superior: Ciclo de Vida Completo -->
+      <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-sm); padding: 8px 14px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">
+        <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-slate); font-weight: 700; text-transform: uppercase;">Pipeline de Produção:</span>
+        <div style="display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.78rem;">
+          <span style="background: rgba(4, 9, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); padding: 2px 7px; border-radius: 4px; color: #e2e8f0;">Dados de Treinamento</span>
+          <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+          <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); padding: 2px 7px; border-radius: 4px; color: #93c5fd;">Treinamento</span>
+          <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+          <span style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 7px; border-radius: 4px; color: #fde68a;">Modelo Treinado</span>
+          <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+          <span style="background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); padding: 2px 7px; border-radius: 4px; color: #e9d5ff;">Implantação</span>
+          <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+          <span style="background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); padding: 2px 7px; border-radius: 4px; color: var(--accent-cyan);">Inferência</span>
+          <span style="color: var(--accent-cyan); font-weight: bold;">→</span>
+          <span style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); padding: 2px 7px; border-radius: 4px; color: #6ee7b7;">Resultado</span>
         </div>
       </div>
 
-      <!-- 2. Fluxo Principal e Bifurcação de Implantação -->
-      <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-md); padding: 16px 18px; margin-top: 14px;">
-        <!-- Fluxo Sequencial de Entrada até Implantação -->
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-          <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-slate); text-transform: uppercase;">Ciclo de Vida:</span>
-          <div style="display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.8rem; flex-wrap: wrap;">
-            <span style="background: rgba(4, 9, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); padding: 3px 8px; border-radius: 4px; color: #e2e8f0;">Dados de Treino</span>
-            <span style="color: var(--accent-cyan);">→</span>
-            <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.4); padding: 3px 8px; border-radius: 4px; color: #93c5fd;">Treinamento</span>
-            <span style="color: var(--accent-cyan);">→</span>
-            <span style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(245, 158, 11, 0.4); padding: 3px 8px; border-radius: 4px; color: #fde68a;">Modelo Treinado</span>
-            <span style="color: var(--accent-cyan);">→</span>
-            <span style="background: rgba(168, 85, 247, 0.2); border: 1px solid rgba(168, 85, 247, 0.4); padding: 3px 8px; border-radius: 4px; color: #e9d5ff;">Implantação</span>
-            <span style="color: var(--accent-cyan);">→</span>
-            <span style="background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.4); padding: 3px 8px; border-radius: 4px; color: var(--accent-cyan);">Inferência</span>
-            <span style="color: var(--accent-cyan);">→</span>
-            <span style="background: rgba(52, 211, 153, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); padding: 3px 8px; border-radius: 4px; color: #6ee7b7;">Resultado</span>
+      <!-- 2. Grade Principal: 2 Colunas Equilibradas e Sem Rolagem -->
+      <div class="grid-2col" style="align-items: stretch; gap: 14px;">
+        <!-- Coluna da Esquerda: Treinamento vs Inferência & Formas de Implantação -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Bloco A: Treinamento vs Inferência -->
+          <div class="card-glass" style="padding: 13px 15px; border-left: 3px solid var(--accent-blue-light);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;">
+              <div class="card-title" style="margin: 0; font-size: 0.92rem;">Treinamento vs. Inferência</div>
+              <span style="font-family: var(--font-mono); font-size: 0.68rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 7px; border-radius: 4px;">Ciclo de Dados</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.79rem; line-height: 1.45;">
+              <div style="background: rgba(4, 9, 23, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-sm); padding: 6px 9px;">
+                <strong style="color: #93c5fd;">● Treinamento:</strong> O modelo aprende padrões a partir dos dados e ajusta ativamente seus parâmetros (pesos/biases) via GPUs em processo iterativo e intensivo.
+              </div>
+              <div style="background: rgba(4, 9, 23, 0.6); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: var(--radius-sm); padding: 6px 9px;">
+                <strong style="color: var(--accent-cyan);">● Inferência:</strong> O modelo utiliza os parâmetros aprendidos (pesos congelados) para produzir previsões em tempo real a partir de novas entradas.
+              </div>
+            </div>
+          </div>
+
+          <!-- Bloco B: Formas de Implantação (Bifurcação Nuvem vs Local) -->
+          <div class="card-glass" style="padding: 13px 15px; border-left: 3px solid var(--accent-cyan);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;">
+              <div class="card-title" style="margin: 0; font-size: 0.92rem;">Formas de Implantação</div>
+              <span style="font-family: var(--font-mono); font-size: 0.68rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 7px; border-radius: 4px;">Bifurcação</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.78rem;">
+              <!-- Nuvem -->
+              <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-sm); padding: 7px 9px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
+                  <strong style="color: #60a5fa; font-size: 0.81rem;">Opção A · Inferência em Nuvem (Cloud)</strong>
+                  <span style="font-size: 0.68rem; color: #94a3b8; font-family: var(--font-mono);">Escalável & Centralizado</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.73rem; color: #e2e8f0; margin-bottom: 3px;">
+                  <span style="color: #60a5fa;">Nuvem</span> → <span style="color: var(--accent-cyan);">API</span> → <span>Aplicação</span> → <span style="color: #4ade80;">Usuário</span>
+                </div>
+                <span style="color: var(--text-slate); font-size: 0.75rem; line-height: 1.35; display: block;">
+                  Hospedado em data centers e acessado via APIs. Alta escalabilidade, sem exigir hardware do cliente.
+                </span>
+              </div>
+              <!-- Local -->
+              <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 7px 9px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
+                  <strong style="color: var(--accent-cyan); font-size: 0.81rem;">Opção B · Inferência Local (On-Device)</strong>
+                  <span style="font-size: 0.68rem; color: #94a3b8; font-family: var(--font-mono);">Privacidade & Offline</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.73rem; color: #e2e8f0; margin-bottom: 3px;">
+                  <span style="color: var(--accent-cyan);">Ambiente Local</span> → <span style="color: #fbbf24;">Modelo Instalado</span> → <span>Aplicação</span> → <span style="color: #4ade80;">Usuário</span>
+                </div>
+                <span style="color: var(--text-slate); font-size: 0.75rem; line-height: 1.35; display: block;">
+                  Executado no dispositivo (PC/smartphone). Privacidade total (LGPD) e sem custos por requisição, limitado pelo hardware.
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- As Duas Formas de Implantação (Nuvem vs Local) -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-          <!-- Opção 1: Nuvem -->
-          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-sm); padding: 12px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-              <strong style="color: #60a5fa; font-size: 0.88rem;">Opção A · Inferência em Nuvem (Cloud / API)</strong>
-              <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #93c5fd;">Data Centers</span>
+        <!-- Coluna da Direita: Princípio da API & Métricas Operacionais -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Destaque: A API é Interface, não o Modelo -->
+          <div class="card-glass" style="padding: 13px 15px; border-left: 3px solid #fbbf24; background: rgba(245, 158, 11, 0.05);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+              <strong style="color: #fbbf24; font-size: 0.84rem; font-family: var(--font-mono);">★ PRINCÍPIO DE ENGENHARIA</strong>
+              <span style="font-size: 0.68rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; padding: 2px 6px; border-radius: 4px;">Conceito Crítico</span>
             </div>
-            <!-- Fluxo Nuvem -->
-            <div style="display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.76rem; margin: 8px 0; color: #ffffff;">
-              <span style="color: #60a5fa;">Nuvem</span> → <span style="color: var(--accent-cyan);">API REST/gRPC</span> → <span>Aplicação</span> → <span style="color: #4ade80;">Usuário</span>
-            </div>
-            <p style="margin: 0; font-size: 0.8rem; color: var(--text-slate); line-height: 1.45;">
-              Hospedado em servidores de alta capacidade. Escalabilidade elástica sob demanda, suporta modelos gigantescos (70B+) sem sobrecarregar o hardware do cliente.
+            <p style="margin: 0; font-size: 0.8rem; color: #e2e8f0; line-height: 1.45;">
+              Uma <strong>API</strong> é uma <em>interface de comunicação entre sistemas</em>, e <strong>não</strong> o próprio modelo de IA. O modelo é a rede neural com parâmetros aprendidos executando na memória; a API é apenas a ponte que recebe a requisição e devolve a resposta.
             </p>
           </div>
 
-          <!-- Opção 2: Local -->
-          <div style="background: rgba(4, 9, 23, 0.7); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 12px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-              <strong style="color: var(--accent-cyan); font-size: 0.88rem;">Opção B · Inferência Local (On-Device / Edge)</strong>
-              <span style="font-size: 0.7rem; font-family: var(--font-mono); color: #a5f3fc;">On-Premise</span>
+          <!-- Bloco de Métricas Operacionais -->
+          <div class="card-glass" style="padding: 13px 15px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;">
+                <div class="card-title" style="margin: 0; font-size: 0.92rem;">Métricas Operacionais de Produção</div>
+                <span style="font-family: var(--font-mono); font-size: 0.68rem; background: rgba(168, 85, 247, 0.2); color: #c084fc; padding: 2px 7px; border-radius: 4px;">Monitoramento</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 7px; font-size: 0.78rem;">
+                <!-- Métrica 1 -->
+                <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: var(--radius-sm); padding: 6px 9px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <strong style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.76rem;">01 | LATÊNCIA</strong>
+                    <span style="color: #94a3b8; font-size: 0.7rem;">Tempo de Resposta (ms)</span>
+                  </div>
+                  <p style="margin: 2px 0 0 0; color: var(--text-slate); font-size: 0.75rem; line-height: 1.35;">
+                    Tempo decorrido para gerar a resposta após o recebimento da entrada (medido em TTFT e latência total).
+                  </p>
+                </div>
+                <!-- Métrica 2 -->
+                <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: var(--radius-sm); padding: 6px 9px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <strong style="color: #60a5fa; font-family: var(--font-mono); font-size: 0.76rem;">02 | THROUGHPUT (VAZÃO)</strong>
+                    <span style="color: #94a3b8; font-size: 0.7rem;">Volume Concorrente</span>
+                  </div>
+                  <p style="margin: 2px 0 0 0; color: var(--text-slate); font-size: 0.75rem; line-height: 1.35;">
+                    Quantidade de solicitações ou tokens processados em determinado período (ex: tokens por segundo).
+                  </p>
+                </div>
+                <!-- Métrica 3 -->
+                <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: var(--radius-sm); padding: 6px 9px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <strong style="color: #c084fc; font-family: var(--font-mono); font-size: 0.76rem;">03 | CUSTO DE INFERÊNCIA</strong>
+                    <span style="color: #94a3b8; font-size: 0.7rem;">Eficiência Financeira</span>
+                  </div>
+                  <p style="margin: 2px 0 0 0; color: var(--text-slate); font-size: 0.75rem; line-height: 1.35;">
+                    Recursos financeiros e computacionais necessários para executar o modelo continuamente em produção.
+                  </p>
+                </div>
+              </div>
             </div>
-            <!-- Fluxo Local -->
-            <div style="display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.76rem; margin: 8px 0; color: #ffffff;">
-              <span style="color: var(--accent-cyan);">Hardware Local</span> → <span style="color: #fbbf24;">Modelo Instalado</span> → <span>Aplicação</span> → <span style="color: #4ade80;">Usuário</span>
-            </div>
-            <p style="margin: 0; font-size: 0.8rem; color: var(--text-slate); line-height: 1.45;">
-              Executado diretamente no hardware local (computador, celular ou servidor próprio). Garante privacidade absoluta (LGPD), operação 100% offline e zero custo por requisição.
-            </p>
           </div>
-        </div>
-
-        <!-- Destaque: API é Interface, não o Modelo -->
-        <div style="margin-top: 12px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-cyan); padding: 8px 12px; border-radius: 2px; font-size: 0.82rem; color: #e2e8f0;">
-          <strong style="color: var(--accent-cyan);">Princípio de Engenharia:</strong> Uma <strong>API</strong> é a interface de comunicação padronizada entre sistemas, e <em>não</em> o modelo em si. O modelo é a rede neural com bilhões de parâmetros congelados executando na memória computacional.
-        </div>
-      </div>
-
-      <!-- 3. Métricas Operacionais Críticas -->
-      <div class="grid-3col" style="margin-top: 14px; gap: 12px;">
-        <div class="card-glass" style="padding: 12px 14px;">
-          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan); margin-bottom: 4px; font-weight: bold;">01 · LATÊNCIA</div>
-          <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Tempo de Resposta</div>
-          <p class="card-text" style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.4; margin: 0;">
-            Tempo decorrido entre a requisição e a resposta. Avaliado pelo <em>Time-to-First-Token</em> (TTFT) e latência total de geração (ms).
-          </p>
-        </div>
-        <div class="card-glass" style="padding: 12px 14px;">
-          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #60a5fa; margin-bottom: 4px; font-weight: bold;">02 · THROUGHPUT</div>
-          <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Vazão de Processamento</div>
-          <p class="card-text" style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.4; margin: 0;">
-            Capacidade volumétrica do sistema: volume de solicitações simultâneas ou tokens por segundo (tokens/s) entregues sob carga.
-          </p>
-        </div>
-        <div class="card-glass" style="padding: 12px 14px;">
-          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #a855f7; margin-bottom: 4px; font-weight: bold;">03 · CUSTO DE INFERÊNCIA</div>
-          <div class="card-title" style="font-size: 0.92rem; margin-bottom: 6px;">Eficiência Financeira</div>
-          <p class="card-text" style="color: var(--text-slate); font-size: 0.8rem; line-height: 1.4; margin: 0;">
-            Recursos computacionais e financeiros necessários para manter o serviço: custo de GPU por hora ou precificação por 1M de tokens.
-          </p>
         </div>
       </div>
     `
