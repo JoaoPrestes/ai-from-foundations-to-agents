@@ -840,6 +840,88 @@ kbd {
   color: var(--accent-cyan);
 }
 
+/* Responsive Breakpoints & Mobile Adaptability */
+@media (max-width: 1024px) {
+  .slide-stage {
+    height: auto;
+    min-height: 560px;
+  }
+  .grid-4col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .steps-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cover-title {
+    font-size: 2.6rem;
+  }
+  .divider-title {
+    font-size: 2.2rem;
+  }
+  .divider-num {
+    font-size: 3.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+  }
+  .presentation-shell {
+    height: auto;
+    min-height: 100vh;
+  }
+  .viewport-wrapper {
+    padding: 8px 12px;
+  }
+  .slide-stage {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    min-height: auto;
+    padding: 10px 0;
+  }
+  .slide-content-wrap {
+    padding: 20px 16px;
+  }
+  .slide-cover {
+    grid-template-columns: 1fr;
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .slide-section-divider {
+    grid-template-columns: 1fr;
+    padding: 24px 16px;
+    gap: 24px;
+  }
+  .grid-2col, .grid-3col, .grid-4col, .steps-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .content-title {
+    font-size: 1.5rem;
+  }
+  .cover-title {
+    font-size: 2rem;
+  }
+  .divider-num {
+    font-size: 2.8rem;
+  }
+  .divider-title {
+    font-size: 1.8rem;
+  }
+  .app-header {
+    padding: 0 16px;
+  }
+  .app-footer {
+    padding: 0 16px;
+  }
+  .footer-center {
+    display: none;
+  }
+}
+
+
   </style>
 </head>
 <body class="bg-dark text-slate">
@@ -3318,9 +3400,9 @@ class SlideEngine {
   handleKeyDown(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-    // Se visão geral estiver aberta, ESC fecha
+    // Se visão geral estiver aberta, ESC, O ou G fecha
     if (this.isOverviewOpen) {
-      if (e.key === 'Escape' || e.key.toLowerCase() === 'o') {
+      if (e.key === 'Escape' || e.key.toLowerCase() === 'o' || e.key.toLowerCase() === 'g') {
         e.preventDefault();
         this.toggleOverview(false);
       }
@@ -3345,6 +3427,7 @@ class SlideEngine {
         break;
       case 'ArrowLeft':
       case 'PageUp':
+      case 'Backspace':
         e.preventDefault();
         this.prev();
         break;
@@ -3641,15 +3724,21 @@ if (typeof window !== 'undefined') {
 
 
 
-// Auto-inicialização imediata
-document.addEventListener('DOMContentLoaded', () => {
+// Auto-inicialização imediata com verificação segura de readyState
+const initPresentation = () => {
   if (!window.presentation) {
     window.presentation = new SlideEngine({
       slides: window.SLIDES_DATA,
       diagrams: window.DIAGRAMS
     });
   }
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPresentation);
+} else {
+  initPresentation();
+}
   </script>
 </body>
 </html>

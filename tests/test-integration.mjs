@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
+import fs from 'node:fs';
 import { SLIDES_DATA } from '../js/slides-data.js';
 import { DIAGRAMS } from '../js/diagrams.js';
 import { SlideEngine } from '../js/engine.js';
@@ -99,3 +100,12 @@ test('Roteiro topics coverage completeness check', () => {
   assert.ok(SLIDES_DATA.find(s => s.id === '9.2'));
   assert.ok(SLIDES_DATA.find(s => s.id === '9.3'));
 });
+
+test('index.html build artifact is synchronized with full slide dataset', () => {
+  const html = fs.readFileSync('index.html', 'utf8');
+  assert.match(html, /id:\s*['"]9\.3['"]/);
+  assert.match(html, /O Tridente de Potencialização/);
+  assert.match(html, /63 Slides/);
+});
+
+

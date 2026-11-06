@@ -122,15 +122,21 @@ ${diagramsJs}
 ${slidesDataJs}
 ${engineJs}
 
-// Auto-inicialização imediata
-document.addEventListener('DOMContentLoaded', () => {
+// Auto-inicialização imediata com verificação segura de readyState
+const initPresentation = () => {
   if (!window.presentation) {
     window.presentation = new SlideEngine({
       slides: window.SLIDES_DATA,
       diagrams: window.DIAGRAMS
     });
   }
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPresentation);
+} else {
+  initPresentation();
+}
   </script>
 </body>
 </html>
@@ -138,3 +144,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 fs.writeFileSync('index.html', indexTemplate, 'utf8');
 console.log('Build complete: index.html is self-contained and ready for instant offline execution!');
+

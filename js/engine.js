@@ -85,9 +85,9 @@ class SlideEngine {
   handleKeyDown(e) {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-    // Se visão geral estiver aberta, ESC fecha
+    // Se visão geral estiver aberta, ESC, O ou G fecha
     if (this.isOverviewOpen) {
-      if (e.key === 'Escape' || e.key.toLowerCase() === 'o') {
+      if (e.key === 'Escape' || e.key.toLowerCase() === 'o' || e.key.toLowerCase() === 'g') {
         e.preventDefault();
         this.toggleOverview(false);
       }
@@ -112,6 +112,7 @@ class SlideEngine {
         break;
       case 'ArrowLeft':
       case 'PageUp':
+      case 'Backspace':
         e.preventDefault();
         this.prev();
         break;
