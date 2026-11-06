@@ -151,41 +151,7 @@ const SLIDES_DATA = [
       </div>
     `
   },
-  {
-    id: '2.2',
-    type: 'content',
-    sectionBadge: '02 · IA GENERATIVA',
-    tag: 'PIPELINE OPERACIONAL',
-    title: 'Como Funciona a Geração de Conteúdo?',
-    subtitle: 'Do input do usuário à síntese do artefato final.',
-    bodyHtml: `
-      <div class="steps-row">
-        <div class="step-card">
-          <div class="step-number">01</div>
-          <div class="step-title">Instrução (Prompt)</div>
-          <div class="step-desc">O usuário fornece o comando e objetivos. O sistema normaliza e injeta metadados e restrições de sistema (system prompt).</div>
-        </div>
-        <div class="step-card">
-          <div class="step-number">02</div>
-          <div class="step-title">Contexto & Atenção</div>
-          <div class="step-desc">O modelo mapeia a intenção, recupera conexões semânticas na memória e pondera pesos de relevância em cada termo.</div>
-        </div>
-        <div class="step-card">
-          <div class="step-number">03</div>
-          <div class="step-title">Amostragem Probabilística</div>
-          <div class="step-desc">Cálculo de logits com temperatura e Top-P para selecionar os próximos elementos candidatos com equilíbrio entre precisão e criatividade.</div>
-        </div>
-        <div class="step-card">
-          <div class="step-number">04</div>
-          <div class="step-title">Síntese e Validação</div>
-          <div class="step-desc">O conteúdo é emitido token por token (ou etapa de difusão por etapa) até que um marcador de parada (EOS) encerre a geração.</div>
-        </div>
-      </div>
-      <div class="callout-banner">
-        <strong>Propriedade Emergente:</strong> O modelo não possui "consciência", mas sim uma capacidade de compressão de conhecimento com generalização combinatorial.
-      </div>
-    `
-  },
+
   {
     id: '2.3',
     type: 'content',

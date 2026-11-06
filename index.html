@@ -960,7 +960,7 @@ kbd {
     <!-- Floating Navigation and Counter Footer -->
     <footer class="app-footer">
       <div class="footer-left">
-        <span id="slide-counter" class="slide-counter">01 / 63</span>
+        <span id="slide-counter" class="slide-counter">01 / 62</span>
       </div>
       <div class="footer-center">
         <span class="slide-subhint">Navegue com as setas ← → ou espaço · [F] Tela Cheia · [O] Visão Geral</span>
@@ -981,7 +981,7 @@ kbd {
       <div class="overview-container">
         <div class="overview-header">
           <div class="overview-title-group">
-            <h2>Visão Geral da Apresentação (63 Slides)</h2>
+            <h2>Visão Geral da Apresentação (62 Slides)</h2>
             <span class="overview-subtitle">Selecione qualquer slide para saltar diretamente</span>
           </div>
           <button id="btn-close-overview" class="btn-icon" aria-label="Fechar Visão Geral">
@@ -2000,41 +2000,7 @@ const SLIDES_DATA = [
       </div>
     `
   },
-  {
-    id: '2.2',
-    type: 'content',
-    sectionBadge: '02 · IA GENERATIVA',
-    tag: 'PIPELINE OPERACIONAL',
-    title: 'Como Funciona a Geração de Conteúdo?',
-    subtitle: 'Do input do usuário à síntese do artefato final.',
-    bodyHtml: `
-      <div class="steps-row">
-        <div class="step-card">
-          <div class="step-number">01</div>
-          <div class="step-title">Instrução (Prompt)</div>
-          <div class="step-desc">O usuário fornece o comando e objetivos. O sistema normaliza e injeta metadados e restrições de sistema (system prompt).</div>
-        </div>
-        <div class="step-card">
-          <div class="step-number">02</div>
-          <div class="step-title">Contexto & Atenção</div>
-          <div class="step-desc">O modelo mapeia a intenção, recupera conexões semânticas na memória e pondera pesos de relevância em cada termo.</div>
-        </div>
-        <div class="step-card">
-          <div class="step-number">03</div>
-          <div class="step-title">Amostragem Probabilística</div>
-          <div class="step-desc">Cálculo de logits com temperatura e Top-P para selecionar os próximos elementos candidatos com equilíbrio entre precisão e criatividade.</div>
-        </div>
-        <div class="step-card">
-          <div class="step-number">04</div>
-          <div class="step-title">Síntese e Validação</div>
-          <div class="step-desc">O conteúdo é emitido token por token (ou etapa de difusão por etapa) até que um marcador de parada (EOS) encerre a geração.</div>
-        </div>
-      </div>
-      <div class="callout-banner">
-        <strong>Propriedade Emergente:</strong> O modelo não possui "consciência", mas sim uma capacidade de compressão de conhecimento com generalização combinatorial.
-      </div>
-    `
-  },
+
   {
     id: '2.3',
     type: 'content',
@@ -3794,7 +3760,7 @@ class SlideEngine {
           <p class="cover-description">${slide.description || 'Uma jornada por IA Generativa, PLN, LLMs, RAG, frameworks e agentes de IA.'}</p>
           <div class="cover-meta">
             <span class="cover-meta-pill">Guia Técnico Completo</span>
-            <span class="cover-meta-pill">63 Slides Didáticos</span>
+            <span class="cover-meta-pill">62 Slides Didáticos</span>
             <span class="cover-meta-pill">Aplicações Reais</span>
           </div>
         </div>

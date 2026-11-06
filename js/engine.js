@@ -327,7 +327,7 @@ class SlideEngine {
           <p class="cover-description">${slide.description || 'Uma jornada por IA Generativa, PLN, LLMs, RAG, frameworks e agentes de IA.'}</p>
           <div class="cover-meta">
             <span class="cover-meta-pill">Guia Técnico Completo</span>
-            <span class="cover-meta-pill">63 Slides Didáticos</span>
+            <span class="cover-meta-pill">62 Slides Didáticos</span>
             <span class="cover-meta-pill">Aplicações Reais</span>
           </div>
         </div>

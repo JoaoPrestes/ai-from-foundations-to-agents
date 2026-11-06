@@ -6,7 +6,7 @@ import { DIAGRAMS } from '../js/diagrams.js';
 import { SlideEngine } from '../js/engine.js';
 
 test('Full presentation integrity and diagram linkages', () => {
-  assert.strictEqual(SLIDES_DATA.length, 63);
+  assert.strictEqual(SLIDES_DATA.length, 62);
 
   // Verificar que todos os slides que exigem diagramas têm geradores associados
   const slidesWithDiagrams = SLIDES_DATA.filter(s => s.diagramKey);
@@ -19,7 +19,7 @@ test('Full presentation integrity and diagram linkages', () => {
 
   // Verificar inicialização do motor
   const engine = new SlideEngine({ slides: SLIDES_DATA, diagrams: DIAGRAMS, autoInit: false });
-  assert.strictEqual(engine.slides.length, 63);
+  assert.strictEqual(engine.slides.length, 62);
 
   // Testar renderização de cada tipo de slide (cover, transition, content)
   for (let i = 0; i < SLIDES_DATA.length; i++) {
@@ -36,7 +36,6 @@ test('Roteiro topics coverage completeness check', () => {
 
   // 2. IA Generativa
   assert.ok(SLIDES_DATA.find(s => s.id === '2.1'));
-  assert.ok(SLIDES_DATA.find(s => s.id === '2.2'));
   assert.ok(SLIDES_DATA.find(s => s.id === '2.3'));
   assert.ok(SLIDES_DATA.find(s => s.id === '2.4'));
 
@@ -105,7 +104,7 @@ test('index.html build artifact is synchronized with full slide dataset', () => 
   const html = fs.readFileSync('index.html', 'utf8');
   assert.match(html, /id:\s*['"]9\.3['"]/);
   assert.match(html, /O Tridente de Potencialização/);
-  assert.match(html, /63 Slides/);
+  assert.match(html, /62 Slides/);
 });
 
 

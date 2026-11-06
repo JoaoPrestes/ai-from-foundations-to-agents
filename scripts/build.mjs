@@ -59,7 +59,7 @@ ${css}
     <!-- Floating Navigation and Counter Footer -->
     <footer class="app-footer">
       <div class="footer-left">
-        <span id="slide-counter" class="slide-counter">01 / 63</span>
+        <span id="slide-counter" class="slide-counter">01 / 62</span>
       </div>
       <div class="footer-center">
         <span class="slide-subhint">Navegue com as setas ← → ou espaço · [F] Tela Cheia · [O] Visão Geral</span>
@@ -80,7 +80,7 @@ ${css}
       <div class="overview-container">
         <div class="overview-header">
           <div class="overview-title-group">
-            <h2>Visão Geral da Apresentação (63 Slides)</h2>
+            <h2>Visão Geral da Apresentação (62 Slides)</h2>
             <span class="overview-subtitle">Selecione qualquer slide para saltar diretamente</span>
           </div>
           <button id="btn-close-overview" class="btn-icon" aria-label="Fechar Visão Geral">
