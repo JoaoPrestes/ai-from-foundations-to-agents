@@ -183,39 +183,6 @@ const SLIDES_DATA = [
       </div>
     `
   },
-  {
-    id: '2.4',
-    type: 'content',
-    sectionBadge: '02 · IA GENERATIVA',
-    tag: 'FAMÍLIAS DE MODELOS',
-    title: 'Modelos Generativos e suas Aplicações',
-    subtitle: 'As arquiteturas fundamentais que sustentam a revolução da IA moderna.',
-    bodyHtml: `
-      <div class="grid-3col">
-        <div class="card-glass">
-          <div class="card-title">Transformers Autoregressivos</div>
-          <p class="card-text">Base de modelos como GPT, Claude, LLaMA e Gemini. Especialistas em sequências temporais e texto através de mecanismos de autoatenção paralela.</p>
-          <ul class="card-list">
-            <li>Aplicações: Chatbots, copilotos de código, tradução e RAG.</li>
-          </ul>
-        </div>
-        <div class="card-glass">
-          <div class="card-title">Modelos de Difusão (Diffusion)</div>
-          <p class="card-text">Destroem gradualmente o ruído gaussiano para revelar imagens nítidas (Stable Diffusion, Midjourney, FLUX). Treinados com processo reverso de Wiener.</p>
-          <ul class="card-list">
-            <li>Aplicações: Criação de arte, design de produto e geração de vídeo.</li>
-          </ul>
-        </div>
-        <div class="card-glass">
-          <div class="card-title">VAEs e GANs</div>
-          <p class="card-text">Variational Autoencoders mapeiam distribuições em espaços latentes contínuos. Redes Generativas Adversariais competem gerador vs. discriminador.</p>
-          <ul class="card-list">
-            <li>Aplicações: Aumento de resolução (Super Resolution), deepfakes e compressão.</li>
-          </ul>
-        </div>
-      </div>
-    `
-  },
 
 
 

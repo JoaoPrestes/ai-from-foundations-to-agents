@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert';
 import { SLIDES_DATA } from '../js/slides-data.js';
 
-test('SLIDES_DATA contains all 62 slides through Block 9', () => {
-  assert.strictEqual(SLIDES_DATA.length, 62);
+test('SLIDES_DATA contains all 61 slides through Block 9', () => {
+  assert.strictEqual(SLIDES_DATA.length, 61);
   // RAG ponta a ponta
   const ragSlide = SLIDES_DATA.find(s => s.id === '6.3');
   assert.ok(ragSlide);
