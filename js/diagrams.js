@@ -132,7 +132,9 @@ const DIAGRAMS = {
           <text x="292" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Rótulo / Score</text>
           <text x="292" y="60" fill="#38BDF8" font-size="11">Fraude: 98%</text>
         </g>
-        <text x="40" y="240" fill="#94A3B8" font-size="13">Exemplos: Detecção de fraude bancária, previsão de churn, recomendação de filmes em catálogo.</text>
+        <!-- Exemplos IA Tradicional -->
+        <text x="40" y="235" fill="#60A5FA" font-size="12" font-weight="700" font-family="'JetBrains Mono'">EXEMPLOS PRÁTICOS:</text>
+        <text x="40" y="258" fill="#94A3B8" font-size="12">Detecção de fraude bancária, previsão de churn e recomendação de itens.</text>
 
         <!-- Painel IA Generativa -->
         <rect x="490" y="20" width="430" height="300" rx="14" fill="rgba(11, 20, 48, 0.75)" stroke="rgba(0, 240, 255, 0.45)" stroke-width="1.5"/>
@@ -164,7 +166,9 @@ const DIAGRAMS = {
           <text x="292" y="45" fill="#F8FAFC" font-size="12" font-weight="600">Texto, Código,</text>
           <text x="292" y="60" fill="#00F0FF" font-size="11">Imagem, Áudio</text>
         </g>
-        <text x="510" y="240" fill="#94A3B8" font-size="13">Exemplos: Redigir relatórios técnicos, sintetizar código-fonte, criar ilustrações realistas, raciocínio em linguagem natural.</text>
+        <!-- Exemplos IA Generativa -->
+        <text x="510" y="235" fill="#00F0FF" font-size="12" font-weight="700" font-family="'JetBrains Mono'">EXEMPLOS PRÁTICOS:</text>
+        <text x="510" y="258" fill="#94A3B8" font-size="12">Redigir relatórios, sintetizar código, criar imagens e copilotos de raciocínio.</text>
       </svg>
     `;
   },
