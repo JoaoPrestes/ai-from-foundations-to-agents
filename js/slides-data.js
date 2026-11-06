@@ -400,28 +400,79 @@ const SLIDES_DATA = [
     id: '4.2',
     type: 'content',
     sectionBadge: '04 · LARGE LANGUAGE MODELS',
-    tag: 'MECÂNICA OPERACIONAL',
+    tag: 'MECÂNICA NA PRÁTICA',
     title: 'Como os LLMs Funcionam na Prática?',
-    subtitle: 'A elegância de uma tarefa única: previsão autorregressiva do próximo token.',
+    subtitle: 'Tudo se resume a uma única tarefa: prever a próxima palavra.',
     bodyHtml: `
-      <div class="grid-2col">
-        <div class="card-glass">
-          <div class="card-title">Geração Autorregressiva</div>
-          <p class="card-text">O LLM prevê exatamente um token por vez. O token gerado é anexado ao final do texto e realimentado na rede para calcular o próximo token da cadeia:</p>
-          <div class="code-box" style="margin: 12px 0;">
-            x_1 → Gera x_2<br>
-            [x_1, x_2] → Gera x_3<br>
-            [x_1, x_2, x_3] → Gera x_4...
+      <div class="grid-2col" style="align-items: stretch;">
+        <!-- Cartão 1 (Esquerda): Construção Passo a Passo -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-title">Construção Passo a Passo</div>
+            <p class="card-text" style="color: var(--text-slate); line-height: 1.6; margin-bottom: 16px;">
+              A IA não gera o texto inteiro de uma vez. Ela prevê um pedaço (token) por vez e junta à conversa para definir o próximo.
+            </p>
+
+            <!-- Bloco de fluxo visual em destaque -->
+            <div style="background: rgba(4, 9, 23, 0.75); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: var(--radius-sm); padding: 16px; margin: 18px 0; font-family: var(--font-mono); font-size: 0.86rem; display: flex; flex-direction: column; gap: 12px; box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);">
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.45); color: #93c5fd; padding: 4px 10px; border-radius: 4px; font-weight: 600;">[ Entrada ]</span>
+                <span style="color: var(--accent-cyan); font-weight: bold; font-size: 1.1rem;">→</span>
+                <span style="color: #ffffff; font-weight: 600; letter-spacing: 0.02em;">Gera palavra 1</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.45); color: #93c5fd; padding: 4px 10px; border-radius: 4px; font-weight: 600;">[ Entrada + palavra 1 ]</span>
+                <span style="color: var(--accent-cyan); font-weight: bold; font-size: 1.1rem;">→</span>
+                <span style="color: #ffffff; font-weight: 600; letter-spacing: 0.02em;">Gera palavra 2</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.45); color: #93c5fd; padding: 4px 10px; border-radius: 4px; font-weight: 600;">[ Entrada + palavra 1 + palavra 2 ]</span>
+                <span style="color: var(--accent-cyan); font-weight: bold; font-size: 1.1rem;">→</span>
+                <span style="color: #ffffff; font-weight: 600; letter-spacing: 0.02em;">Gera palavra 3...</span>
+              </div>
+            </div>
           </div>
-          <p class="card-text">Todo o raciocínio complexo, geração de código e empatia textual é resultado desse processo iterativo de predição sequencial.</p>
+
+          <!-- Rodapé do Cartão 1 -->
+          <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-slate); font-size: 0.88rem; line-height: 1.5; display: flex; align-items: flex-start; gap: 8px;">
+            <span style="color: var(--accent-cyan); font-size: 1rem; line-height: 1;">✦</span>
+            <span>Toda resposta complexa e código gerado nascem dessa repetição sequencial.</span>
+          </div>
         </div>
-        <div class="card-glass">
-          <div class="card-title">Logits, Softmax e Hiperparâmetros</div>
-          <p class="card-text">A camada final emite um vetor de pontuações não normalizadas (<strong>Logits</strong>) para cada palavra do vocabulário. O <strong>Softmax</strong> converte em probabilidades que somam 100%.</p>
-          <ul class="card-list">
-            <li><strong>Temperature:</strong> Controla a aleatoriedade. Valores baixos (0.0 a 0.2) geram respostas focadas e determinísticas; valores altos (0.7 a 1.0) incentivam criatividade.</li>
-            <li><strong>Top-P (Nucleus Sampling):</strong> Considera apenas o menor conjunto de tokens cuja soma de probabilidade atinge o limiar P (ex: 90%), eliminando opções absurdas.</li>
-          </ul>
+
+        <!-- Cartão 2 (Direita): Controle de Criatividade e Foco -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-title">Controle de Criatividade e Foco</div>
+            <p class="card-text" style="color: var(--text-slate); line-height: 1.6; margin-bottom: 16px;">
+              A IA calcula a chance de cada palavra e usa parâmetros para decidir o que falar:
+            </p>
+
+            <!-- Itens de Parâmetros -->
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 18px;">
+              <!-- Item 1: Temperature -->
+              <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(59, 130, 246, 0.3); border-left: 3px solid var(--accent-blue-light); border-radius: var(--radius-sm); padding: 14px 16px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                  <strong style="font-family: var(--font-mono); font-size: 0.95rem; color: #ffffff; letter-spacing: 0.02em;">Temperature</strong>
+                  <span style="font-size: 0.72rem; font-family: var(--font-mono); background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(59, 130, 246, 0.4);">Parâmetro 01</span>
+                </div>
+                <p style="color: var(--text-slate); font-size: 0.88rem; line-height: 1.55; margin: 0;">
+                  Controla a criatividade. Valores baixos dão respostas diretas e precisas; valores altos estimulam variações criativas.
+                </p>
+              </div>
+
+              <!-- Item 2: Top-P -->
+              <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(0, 240, 255, 0.3); border-left: 3px solid var(--accent-cyan); border-radius: var(--radius-sm); padding: 14px 16px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                  <strong style="font-family: var(--font-mono); font-size: 0.95rem; color: #ffffff; letter-spacing: 0.02em;">Top-P</strong>
+                  <span style="font-size: 0.72rem; font-family: var(--font-mono); background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(0, 240, 255, 0.4);">Parâmetro 02</span>
+                </div>
+                <p style="color: var(--text-slate); font-size: 0.88rem; line-height: 1.55; margin: 0;">
+                  Filtro de relevância. Elimina opções absurdas e considera apenas as palavras mais prováveis.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     `
