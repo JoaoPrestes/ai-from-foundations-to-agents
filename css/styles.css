@@ -830,8 +830,32 @@ kbd {
   color: var(--accent-cyan);
 }
 
+/* ReAct Step Flow Grid */
+.steps-flow-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+  gap: 12px;
+}
+.flow-arrow-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
+  font-weight: bold;
+  opacity: 0.75;
+}
+
 /* Responsive Breakpoints & Mobile Adaptability */
 @media (max-width: 1024px) {
+  .steps-flow-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .flow-arrow-separator {
+    display: none;
+  }
   .slide-stage {
     height: auto;
     min-height: 560px;
@@ -884,7 +908,7 @@ kbd {
     padding: 24px 16px;
     gap: 24px;
   }
-  .grid-2col, .grid-3col, .grid-4col, .steps-row {
+  .grid-2col, .grid-3col, .grid-4col, .steps-row, .steps-flow-grid {
     grid-template-columns: 1fr;
     gap: 14px;
   }

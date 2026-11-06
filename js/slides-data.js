@@ -1392,34 +1392,96 @@ const SLIDES_DATA = [
     id: '8.6',
     type: 'content',
     sectionBadge: '08 · AGENTES DE IA',
-    tag: 'FRAMEWORK DE RACIOCÍNIO',
-    title: 'Ciclo de Execução de um Agente: ReAct',
-    subtitle: 'Synergizing Reasoning and Acting in Language Models (Yao et al., 2022).',
+    tag: 'COMO PENSAM OS AGENTES',
+    title: 'Como Funciona um Agente de IA: Ciclo ReAct',
+    subtitle: 'O modelo combina raciocínio lógico com o uso de ferramentas passo a passo.',
     bodyHtml: `
-      <div class="steps-row">
-        <div class="step-card">
-          <div class="step-number">01</div>
-          <div class="step-title">Thought (Pensamento)</div>
-          <div class="step-desc">O agente verbaliza explicitamente seu raciocínio: "Para responder qual empresa teve maior lucro, primeiro preciso buscar a receita da empresa A."</div>
+      <div class="steps-flow-grid">
+        <!-- 01 | Pensar (Thought) -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: var(--accent-cyan); line-height: 1;">01</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 2px 8px; border-radius: 4px;">THOUGHT</span>
+            </div>
+            <div class="card-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #ffffff;">Pensar</div>
+            <p style="color: #E2E8F0; font-size: 0.88rem; line-height: 1.55; margin-bottom: 16px;">
+              <strong style="color: #ffffff;">Função:</strong> Planeia o próximo passo antes de responder.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; padding: 10px 12px; font-size: 0.84rem; color: #93c5fd; line-height: 1.45;">
+            <span style="color: var(--accent-cyan); font-weight: 700; font-size: 0.74rem; font-family: var(--font-mono); display: block; margin-bottom: 4px; letter-spacing: 0.05em;">EXEMPLO</span>
+            "Preciso de consultar a faturação da Empresa A."
+          </div>
         </div>
-        <div class="step-card">
-          <div class="step-number">02</div>
-          <div class="step-title">Action (Ação)</div>
-          <div class="step-desc">O agente escolhe e aciona uma ferramenta específica com parâmetros estruturados: <code>buscar_dados_financeiros(ticket="A")</code>.</div>
+
+        <!-- Seta 1 -> 2 -->
+        <div class="flow-arrow-separator">→</div>
+
+        <!-- 02 | Agir (Action) -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px; border-color: rgba(0, 240, 255, 0.35); box-shadow: 0 0 20px rgba(0, 240, 255, 0.07);">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: var(--accent-cyan); line-height: 1;">02</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(0, 240, 255, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 240, 255, 0.4); padding: 2px 8px; border-radius: 4px;">ACTION</span>
+            </div>
+            <div class="card-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #ffffff;">Agir</div>
+            <p style="color: #E2E8F0; font-size: 0.88rem; line-height: 1.55; margin-bottom: 16px;">
+              <strong style="color: #ffffff;">Função:</strong> Aciona a ferramenta ou API correta.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; padding: 10px 12px; font-size: 0.84rem; color: #93c5fd; line-height: 1.45;">
+            <span style="color: var(--accent-cyan); font-weight: 700; font-size: 0.74rem; font-family: var(--font-mono); display: block; margin-bottom: 4px; letter-spacing: 0.05em;">EXEMPLO</span>
+            Executa <code style="font-family: var(--font-mono); color: #38BDF8; background: rgba(56, 189, 248, 0.12); padding: 1px 4px; border-radius: 3px;">obter_dados(empresa="A")</code>.
+          </div>
         </div>
-        <div class="step-card">
-          <div class="step-number">03</div>
-          <div class="step-title">Observation (Observação)</div>
-          <div class="step-desc">O ambiente retorna a resposta da ferramenta (ex: "Lucro líquido: R$ 2,4 bi"). O resultado é injetado no contexto do agente.</div>
+
+        <!-- Seta 2 -> 3 -->
+        <div class="flow-arrow-separator">→</div>
+
+        <!-- 03 | Observar (Observation) -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: var(--accent-cyan); line-height: 1;">03</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 4px;">OBSERVATION</span>
+            </div>
+            <div class="card-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #ffffff;">Observar</div>
+            <p style="color: #E2E8F0; font-size: 0.88rem; line-height: 1.55; margin-bottom: 16px;">
+              <strong style="color: #ffffff;">Função:</strong> Lê o resultado que a ferramenta devolveu.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; padding: 10px 12px; font-size: 0.84rem; color: #93c5fd; line-height: 1.45;">
+            <span style="color: var(--accent-cyan); font-weight: 700; font-size: 0.74rem; font-family: var(--font-mono); display: block; margin-bottom: 4px; letter-spacing: 0.05em;">EXEMPLO</span>
+            "Recebe: Lucro de 2,4 mil milhões."
+          </div>
         </div>
-        <div class="step-card">
-          <div class="step-number">04</div>
-          <div class="step-title">Reflection & Resposta</div>
-          <div class="step-desc">O agente avalia se já possui dados suficientes. Se sim, emite a resposta final ao usuário; se não, inicia um novo ciclo.</div>
+
+        <!-- Seta 3 -> 4 -->
+        <div class="flow-arrow-separator">→</div>
+
+        <!-- 04 | Concluir (Reflection) -->
+        <div class="card-glass" style="display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+              <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: var(--accent-cyan); line-height: 1;">04</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 2px 8px; border-radius: 4px;">REFLECTION</span>
+            </div>
+            <div class="card-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #ffffff;">Concluir</div>
+            <p style="color: #E2E8F0; font-size: 0.88rem; line-height: 1.55; margin-bottom: 16px;">
+              <strong style="color: #ffffff;">Função:</strong> Decide se já tem tudo para responder.
+            </p>
+          </div>
+          <div style="background: rgba(4, 9, 23, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; padding: 10px 12px; font-size: 0.84rem; color: #93c5fd; line-height: 1.45;">
+            <span style="color: var(--accent-cyan); font-weight: 700; font-size: 0.74rem; font-family: var(--font-mono); display: block; margin-bottom: 4px; letter-spacing: 0.05em;">EXEMPLO</span>
+            Se os dados forem suficientes, responde; caso contrário, repete o ciclo.
+          </div>
         </div>
       </div>
-      <div class="callout-banner">
-        <strong>Vantagem do ReAct:</strong> O rastreamento explícito do pensamento (Thought) permite auditar exatamente por que o agente tomou cada decisão e facilita a autocorreção em caso de falhas de ferramentas.
+
+      <!-- Faixa Inferior (Destaque visual) -->
+      <div class="callout-banner" style="margin-top: 22px;">
+        <strong style="color: var(--accent-cyan);">Grande Vantagem:</strong> Permite ver o raciocínio da IA passo a passo e corrigir falhas em tempo real.
       </div>
     `
   },
